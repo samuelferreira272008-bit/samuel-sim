@@ -1,0 +1,12 @@
+project_id = "eagqdnmzgoodmxfkqprd"
+
+[functions.dispatch-event]
+verify_jwt = false
+
+[functions.ai-assistant]
+verify_jwt = false
+
+[functions.platform-backup]
+verify_jwt = false
+[functions.admin-management]
+verify_jwt = false

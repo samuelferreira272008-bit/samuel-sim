@@ -1,0 +1,219 @@
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { NavLink } from "@/components/NavLink";
+import { GlobalSearch } from "@/components/GlobalSearch";
+import { NotificationBell } from "@/components/NotificationBell";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Menu, LogOut, LayoutDashboard, Shield, ChevronDown } from "lucide-react";
+
+const primaryNavLinks = [
+  { to: "/", label: "Home" },
+  { to: "/sobre", label: "Sobre" },
+  { to: "/apps", label: "Apps" },
+  { to: "/projetos", label: "Projetos" },
+  { to: "/produtos", label: "Produtos" },
+  { to: "/empresas", label: "Empresas" },
+  { to: "/blog", label: "Blog" },
+  { to: "/contacto", label: "Contacto" },
+];
+
+const moreNavLinks = [
+  { to: "/conteudos", label: "Conteúdos" },
+  { to: "/ferramentas", label: "Ferramentas" },
+  { to: "/lab", label: "Lab" },
+  { to: "/comunidade", label: "Comunidade" },
+  { to: "/patrocinar", label: "Planos & Apoio" },
+];
+
+const allNavLinks = [
+  { to: "/", label: "Home" },
+  { to: "/sobre", label: "Sobre" },
+  { to: "/apps", label: "Apps" },
+  { to: "/projetos", label: "Projetos" },
+  { to: "/conteudos", label: "Conteúdos" },
+  { to: "/produtos", label: "Produtos" },
+  { to: "/empresas", label: "Empresas" },
+  { to: "/ferramentas", label: "Ferramentas" },
+  { to: "/lab", label: "Lab" },
+  { to: "/blog", label: "Blog" },
+  { to: "/comunidade", label: "Comunidade" },
+  { to: "/patrocinar", label: "Planos & Apoio" },
+  { to: "/contacto", label: "Contacto" },
+];
+
+export function Navbar() {
+  const { user, profile, role, signOut } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
+
+  const avatarInitial =
+    profile?.display_name?.charAt(0).toUpperCase() ??
+    user?.email?.charAt(0).toUpperCase() ??
+    "U";
+
+  const isMoreActive = moreNavLinks.some(
+    (link) => location.pathname === link.to || location.pathname.startsWith(`${link.to}/`),
+  );
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 glass-strong">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
+        <Link to="/" className="shrink-0 whitespace-nowrap text-xl font-bold tracking-tight">
+          <span className="text-gradient">Samuel</span> <span className="text-foreground">Simão</span>
+        </Link>
+
+        <nav className="hidden items-center gap-0.5 lg:flex min-w-0">
+          {primaryNavLinks.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              end={link.to === "/"}
+              className="whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground xl:px-3 xl:py-2"
+              activeClassName="text-foreground bg-accent"
+            >
+              {link.label}
+            </NavLink>
+          ))}
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className={`inline-flex items-center gap-1 whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors hover:text-foreground xl:px-3 xl:py-2 ${
+                  isMoreActive ? "bg-accent text-foreground" : "text-muted-foreground"
+                }`}
+              >
+                Explorar
+                <ChevronDown className="h-3.5 w-3.5 opacity-70" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-44">
+              {moreNavLinks.map((link) => (
+                <DropdownMenuItem key={link.to} onClick={() => navigate(link.to)} className="cursor-pointer">
+                  {link.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </nav>
+
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          <GlobalSearch />
+          {user && <NotificationBell />}
+
+          <div className="hidden lg:flex items-center">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                    <Avatar className="h-9 w-9">
+                      <AvatarFallback className="bg-primary text-primary-foreground text-sm">
+                        {avatarInitial}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <div className="px-2 py-1.5">
+                    <p className="truncate text-sm font-medium">{profile?.display_name ?? user.email}</p>
+                    <p className="text-xs text-muted-foreground capitalize">{role ?? "user"}</p>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate("/dashboard")}>
+                    <LayoutDashboard className="mr-2 h-4 w-4" />
+                    Dashboard
+                  </DropdownMenuItem>
+                  {role === "admin" && (
+                    <DropdownMenuItem onClick={() => navigate("/admin")}>
+                      <Shield className="mr-2 h-4 w-4" />
+                      Admin
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button variant="default" size="sm" onClick={() => navigate("/login")}>
+                Login
+              </Button>
+            )}
+          </div>
+
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild className="lg:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-72 overflow-y-auto">
+              <SheetHeader>
+                <SheetTitle className="text-left">Menu</SheetTitle>
+              </SheetHeader>
+              <nav className="mt-6 flex flex-col gap-1">
+                {allNavLinks.map((link) => (
+                  <NavLink
+                    key={link.to}
+                    to={link.to}
+                    end={link.to === "/"}
+                    className="rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-accent"
+                    activeClassName="text-foreground bg-accent"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </NavLink>
+                ))}
+                <div className="my-4 h-px bg-border" />
+                {user ? (
+                  <>
+                    <div className="px-3 py-2">
+                      <p className="truncate text-sm font-medium">{profile?.display_name ?? user.email}</p>
+                      <p className="text-xs text-muted-foreground capitalize">{role ?? "user"}</p>
+                    </div>
+                    <Button variant="ghost" className="justify-start" onClick={() => { navigate("/dashboard"); setMobileOpen(false); }}>
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      Dashboard
+                    </Button>
+                    {role === "admin" && (
+                      <Button variant="ghost" className="justify-start" onClick={() => { navigate("/admin"); setMobileOpen(false); }}>
+                        <Shield className="mr-2 h-4 w-4" />
+                        Admin
+                      </Button>
+                    )}
+                    <Button variant="ghost" className="justify-start text-destructive" onClick={() => { handleSignOut(); setMobileOpen(false); }}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Logout
+                    </Button>
+                  </>
+                ) : (
+                  <Button variant="default" onClick={() => { navigate("/login"); setMobileOpen(false); }}>
+                    Login
+                  </Button>
+                )}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
+}

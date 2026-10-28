@@ -53,25 +53,26 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
   );
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:py-16 sm:px-6 lg:px-8">
       <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
         {c.eyebrow}
       </p>
-      <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+      <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl">
         {c.title}
       </h1>
-      <p className="mt-2 text-lg text-muted-foreground">{c.subtitle}</p>
+      <p className="mt-2 text-base sm:text-lg text-muted-foreground">{c.subtitle}</p>
 
-      <div className="mb-8 mt-8 flex flex-wrap items-center justify-between gap-4">
+      <div className="mb-6 sm:mb-8 mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
         <Input
-          className="max-w-sm h-10 rounded-xl"
+          className="w-full sm:max-w-sm h-11 sm:h-10 rounded-xl"
           placeholder="Pesquisar..."
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
         {type === "app" && (
           <span className="text-xs text-muted-foreground flex items-center gap-1.5">
-            <AppWindow className="h-3.5 w-3.5 text-foreground" /> Aplicações com suporte a execução direta em sandbox
+            <AppWindow className="h-3.5 w-3.5 text-foreground shrink-0" />
+            <span>Aplicações com execução direta em sandbox</span>
           </span>
         )}
       </div>
@@ -89,7 +90,7 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
           description="Brevemente novas publicações neste repositório."
         />
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((it: any) => {
             const img = it.thumbnail_url ?? it.gallery?.[0];
             const hasWebUrl = !!it.content_url;
@@ -121,7 +122,7 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
                     )}
                   </div>
 
-                  <div className="space-y-2.5 p-5">
+                  <div className="space-y-2 p-4 sm:p-5">
                     <div className="flex flex-wrap gap-1.5 items-center">
                       {type === "app" && (
                         <Badge variant="secondary" className="font-semibold text-xs">
@@ -135,11 +136,11 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
                         </Badge>
                       )}
                     </div>
-                    <h3 className="text-lg font-bold text-foreground group-hover:text-foreground/90 transition-colors">
+                    <h3 className="text-base sm:text-lg font-bold text-foreground group-hover:text-foreground/90 transition-colors">
                       {it.title}
                     </h3>
                     {it.description && (
-                      <p className="line-clamp-2 text-sm text-muted-foreground leading-relaxed">
+                      <p className="line-clamp-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                         {it.description}
                       </p>
                     )}
@@ -147,8 +148,8 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
                 </Link>
 
                 {/* Bottom Actions Bar */}
-                <div className="flex items-center justify-between border-t border-border/60 p-4 pt-3 bg-secondary/20">
-                  <Button variant="ghost" size="sm" asChild className="text-xs">
+                <div className="flex items-center justify-between border-t border-border/60 p-3 sm:p-4 bg-secondary/20 gap-2">
+                  <Button variant="ghost" size="sm" asChild className="text-xs min-h-[40px] px-3">
                     <Link to={`${repoTypePath[type]}/${it.id}`}>Ver Detalhes</Link>
                   </Button>
 
@@ -156,7 +157,7 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
                     <Button
                       size="sm"
                       onClick={() => setRunningApp({ title: it.title, url: it.content_url })}
-                      className="text-xs font-semibold shadow-xs"
+                      className="text-xs font-semibold shadow-xs min-h-[40px] px-3.5"
                     >
                       <Play className="mr-1.5 h-3.5 w-3.5 fill-current" /> Executar App
                     </Button>

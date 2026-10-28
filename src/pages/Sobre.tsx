@@ -81,7 +81,7 @@ export default function Sobre() {
 
   return (
     <div className="relative overflow-hidden bg-mesh">
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[1fr_1.4fr] lg:gap-16 lg:px-8">
+      <div className="mx-auto grid max-w-6xl gap-8 sm:gap-12 px-4 py-10 sm:py-20 lg:py-24 sm:px-6 lg:grid-cols-[1fr_1.4fr] lg:gap-16 lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -90,7 +90,7 @@ export default function Sobre() {
         >
           <PhotoFrame src={mainPhoto} alt={fullName} />
           {extraPhotos.length > 0 ? (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {extraPhotos.map((src, idx) => (
                 <MediaBlock key={idx} imageUrl={src} aspect="aspect-square" />
               ))}
@@ -106,24 +106,24 @@ export default function Sobre() {
             profile?.location ||
             socialEntries.length > 0) && (
             <Card className="border-border/60 bg-card/80 backdrop-blur">
-              <CardContent className="space-y-4 p-5">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+              <CardContent className="space-y-4 p-4 sm:p-5">
+                <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-foreground">
                   Contacto & Redes
                 </h3>
                 <div className="space-y-2 text-sm text-muted-foreground">
                   {profile?.location && (
                     <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-foreground" />
-                      <span>{profile.location}</span>
+                      <MapPin className="h-4 w-4 text-foreground shrink-0" />
+                      <span className="truncate">{profile.location}</span>
                     </div>
                   )}
                   {profile?.contact_email && (
                     <a
                       href={`mailto:${profile.contact_email}`}
-                      className="flex items-center gap-2 hover:text-foreground transition-colors"
+                      className="flex items-center gap-2 hover:text-foreground transition-colors truncate"
                     >
-                      <Mail className="h-4 w-4 text-foreground" />
-                      <span>{profile.contact_email}</span>
+                      <Mail className="h-4 w-4 text-foreground shrink-0" />
+                      <span className="truncate">{profile.contact_email}</span>
                     </a>
                   )}
                   {profile?.contact_phone && (
@@ -131,14 +131,14 @@ export default function Sobre() {
                       href={`tel:${profile.contact_phone}`}
                       className="flex items-center gap-2 hover:text-foreground transition-colors"
                     >
-                      <Phone className="h-4 w-4 text-foreground" />
+                      <Phone className="h-4 w-4 text-foreground shrink-0" />
                       <span>{profile.contact_phone}</span>
                     </a>
                   )}
                 </div>
 
                 {waLink && (
-                  <Button asChild size="sm" className="w-full">
+                  <Button asChild size="sm" className="w-full min-h-[44px]">
                     <a href={waLink} target="_blank" rel="noopener noreferrer">
                       <MessageCircle className="mr-2 h-4 w-4" /> Falar no WhatsApp
                     </a>
@@ -146,9 +146,9 @@ export default function Sobre() {
                 )}
 
                 {socialEntries.length > 0 && (
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-2">
                     {socialEntries.map(([key, url]) => (
-                      <Button key={key} asChild variant="outline" size="sm">
+                      <Button key={key} asChild variant="outline" size="sm" className="text-xs">
                         <a href={url} target="_blank" rel="noopener noreferrer">
                           <Globe className="mr-1.5 h-3.5 w-3.5" />
                           {socialLabels[key] ?? key}
@@ -169,11 +169,11 @@ export default function Sobre() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mt-3 text-5xl font-bold tracking-tight text-foreground sm:text-6xl"
+            className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl break-words"
           >
             {fullName}
           </motion.h1>
-          {headline && <p className="mt-2 text-xl font-medium text-muted-foreground">{headline}</p>}
+          {headline && <p className="mt-2 text-base sm:text-xl font-medium text-muted-foreground">{headline}</p>}
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

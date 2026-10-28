@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { NavLink } from "@/components/NavLink";
 import { GlobalSearch } from "@/components/GlobalSearch";
@@ -56,6 +56,12 @@ export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setMobileOpen(true);
+    window.addEventListener("open-mobile-menu", handler);
+    return () => window.removeEventListener("open-mobile-menu", handler);
+  }, []);
 
   const handleSignOut = async () => {
     await signOut();
@@ -161,22 +167,23 @@ export function Navbar() {
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="h-10 w-10 min-h-[44px] min-w-[44px]">
                 <Menu className="h-5 w-5" />
+                <span className="sr-only">Abrir menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-72 overflow-y-auto">
+            <SheetContent side="right" className="w-80 max-w-[85vw] p-6 overflow-y-auto">
               <SheetHeader>
-                <SheetTitle className="text-left">Menu</SheetTitle>
+                <SheetTitle className="text-left font-bold text-lg">Menu</SheetTitle>
               </SheetHeader>
-              <nav className="mt-6 flex flex-col gap-1">
+              <nav className="mt-6 flex flex-col gap-1.5">
                 {allNavLinks.map((link) => (
                   <NavLink
                     key={link.to}
                     to={link.to}
                     end={link.to === "/"}
-                    className="rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-accent"
-                    activeClassName="text-foreground bg-accent"
+                    className="flex min-h-[44px] items-center rounded-xl px-3.5 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-accent active:bg-accent/80"
+                    activeClassName="text-foreground bg-accent font-semibold"
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.label}
@@ -185,28 +192,28 @@ export function Navbar() {
                 <div className="my-4 h-px bg-border" />
                 {user ? (
                   <>
-                    <div className="px-3 py-2">
-                      <p className="truncate text-sm font-medium">{profile?.display_name ?? user.email}</p>
+                    <div className="rounded-xl bg-secondary/50 p-3 mb-2">
+                      <p className="truncate text-sm font-medium text-foreground">{profile?.display_name ?? user.email}</p>
                       <p className="text-xs text-muted-foreground capitalize">{role ?? "user"}</p>
                     </div>
-                    <Button variant="ghost" className="justify-start" onClick={() => { navigate("/dashboard"); setMobileOpen(false); }}>
+                    <Button variant="ghost" className="min-h-[44px] justify-start rounded-xl" onClick={() => { navigate("/dashboard"); setMobileOpen(false); }}>
                       <LayoutDashboard className="mr-2 h-4 w-4" />
                       Dashboard
                     </Button>
                     {role === "admin" && (
-                      <Button variant="ghost" className="justify-start" onClick={() => { navigate("/admin"); setMobileOpen(false); }}>
+                      <Button variant="ghost" className="min-h-[44px] justify-start rounded-xl" onClick={() => { navigate("/admin"); setMobileOpen(false); }}>
                         <Shield className="mr-2 h-4 w-4" />
                         Admin
                       </Button>
                     )}
-                    <Button variant="ghost" className="justify-start text-destructive" onClick={() => { handleSignOut(); setMobileOpen(false); }}>
+                    <Button variant="ghost" className="min-h-[44px] justify-start rounded-xl text-destructive hover:bg-destructive/10" onClick={() => { handleSignOut(); setMobileOpen(false); }}>
                       <LogOut className="mr-2 h-4 w-4" />
-                      Logout
+                      Terminar Sessão
                     </Button>
                   </>
                 ) : (
-                  <Button variant="default" onClick={() => { navigate("/login"); setMobileOpen(false); }}>
-                    Login
+                  <Button variant="default" className="min-h-[44px] rounded-xl font-semibold w-full mt-2" onClick={() => { navigate("/login"); setMobileOpen(false); }}>
+                    Entrar na Conta
                   </Button>
                 )}
               </nav>

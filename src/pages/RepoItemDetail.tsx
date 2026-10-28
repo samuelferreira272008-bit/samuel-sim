@@ -84,17 +84,17 @@ export default function RepoItemDetail() {
   const hasExecutableUrl = !!it.content_url;
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
       {/* Navigation breadcrumb */}
       <Link
         to={back}
-        className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+        className="mb-4 sm:mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors min-h-[36px]"
       >
         <ArrowLeft className="h-4 w-4" /> {repoTypeLabel[it.type] ?? "Voltar"}
       </Link>
 
       {/* Badges Bar */}
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
         <Badge variant="secondary">{repoTypeLabel[it.type] ?? it.type}</Badge>
         {isApp && <Badge>{formatPrice(it.price)}</Badge>}
         {it.version && <Badge variant="outline">v{it.version}</Badge>}
@@ -106,21 +106,21 @@ export default function RepoItemDetail() {
         )}
       </div>
 
-      <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+      <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl">
         {it.title}
       </h1>
       {it.description && (
-        <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{it.description}</p>
+        <p className="mt-3 sm:mt-4 text-base sm:text-lg leading-relaxed text-muted-foreground">{it.description}</p>
       )}
 
       {/* Main Action Buttons */}
-      <div className="mt-8 flex flex-wrap items-center gap-3">
+      <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
         {/* Run in Iframe button */}
         {hasExecutableUrl && (
           <Button
             size="lg"
             onClick={() => setIsRunning((r) => !r)}
-            className="shadow-glow font-semibold"
+            className="shadow-glow font-semibold min-h-[44px] w-full sm:w-auto justify-center"
           >
             {isRunning ? (
               <>
@@ -136,7 +136,7 @@ export default function RepoItemDetail() {
 
         {/* Download File */}
         {it.download_url && (!paid || !it.content_url) && (
-          <Button size="lg" variant="outline" asChild>
+          <Button size="lg" variant="outline" asChild className="min-h-[44px] w-full sm:w-auto justify-center">
             <a href={it.download_url} target="_blank" rel="noopener noreferrer" download>
               <Download className="mr-2 h-4 w-4" /> Download
             </a>
@@ -149,6 +149,7 @@ export default function RepoItemDetail() {
             size="lg"
             variant={hasExecutableUrl && !isRunning ? "outline" : "secondary"}
             asChild
+            className="min-h-[44px] w-full sm:w-auto justify-center"
           >
             <a href={it.content_url} target="_blank" rel="noopener noreferrer">
               <span>{isApp && paid ? "Comprar / Obter" : "Abrir em Nova Aba"}</span>

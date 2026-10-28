@@ -82,31 +82,31 @@ export function AppRunner({
       ref={containerRef}
       className={`${
         isFullscreen
-          ? "fixed inset-0 z-50 flex flex-col bg-background/98 backdrop-blur-2xl p-2 sm:p-4 animate-in fade-in duration-200"
+          ? "fixed inset-0 z-50 flex flex-col bg-background p-0 sm:p-3 animate-in fade-in duration-200"
           : "relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
       } ${className}`}
     >
       {/* Browser Chrome Header */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-secondary/80 px-3 py-2.5 sm:px-4">
+      <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-border bg-secondary/80 px-2.5 py-2 sm:px-4 sm:py-2.5">
         {/* Left: Window Dots & App Name */}
-        <div className="flex items-center gap-2.5 min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
           <div className="hidden sm:flex items-center gap-1.5 shrink-0">
             <span className="h-2.5 w-2.5 rounded-full bg-foreground/20" />
             <span className="h-2.5 w-2.5 rounded-full bg-foreground/20" />
             <span className="h-2.5 w-2.5 rounded-full bg-foreground/20" />
           </div>
-          <div className="flex items-center gap-2 truncate">
-            <span className="font-semibold text-xs sm:text-sm text-foreground truncate max-w-[200px] sm:max-w-xs">
+          <div className="flex items-center gap-1.5 truncate">
+            <span className="font-semibold text-xs sm:text-sm text-foreground truncate max-w-[140px] xs:max-w-[200px] sm:max-w-xs">
               {title}
             </span>
-            <span className="hidden md:inline-flex items-center gap-1 rounded border border-border bg-background px-1.5 py-0.5 text-[10px] text-muted-foreground font-mono">
-              <Shield className="h-3 w-3" /> Sandbox Seguro
+            <span className="hidden sm:inline-flex items-center gap-1 rounded border border-border bg-background px-1.5 py-0.5 text-[10px] text-muted-foreground font-mono">
+              <Shield className="h-3 w-3" /> Sandbox
             </span>
           </div>
         </div>
 
         {/* Center: Viewport Device Switcher */}
-        <div className="hidden sm:flex items-center rounded-lg border border-border bg-background p-0.5 shadow-2xs">
+        <div className="hidden md:flex items-center rounded-lg border border-border bg-background p-0.5 shadow-2xs">
           <button
             type="button"
             title="Vista Computador (100%)"
@@ -146,36 +146,39 @@ export function AppRunner({
         </div>
 
         {/* Right: Actions (Reload, Copy, External, Fullscreen, Close) */}
-        <div className="flex items-center gap-1 shrink-0">
+        <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
           <Button
             variant="ghost"
             size="sm"
             onClick={handleReload}
-            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+            className="h-8 w-8 sm:h-8 sm:w-8 p-0 text-muted-foreground hover:text-foreground"
             title="Recarregar aplicação"
           >
             <RotateCw className={`h-3.5 w-3.5 ${isLoading ? "animate-spin" : ""}`} />
+            <span className="sr-only">Recarregar</span>
           </Button>
 
           <Button
             variant="ghost"
             size="sm"
             onClick={handleCopyUrl}
-            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+            className="h-8 w-8 sm:h-8 sm:w-8 p-0 text-muted-foreground hover:text-foreground"
             title="Copiar URL da aplicação"
           >
             {copied ? <Check className="h-3.5 w-3.5 text-foreground" /> : <Copy className="h-3.5 w-3.5" />}
+            <span className="sr-only">Copiar Link</span>
           </Button>
 
           <Button
             variant="ghost"
             size="sm"
             asChild
-            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+            className="h-8 w-8 sm:h-8 sm:w-8 p-0 text-muted-foreground hover:text-foreground"
             title="Abrir diretamente em nova aba"
           >
             <a href={url} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="h-3.5 w-3.5" />
+              <span className="sr-only">Abrir Externamente</span>
             </a>
           </Button>
 
@@ -183,18 +186,19 @@ export function AppRunner({
             variant="ghost"
             size="sm"
             onClick={toggleFullscreen}
-            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+            className="h-8 w-8 sm:h-8 sm:w-8 p-0 text-muted-foreground hover:text-foreground"
             title={isFullscreen ? "Sair do ecrã inteiro (Esc)" : "Expandir para ecrã inteiro"}
           >
             {isFullscreen ? <Minimize2 className="h-3.5 w-3.5" /> : <Maximize2 className="h-3.5 w-3.5" />}
+            <span className="sr-only">Ecrã Inteiro</span>
           </Button>
 
           {isFullscreen && onClose && (
             <Button
-              variant="outline"
+              variant="default"
               size="sm"
               onClick={onClose}
-              className="h-8 px-2 text-xs ml-1"
+              className="h-8 px-2.5 text-xs ml-1 rounded-lg"
             >
               <X className="h-3.5 w-3.5 mr-1" /> Fechar
             </Button>
@@ -205,13 +209,13 @@ export function AppRunner({
       {/* Frame Container */}
       <div
         className={`relative flex-1 flex items-center justify-center bg-muted/40 transition-all ${
-          isFullscreen ? "p-2 sm:p-4 overflow-hidden" : "p-2 sm:p-4"
+          isFullscreen ? "p-1 sm:p-3 overflow-hidden" : "p-1.5 sm:p-4"
         }`}
       >
-        {/* Iframe Wrapper with responsive viewport constraints */}
+        {/* Iframe Wrapper with responsive viewport constraints and dvh */}
         <div
-          className={`relative h-full transition-all duration-300 shadow-lg overflow-hidden rounded-xl border border-border bg-background ${viewportWidthClass} ${
-            isFullscreen ? "h-[calc(100vh-80px)]" : "h-[540px] sm:h-[650px] w-full"
+          className={`relative transition-all duration-300 shadow-lg overflow-hidden rounded-lg sm:rounded-xl border border-border bg-background ${viewportWidthClass} ${
+            isFullscreen ? "h-[calc(100dvh-54px)] w-full" : "h-[460px] sm:h-[620px] w-full"
           }`}
         >
           {/* Loading Skeleton */}

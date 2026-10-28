@@ -144,6 +144,13 @@
     background-size: 18px 18px;
     background-position: 0 0, 0 9px, 9px -9px, -9px 0;
   }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
 }
 
 @keyframes shimmer {

@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/dashboard/EmptyState";
 import { AppRunnerModal } from "@/components/repo/AppRunner";
+import { GlowCard } from "@/components/visuals/GlowCard";
+import { LottiePlayPulse } from "@/components/visuals/LottieMicro";
 import { useSEO } from "@/lib/seo";
 import { db, formatPrice, repoTypePath } from "@/lib/repo";
 
@@ -96,9 +98,10 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
             const hasWebUrl = !!it.content_url;
 
             return (
-              <div
+              <GlowCard
                 key={it.id}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card transition-all duration-300 hover:border-foreground/40 hover:-translate-y-1 hover:shadow-elegant"
+                enableTilt={true}
+                className="flex flex-col justify-between"
               >
                 <Link to={`${repoTypePath[type]}/${it.id}`} className="block">
                   <div className="aspect-video overflow-hidden bg-muted relative">
@@ -116,8 +119,8 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
                       </div>
                     )}
                     {hasWebUrl && (
-                      <span className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 rounded-md bg-background/90 px-2 py-0.5 text-[11px] font-semibold text-foreground backdrop-blur-md shadow-xs border border-border/60">
-                        <Play className="h-2.5 w-2.5 fill-current" /> Executável
+                      <span className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1.5 rounded-full bg-background/95 px-2.5 py-1 text-[11px] font-semibold text-foreground backdrop-blur-md shadow-xs border border-border/80">
+                        <LottiePlayPulse className="h-3.5 w-3.5" /> Executável
                       </span>
                     )}
                   </div>
@@ -163,7 +166,7 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
                     </Button>
                   )}
                 </div>
-              </div>
+              </GlowCard>
             );
           })}
         </div>

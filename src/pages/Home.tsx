@@ -23,6 +23,9 @@ import { HeroBubblesBackground } from "@/components/visuals/HeroScene";
 import { AnimatedText } from "@/components/visuals/AnimatedText";
 import { GlowCard } from "@/components/visuals/GlowCard";
 import { Marquee } from "@/components/visuals/Marquee";
+import { Interactive3DDepthMesh } from "@/components/visuals/Interactive3DDepthMesh";
+import { GsapCounter } from "@/components/visuals/GsapCounter";
+import { LottieSpark, TactileBadge } from "@/components/visuals/LottieMicro";
 import { db, whatsappHref } from "@/lib/repo";
 
 const features = [
@@ -88,90 +91,154 @@ export default function Home() {
         {/* Full-Section Responsive Monochrome Bubbles & Interactive Dot-Matrix Background */}
         <HeroBubblesBackground />
 
-        <div className="relative z-10 mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 sm:py-20 lg:py-32">
-          <div className="flex flex-col items-start">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground sm:text-sm"
-            >
-              {headline}
-            </motion.p>
-
-            <h1 className="mt-4 text-4xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight text-foreground break-words">
-              <AnimatedText text={firstName} />{" "}
-              <span className="text-gradient bg-[length:200%_auto] animate-gradient-shift">
-                <AnimatedText text={restName} delay={0.18} />
-              </span>
-            </h1>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.45 }}
-              className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-xl"
-            >
-              {bioSummary}
-            </motion.p>
-
-            {/* Quick Socials & Location from Sobre Mim */}
-            {(profile?.location || socialEntries.length > 0) && (
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 sm:py-20 lg:py-28">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+            {/* Left: Typography & CTAs */}
+            <div className="flex flex-col items-start lg:col-span-7">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.65 }}
-                className="mt-6 flex flex-wrap items-center gap-2"
+                transition={{ duration: 0.6 }}
+                className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-background/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground backdrop-blur-md shadow-xs"
               >
-                {profile?.location && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/85 px-3 py-1 text-xs font-medium text-foreground backdrop-blur">
-                    <MapPin className="h-3.5 w-3.5 text-foreground" />
-                    {profile.location}
-                  </span>
-                )}
-                {socialEntries.slice(0, 5).map(([key, url]) => (
-                  <a
-                    key={key}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/85 px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground hover:text-foreground backdrop-blur"
-                  >
-                    <Globe className="h-3 w-3" />
-                    {socialLabels[key] ?? key}
-                  </a>
-                ))}
+                <LottieSpark className="h-4 w-4 text-foreground" />
+                <span>{headline}</span>
               </motion.div>
-            )}
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="mt-8 sm:mt-10 flex flex-col sm:flex-row w-full sm:w-auto gap-3"
-            >
-              <Button asChild size="lg" className="hover-scale shadow-glow w-full sm:w-auto min-h-[44px]">
-                <Link to="/projetos">
-                  Ver Projetos <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="hover-scale glass w-full sm:w-auto min-h-[44px]">
-                <Link to="/sobre">Sobre Mim</Link>
-              </Button>
-              {waLink ? (
-                <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[44px]">
-                  <a href={waLink} target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
-                  </a>
-                </Button>
-              ) : (
-                <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[44px]">
-                  <Link to="/contacto">
-                    <Mail className="mr-2 h-4 w-4" /> Contacto
+              <h1 className="mt-5 text-4xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight text-foreground break-words">
+                <AnimatedText text={firstName} />{" "}
+                <span className="text-gradient bg-[length:200%_auto] animate-gradient-shift">
+                  <AnimatedText text={restName} delay={0.18} />
+                </span>
+              </h1>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.45 }}
+                className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-xl"
+              >
+                {bioSummary}
+              </motion.p>
+
+              {/* Quick Socials & Location from Sobre Mim */}
+              {(profile?.location || socialEntries.length > 0) && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.65 }}
+                  className="mt-6 flex flex-wrap items-center gap-2"
+                >
+                  {profile?.location && (
+                    <TactileBadge>
+                      <MapPin className="h-3.5 w-3.5 text-foreground" />
+                      {profile.location}
+                    </TactileBadge>
+                  )}
+                  {socialEntries.slice(0, 5).map(([key, url]) => (
+                    <a
+                      key={key}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <TactileBadge>
+                        <Globe className="h-3 w-3" />
+                        {socialLabels[key] ?? key}
+                      </TactileBadge>
+                    </a>
+                  ))}
+                </motion.div>
+              )}
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="mt-8 sm:mt-10 flex flex-col sm:flex-row w-full sm:w-auto gap-3"
+              >
+                <Button asChild size="lg" className="hover-scale shadow-glow w-full sm:w-auto min-h-[44px]">
+                  <Link to="/apps">
+                    Explorar Apps <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-              )}
+                <Button asChild variant="outline" size="lg" className="hover-scale glass w-full sm:w-auto min-h-[44px]">
+                  <Link to="/projetos">Ver Projetos</Link>
+                </Button>
+                {waLink ? (
+                  <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[44px]">
+                    <a href={waLink} target="_blank" rel="noopener noreferrer">
+                      <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
+                    </a>
+                  </Button>
+                ) : (
+                  <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[44px]">
+                    <Link to="/contacto">
+                      <Mail className="mr-2 h-4 w-4" /> Contacto
+                    </Link>
+                  </Button>
+                )}
+              </motion.div>
+            </div>
+
+            {/* Right: Three.js 3D Depth Card (img2threejs) & Interactive Holographic Console */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="lg:col-span-5"
+            >
+              <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-border/80 bg-card/85 p-6 backdrop-blur-2xl shadow-elegant group">
+                {/* 3D Depth mesh canvas */}
+                <Interactive3DDepthMesh />
+
+                <div className="relative z-10 flex flex-col justify-between h-72">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/90 px-3 py-1 text-xs font-semibold text-foreground backdrop-blur-md">
+                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                      Three.js Depth Mesh
+                    </span>
+                    <span className="font-mono text-xs text-muted-foreground">WebGL 60FPS</span>
+                  </div>
+
+                  <div className="mt-auto rounded-2xl border border-border/70 bg-background/90 p-4 backdrop-blur-md shadow-xs">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-bold text-foreground">Sandbox Executável</p>
+                      <Link to="/apps" className="text-xs font-medium text-foreground underline underline-offset-4 hover:opacity-80">
+                        Abrir Repositório
+                      </Link>
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+                      Aplicações interativas prontas para rodar no navegador com física spring e 3D depth tilt.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
+          </div>
+        </div>
+
+        {/* GSAP Smooth Metrics Ribbon (Apple Design precision) */}
+        <div className="relative z-10 border-t border-border/60 bg-card/60 backdrop-blur-xl">
+          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+              <div className="flex flex-col items-center sm:items-start p-2">
+                <GsapCounter value={18} suffix="+" className="text-2xl sm:text-3xl text-foreground" />
+                <span className="text-xs text-muted-foreground mt-0.5">Apps & Ferramentas</span>
+              </div>
+              <div className="flex flex-col items-center sm:items-start p-2">
+                <GsapCounter value={100} suffix="%" className="text-2xl sm:text-3xl text-foreground" />
+                <span className="text-xs text-muted-foreground mt-0.5">Ecossistema Aberto</span>
+              </div>
+              <div className="flex flex-col items-center sm:items-start p-2">
+                <GsapCounter value={9} suffix=" Áreas" className="text-2xl sm:text-3xl text-foreground" />
+                <span className="text-xs text-muted-foreground mt-0.5">Módulos Integrados</span>
+              </div>
+              <div className="flex flex-col items-center sm:items-start p-2">
+                <GsapCounter value={60} suffix=" FPS" className="text-2xl sm:text-3xl text-foreground" />
+                <span className="text-xs text-muted-foreground mt-0.5">Apple Spring Motion</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

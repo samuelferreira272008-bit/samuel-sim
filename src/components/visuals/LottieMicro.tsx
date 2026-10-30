@@ -232,3 +232,117 @@ export function TactileBadge({
     </motion.span>
   );
 }
+
+// 3. Floating Orb / Search Wave for Empty states
+const emptyOrbJson = {
+  v: "5.5.7",
+  fr: 30,
+  ip: 0,
+  op: 90,
+  w: 120,
+  h: 120,
+  nm: "EmptyOrb",
+  ddd: 0,
+  assets: [],
+  layers: [
+    {
+      ddd: 0,
+      ind: 1,
+      ty: 4,
+      nm: "OuterPulse",
+      sr: 1,
+      ks: {
+        o: {
+          k: [
+            { i: { x: [0.4], y: [1] }, o: { x: [0.6], y: [0] }, t: 0, s: [35] },
+            { i: { x: [0.4], y: [1] }, o: { x: [0.6], y: [0] }, t: 45, s: [10] },
+            { t: 90, s: [35] },
+          ],
+        },
+        r: {
+          k: [
+            { i: { x: [0.4], y: [1] }, o: { x: [0.6], y: [0] }, t: 0, s: 0 },
+            { t: 90, s: 180 },
+          ],
+        },
+        p: { k: [60, 60, 0] },
+        a: { k: [0, 0, 0] },
+        s: {
+          k: [
+            { i: { x: [0.4], y: [1] }, o: { x: [0.6], y: [0] }, t: 0, s: [90, 90] },
+            { i: { x: [0.4], y: [1] }, o: { x: [0.6], y: [0] }, t: 45, s: [110, 110] },
+            { t: 90, s: [90, 90] },
+          ],
+        },
+      },
+      shapes: [
+        {
+          ty: "el",
+          p: { k: [0, 0] },
+          s: { k: [70, 70] },
+        },
+        {
+          ty: "st",
+          c: { k: [0.8, 0.8, 0.9, 1] },
+          o: { k: 80 },
+          w: { k: 1.5 },
+          d: [{ n: "d", nm: "dash", v: { k: 6 } }, { n: "g", nm: "gap", v: { k: 6 } }],
+        },
+      ],
+    },
+    {
+      ddd: 0,
+      ind: 2,
+      ty: 4,
+      nm: "InnerOrb",
+      sr: 1,
+      ks: {
+        o: { k: 85 },
+        r: { k: 0 },
+        p: {
+          k: [
+            { i: { x: 0.4, y: 1 }, o: { x: 0.6, y: 0 }, t: 0, s: [60, 63, 0] },
+            { i: { x: 0.4, y: 1 }, o: { x: 0.6, y: 0 }, t: 45, s: [60, 57, 0] },
+            { t: 90, s: [60, 63, 0] },
+          ],
+        },
+        a: { k: [0, 0, 0] },
+        s: {
+          k: [
+            { i: { x: [0.4], y: [1] }, o: { x: [0.6], y: [0] }, t: 0, s: [95, 95] },
+            { i: { x: [0.4], y: [1] }, o: { x: [0.6], y: [0] }, t: 45, s: [105, 105] },
+            { t: 90, s: [95, 95] },
+          ],
+        },
+      },
+      shapes: [
+        {
+          ty: "el",
+          p: { k: [0, 0] },
+          s: { k: [38, 38] },
+        },
+        {
+          ty: "st",
+          c: { k: [0.95, 0.95, 1, 1] },
+          o: { k: 90 },
+          w: { k: 2 },
+        },
+      ],
+    },
+  ],
+};
+
+export function LottieEmptyStateVisual({ className }: { className?: string }) {
+  const { View } = useLottie({
+    animationData: emptyOrbJson,
+    loop: true,
+    autoplay: true,
+  });
+
+  return (
+    <div className={cn("inline-flex items-center justify-center shrink-0", className)}>
+      {View}
+    </div>
+  );
+}
+

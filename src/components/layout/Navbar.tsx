@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Menu, LogOut, LayoutDashboard, Shield, ChevronDown } from "lucide-react";
+import { Magnetic } from "@/components/visuals/Magnetic";
 
 const primaryNavLinks = [
   { to: "/", label: "Home" },
@@ -78,11 +79,13 @@ export function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 glass-strong">
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/75 backdrop-blur-2xl shadow-xs transition-colors">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="shrink-0 whitespace-nowrap text-xl font-bold tracking-tight">
-          <span className="text-gradient">Samuel</span> <span className="text-foreground">Simão</span>
-        </Link>
+        <Magnetic strength={0.15} radius={60}>
+          <Link to="/" className="shrink-0 whitespace-nowrap text-xl font-bold tracking-tight inline-block active:scale-[0.98]">
+            <span className="text-gradient">Samuel</span> <span className="text-foreground">Simão</span>
+          </Link>
+        </Magnetic>
 
         <nav className="hidden items-center gap-0.5 lg:flex min-w-0">
           {primaryNavLinks.map((link) => (
@@ -159,9 +162,11 @@ export function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button variant="default" size="sm" onClick={() => navigate("/login")}>
-                Login
-              </Button>
+              <Magnetic strength={0.2} radius={70}>
+                <Button variant="default" size="sm" onClick={() => navigate("/login")} className="rounded-xl px-4 font-semibold shadow-xs">
+                  Login
+                </Button>
+              </Magnetic>
             )}
           </div>
 

@@ -2,20 +2,20 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ExternalLink, FolderOpen } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/dashboard/EmptyState";
 import { useSEO } from "@/lib/seo";
 import { MediaBlock } from "@/components/media/MediaBlock";
+import { SegmentedControl } from "@/components/visuals/SegmentedControl";
+import { GlowCard } from "@/components/visuals/GlowCard";
 
 export default function Projetos() {
   useSEO({
     title: "Projetos — Samuel Simão",
     description: "Portfolio de projetos digitais, experiências e trabalhos realizados.",
   });
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string>("all");
 
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
@@ -33,57 +33,52 @@ export default function Projetos() {
         .select("*")
         .eq("type", "project")
         .order("created_at", { ascending: false });
-      if (selected) q = q.eq("category_id", selected);
+      if (selected !== "all") q = q.eq("category_id", selected);
       const { data } = await q;
       return data ?? [];
     },
   });
 
+  const categoryOptions = [
+    { value: "all", label: "Todos" },
+    ...categories.map((c: any) => ({ value: c.id, label: c.name })),
+  ];
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-10">
-        <h1 className="text-4xl font-bold text-foreground">Projetos</h1>
-        <p className="mt-2 text-lg text-muted-foreground">
-          Trabalhos, produtos digitais e experiências que construí.
+      <div className="mb-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">Portfólio</p>
+        <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">Projetos</h1>
+        <p className="mt-2 text-base sm:text-lg text-muted-foreground">
+          Trabalhos, produtos digitais e experiências construídas com precisão.
         </p>
       </div>
 
-      {categories.length > 0 && (
-        <div className="mb-8 flex flex-wrap gap-2">
-          <Badge
-            variant={selected === null ? "default" : "outline"}
-            className="cursor-pointer"
-            onClick={() => setSelected(null)}
-          >
-            Todos
-          </Badge>
-          {categories.map((c: any) => (
-            <Badge
-              key={c.id}
-              variant={selected === c.id ? "default" : "outline"}
-              className="cursor-pointer"
-              onClick={() => setSelected(c.id)}
-            >
-              {c.name}
-            </Badge>
-          ))}
+      {categoryOptions.length > 1 && (
+        <div className="mb-8 overflow-x-auto pb-1">
+          <SegmentedControl
+            name="projects-filter"
+            options={categoryOptions}
+            value={selected}
+            onChange={setSelected}
+          />
         </div>
       )}
 
       {isLoading ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {[1, 2, 3].map((i) => <Skeleton key={i} className="h-64 w-full rounded-lg" />)}
+          {[1, 2, 3].map((i) => <Skeleton key={i} className="h-64 w-full rounded-2xl" />)}
         </div>
       ) : items.length === 0 ? (
         <EmptyState
           icon={FolderOpen}
-          title="Sem projetos ainda"
-          description="Brevemente serão publicados aqui novos projetos."
+          title="Sem projetos encontrados"
+          description="Brevemente serão publicados aqui novos projetos nesta categoria."
         />
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item: any) => (
-            <Card key={item.id} className="group overflow-hidden border-border/60 transition-all hover:-translate-y-1 hover:shadow-elegant">
+            <GlowCard key={item.id} enableTilt={true} className="flex flex-col justify-between">
               {(item.thumbnail_url || item.video_url) && (
                 <MediaBlock
                   imageUrl={item.thumbnail_url}
@@ -94,23 +89,27 @@ export default function Projetos() {
                   rounded={false}
                 />
               )}
-              <CardHeader>
-                <CardTitle className="text-lg">{item.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {item.description && (
-                  <p className="text-sm text-muted-foreground line-clamp-3">{item.description}</p>
-                )}
+              <div className="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-lg font-bold text-foreground">{item.title}</h3>
+                  {item.description && (
+                    <p className="mt-2 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+                      {item.description}
+                    </p>
+                  )}
+                </div>
                 {item.content_url && (
-                  <Button variant="outline" size="sm" asChild>
-                    <a href={item.content_url} target="_blank" rel="noopener noreferrer">
-                      Ver projeto
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
+                  <div className="mt-5 pt-3 border-t border-border/40">
+                    <Button variant="outline" size="sm" asChild className="rounded-xl font-medium">
+                      <a href={item.content_url} target="_blank" rel="noopener noreferrer">
+                        Ver projeto
+                        <ExternalLink className="ml-2 h-3.5 w-3.5" />
+                      </a>
+                    </Button>
+                  </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </GlowCard>
           ))}
         </div>
       )}

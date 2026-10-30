@@ -26,6 +26,7 @@ import { Marquee } from "@/components/visuals/Marquee";
 import { Interactive3DDepthMesh } from "@/components/visuals/Interactive3DDepthMesh";
 import { GsapCounter } from "@/components/visuals/GsapCounter";
 import { LottieSpark, TactileBadge } from "@/components/visuals/LottieMicro";
+import { Magnetic } from "@/components/visuals/Magnetic";
 import { db, whatsappHref } from "@/lib/repo";
 
 const features = [
@@ -155,28 +156,36 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="mt-8 sm:mt-10 flex flex-col sm:flex-row w-full sm:w-auto gap-3"
+                className="mt-8 sm:mt-10 flex flex-col sm:flex-row w-full sm:w-auto items-stretch sm:items-center gap-3.5"
               >
-                <Button asChild size="lg" className="hover-scale shadow-glow w-full sm:w-auto min-h-[44px]">
-                  <Link to="/apps">
-                    Explorar Apps <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="hover-scale glass w-full sm:w-auto min-h-[44px]">
-                  <Link to="/projetos">Ver Projetos</Link>
-                </Button>
-                {waLink ? (
-                  <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[44px]">
-                    <a href={waLink} target="_blank" rel="noopener noreferrer">
-                      <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
-                    </a>
-                  </Button>
-                ) : (
-                  <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[44px]">
-                    <Link to="/contacto">
-                      <Mail className="mr-2 h-4 w-4" /> Contacto
+                <Magnetic strength={0.32} radius={110}>
+                  <Button asChild size="lg" className="hover-scale shadow-glow w-full sm:w-auto min-h-[46px] rounded-xl font-semibold">
+                    <Link to="/apps">
+                      Explorar Apps <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
+                </Magnetic>
+                <Magnetic strength={0.25} radius={90}>
+                  <Button asChild variant="outline" size="lg" className="hover-scale glass w-full sm:w-auto min-h-[46px] rounded-xl font-medium">
+                    <Link to="/projetos">Ver Projetos</Link>
+                  </Button>
+                </Magnetic>
+                {waLink ? (
+                  <Magnetic strength={0.2} radius={80}>
+                    <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[46px] rounded-xl font-medium">
+                      <a href={waLink} target="_blank" rel="noopener noreferrer">
+                        <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
+                      </a>
+                    </Button>
+                  </Magnetic>
+                ) : (
+                  <Magnetic strength={0.2} radius={80}>
+                    <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[46px] rounded-xl font-medium">
+                      <Link to="/contacto">
+                        <Mail className="mr-2 h-4 w-4" /> Contacto
+                      </Link>
+                    </Button>
+                  </Magnetic>
                 )}
               </motion.div>
             </div>

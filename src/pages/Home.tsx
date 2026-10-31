@@ -22,7 +22,7 @@ import { useSEO } from "@/lib/seo";
 import { HeroBubblesBackground } from "@/components/visuals/HeroScene";
 import { AnimatedText } from "@/components/visuals/AnimatedText";
 import { Marquee } from "@/components/visuals/Marquee";
-import { Interactive3DDepthMesh } from "@/components/visuals/Interactive3DDepthMesh";
+import { GlowCard } from "@/components/visuals/GlowCard";
 import { GsapCounter } from "@/components/visuals/GsapCounter";
 import { LottieSpark, TactileBadge } from "@/components/visuals/LottieMicro";
 import { Magnetic } from "@/components/visuals/Magnetic";
@@ -91,137 +91,100 @@ export default function Home() {
         {/* Full-Section Responsive Monochrome Bubbles & Interactive Dot-Matrix Background */}
         <HeroBubblesBackground />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 sm:py-20 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 sm:py-24 lg:py-28">
+          <div className="flex flex-col items-start max-w-4xl">
             {/* Left: Typography & CTAs */}
-            <div className="flex flex-col items-start lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-background/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground backdrop-blur-md shadow-xs"
+            >
+              <LottieSpark className="h-4 w-4 text-foreground" />
+              <span>{headline}</span>
+            </motion.div>
+
+            <h1 className="mt-5 text-4xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight text-foreground break-words">
+              <AnimatedText text={firstName} />{" "}
+              <span className="text-gradient bg-[length:200%_auto] animate-gradient-shift">
+                <AnimatedText text={restName} delay={0.18} />
+              </span>
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.45 }}
+              className="mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-xl"
+            >
+              {bioSummary}
+            </motion.p>
+
+            {/* Quick Socials & Location from Sobre Mim */}
+            {(profile?.location || socialEntries.length > 0) && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-background/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground backdrop-blur-md shadow-xs"
+                transition={{ duration: 0.6, delay: 0.65 }}
+                className="mt-6 flex flex-wrap items-center gap-2"
               >
-                <LottieSpark className="h-4 w-4 text-foreground" />
-                <span>{headline}</span>
-              </motion.div>
-
-              <h1 className="mt-5 text-4xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight text-foreground break-words">
-                <AnimatedText text={firstName} />{" "}
-                <span className="text-gradient bg-[length:200%_auto] animate-gradient-shift">
-                  <AnimatedText text={restName} delay={0.18} />
-                </span>
-              </h1>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.45 }}
-                className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-xl"
-              >
-                {bioSummary}
-              </motion.p>
-
-              {/* Quick Socials & Location from Sobre Mim */}
-              {(profile?.location || socialEntries.length > 0) && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.65 }}
-                  className="mt-6 flex flex-wrap items-center gap-2"
-                >
-                  {profile?.location && (
+                {profile?.location && (
+                  <TactileBadge>
+                    <MapPin className="h-3.5 w-3.5 text-foreground" />
+                    {profile.location}
+                  </TactileBadge>
+                )}
+                {socialEntries.slice(0, 5).map(([key, url]) => (
+                  <a
+                    key={key}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <TactileBadge>
-                      <MapPin className="h-3.5 w-3.5 text-foreground" />
-                      {profile.location}
+                      <Globe className="h-3 w-3" />
+                      {socialLabels[key] ?? key}
                     </TactileBadge>
-                  )}
-                  {socialEntries.slice(0, 5).map(([key, url]) => (
-                    <a
-                      key={key}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <TactileBadge>
-                        <Globe className="h-3 w-3" />
-                        {socialLabels[key] ?? key}
-                      </TactileBadge>
-                    </a>
-                  ))}
-                </motion.div>
-              )}
+                  </a>
+                ))}
+              </motion.div>
+            )}
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="mt-8 sm:mt-10 flex flex-col sm:flex-row w-full sm:w-auto items-stretch sm:items-center gap-3.5"
-              >
-                <Magnetic strength={0.32} radius={110}>
-                  <Button asChild size="lg" className="hover-scale shadow-glow w-full sm:w-auto min-h-[46px] rounded-xl font-semibold">
-                    <Link to="/apps">
-                      Explorar Apps <ArrowRight className="ml-2 h-4 w-4" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="mt-8 sm:mt-10 flex flex-col sm:flex-row w-full sm:w-auto items-stretch sm:items-center gap-3.5"
+            >
+              <Magnetic strength={0.32} radius={110}>
+                <Button asChild size="lg" className="hover-scale shadow-glow w-full sm:w-auto min-h-[46px] rounded-xl font-semibold">
+                  <Link to="/apps">
+                    Explorar Apps <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </Magnetic>
+              <Magnetic strength={0.25} radius={90}>
+                <Button asChild variant="outline" size="lg" className="hover-scale glass w-full sm:w-auto min-h-[46px] rounded-xl font-medium">
+                  <Link to="/projetos">Ver Projetos</Link>
+                </Button>
+              </Magnetic>
+              {waLink ? (
+                <Magnetic strength={0.2} radius={80}>
+                  <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[46px] rounded-xl font-medium">
+                    <a href={waLink} target="_blank" rel="noopener noreferrer">
+                      <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
+                    </a>
+                  </Button>
+                </Magnetic>
+              ) : (
+                <Magnetic strength={0.2} radius={80}>
+                  <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[46px] rounded-xl font-medium">
+                    <Link to="/contacto">
+                      <Mail className="mr-2 h-4 w-4" /> Contacto
                     </Link>
                   </Button>
                 </Magnetic>
-                <Magnetic strength={0.25} radius={90}>
-                  <Button asChild variant="outline" size="lg" className="hover-scale glass w-full sm:w-auto min-h-[46px] rounded-xl font-medium">
-                    <Link to="/projetos">Ver Projetos</Link>
-                  </Button>
-                </Magnetic>
-                {waLink ? (
-                  <Magnetic strength={0.2} radius={80}>
-                    <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[46px] rounded-xl font-medium">
-                      <a href={waLink} target="_blank" rel="noopener noreferrer">
-                        <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
-                      </a>
-                    </Button>
-                  </Magnetic>
-                ) : (
-                  <Magnetic strength={0.2} radius={80}>
-                    <Button asChild variant="secondary" size="lg" className="hover-scale border border-border w-full sm:w-auto min-h-[46px] rounded-xl font-medium">
-                      <Link to="/contacto">
-                        <Mail className="mr-2 h-4 w-4" /> Contacto
-                      </Link>
-                    </Button>
-                  </Magnetic>
-                )}
-              </motion.div>
-            </div>
-
-            {/* Right: Three.js 3D Depth Card (img2threejs) & Interactive Holographic Console */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.94 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="lg:col-span-5"
-            >
-              <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-border/80 bg-card/85 p-6 backdrop-blur-2xl shadow-elegant group">
-                {/* 3D Depth mesh canvas */}
-                <Interactive3DDepthMesh />
-
-                <div className="relative z-10 flex flex-col justify-between h-72">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/90 px-3 py-1 text-xs font-semibold text-foreground backdrop-blur-md">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                      Three.js Depth Mesh
-                    </span>
-                    <span className="font-mono text-xs text-muted-foreground">WebGL 60FPS</span>
-                  </div>
-
-                  <div className="mt-auto rounded-2xl border border-border/70 bg-background/90 p-4 backdrop-blur-md shadow-xs">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-bold text-foreground">Sandbox Executável</p>
-                      <Link to="/apps" className="text-xs font-medium text-foreground underline underline-offset-4 hover:opacity-80">
-                        Abrir Repositório
-                      </Link>
-                    </div>
-                    <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                      Aplicações e ferramentas interativas prontas para rodar diretamente no ecossistema.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              )}
             </motion.div>
           </div>
         </div>
@@ -290,7 +253,7 @@ export default function Home() {
               transition={{ duration: 0.5, delay: i * 0.06 }}
             >
               <Link to={f.to} className="block h-full">
-                <div className="group h-full rounded-2xl border border-border/60 bg-card p-5 sm:p-8 transition-all hover:border-border hover:shadow-sm">
+                <GlowCard enableTilt={true} className="h-full p-5 sm:p-8">
                   <div className="mb-4 sm:mb-6 inline-flex rounded-xl border border-border bg-secondary p-2.5 sm:p-3">
                     <f.icon className="h-5 w-5 sm:h-6 sm:w-6 text-foreground" />
                   </div>
@@ -299,7 +262,7 @@ export default function Home() {
                   <div className="mt-4 sm:mt-6 inline-flex items-center text-xs sm:text-sm font-medium text-foreground opacity-90 sm:opacity-0 transition-opacity group-hover:opacity-100">
                     Explorar <ArrowRight className="ml-1 h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </div>
-                </div>
+                </GlowCard>
               </Link>
             </motion.div>
           ))}

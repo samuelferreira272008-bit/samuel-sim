@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/dashboard/EmptyState";
 import { AppRunnerModal } from "@/components/repo/AppRunner";
+import { GlowCard } from "@/components/visuals/GlowCard";
 import { LottiePlayPulse } from "@/components/visuals/LottieMicro";
 import { useSEO } from "@/lib/seo";
 import { db, formatPrice, repoTypePath } from "@/lib/repo";
@@ -97,9 +98,10 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
             const hasWebUrl = !!it.content_url;
 
             return (
-              <div
+              <GlowCard
                 key={it.id}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-card transition-all hover:border-border hover:shadow-sm"
+                enableTilt={true}
+                className="flex flex-col justify-between"
               >
                 <Link to={`${repoTypePath[type]}/${it.id}`} className="block">
                   <div className="aspect-video overflow-hidden bg-muted relative">
@@ -164,7 +166,7 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
                     </Button>
                   )}
                 </div>
-              </div>
+              </GlowCard>
             );
           })}
         </div>

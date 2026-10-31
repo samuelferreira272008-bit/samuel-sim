@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/dashboard/EmptyState";
 import { useSEO } from "@/lib/seo";
 import { MediaBlock } from "@/components/media/MediaBlock";
-import { Lab3DCanvas } from "@/components/visuals/Lab3DCanvas";
+import { GlowCard } from "@/components/visuals/GlowCard";
 
 const tierLabel: Record<string, string> = {
   wip: "Em desenvolvimento",
@@ -37,24 +37,17 @@ export default function Lab() {
   });
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 space-y-12">
+    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 space-y-10">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">Experimental</p>
         <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">Lab</h1>
         <p className="mt-2 text-base sm:text-lg text-muted-foreground">
-          Experiências interativas, protótipos de computação gráfica e conceitos em desenvolvimento.
+          Experiências, protótipos e ideias em desenvolvimento.
         </p>
       </div>
 
-      {/* Interactive 3D WebGL Three.js Spatial Playground */}
-      <Lab3DCanvas />
-
       {/* Lab Experiment Items */}
       <div>
-        <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground mb-6">
-          Protótipos & Pesquisas
-        </h2>
-
         {isLoading ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => <Skeleton key={i} className="h-56 w-full rounded-2xl" />)}
@@ -63,12 +56,12 @@ export default function Lab() {
           <EmptyState
             icon={FlaskConical}
             title="Lab vazio no momento"
-            description="Sem experiências arquivadas neste momento. Experimente o simulador 3D acima!"
+            description="Sem experiências publicadas neste momento. Em breve novos protótipos."
           />
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((item: any) => (
-              <div key={item.id} className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-card transition-all hover:border-border hover:shadow-sm">
+              <GlowCard key={item.id} enableTilt={true} className="flex flex-col justify-between">
                 {(item.thumbnail_url || item.video_url) && (
                   <MediaBlock
                     imageUrl={item.thumbnail_url}
@@ -106,7 +99,7 @@ export default function Lab() {
                     )}
                   </div>
                 </div>
-              </div>
+              </GlowCard>
             ))}
           </div>
         )}

@@ -8,7 +8,6 @@ import { EmptyState } from "@/components/dashboard/EmptyState";
 import { useSEO } from "@/lib/seo";
 import { db, formatPrice } from "@/lib/repo";
 import { SegmentedControl } from "@/components/visuals/SegmentedControl";
-import { GlowCard } from "@/components/visuals/GlowCard";
 
 const filters = [
   { value: "all", label: "Todos" },
@@ -51,7 +50,7 @@ export default function Produtos() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {shown.map((p: any) => (
-            <GlowCard key={p.id} enableTilt={true} className="flex flex-col">
+            <div key={p.id} className="group flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card transition-all hover:border-border hover:shadow-sm">
               <Link to={`/produtos/${p.id}`} className="block flex-1">
                 <div className="aspect-square overflow-hidden bg-muted relative">
                   {p.image_url ? (
@@ -70,7 +69,7 @@ export default function Produtos() {
                   <p className="font-semibold text-foreground text-sm">{formatPrice(p.price, p.currency ?? "AOA")}</p>
                 </div>
               </Link>
-            </GlowCard>
+            </div>
           ))}
         </div>
       )}

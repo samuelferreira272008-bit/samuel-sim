@@ -21,7 +21,6 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { HeroBubblesBackground } from "@/components/visuals/HeroScene";
 import { AnimatedText } from "@/components/visuals/AnimatedText";
-import { GlowCard } from "@/components/visuals/GlowCard";
 import { Marquee } from "@/components/visuals/Marquee";
 import { Interactive3DDepthMesh } from "@/components/visuals/Interactive3DDepthMesh";
 import { GsapCounter } from "@/components/visuals/GsapCounter";
@@ -218,7 +217,7 @@ export default function Home() {
                       </Link>
                     </div>
                     <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                      Aplicações interativas prontas para rodar no navegador com física spring e 3D depth tilt.
+                      Aplicações e ferramentas interativas prontas para rodar diretamente no ecossistema.
                     </p>
                   </div>
                 </div>
@@ -291,7 +290,7 @@ export default function Home() {
               transition={{ duration: 0.5, delay: i * 0.06 }}
             >
               <Link to={f.to} className="block h-full">
-                <GlowCard className="h-full p-5 sm:p-8">
+                <div className="group h-full rounded-2xl border border-border/60 bg-card p-5 sm:p-8 transition-all hover:border-border hover:shadow-sm">
                   <div className="mb-4 sm:mb-6 inline-flex rounded-xl border border-border bg-secondary p-2.5 sm:p-3">
                     <f.icon className="h-5 w-5 sm:h-6 sm:w-6 text-foreground" />
                   </div>
@@ -300,7 +299,7 @@ export default function Home() {
                   <div className="mt-4 sm:mt-6 inline-flex items-center text-xs sm:text-sm font-medium text-foreground opacity-90 sm:opacity-0 transition-opacity group-hover:opacity-100">
                     Explorar <ArrowRight className="ml-1 h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </div>
-                </GlowCard>
+                </div>
               </Link>
             </motion.div>
           ))}

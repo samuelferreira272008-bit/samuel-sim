@@ -9,7 +9,6 @@ import { EmptyState } from "@/components/dashboard/EmptyState";
 import { useSEO } from "@/lib/seo";
 import { MediaBlock } from "@/components/media/MediaBlock";
 import { Lab3DCanvas } from "@/components/visuals/Lab3DCanvas";
-import { GlowCard } from "@/components/visuals/GlowCard";
 
 const tierLabel: Record<string, string> = {
   wip: "Em desenvolvimento",
@@ -69,7 +68,7 @@ export default function Lab() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((item: any) => (
-              <GlowCard key={item.id} enableTilt={true} className="flex flex-col justify-between">
+              <div key={item.id} className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-card transition-all hover:border-border hover:shadow-sm">
                 {(item.thumbnail_url || item.video_url) && (
                   <MediaBlock
                     imageUrl={item.thumbnail_url}
@@ -107,7 +106,7 @@ export default function Lab() {
                     )}
                   </div>
                 </div>
-              </GlowCard>
+              </div>
             ))}
           </div>
         )}

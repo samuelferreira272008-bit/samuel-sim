@@ -8,7 +8,6 @@ import { EmptyState } from "@/components/dashboard/EmptyState";
 import { useSEO } from "@/lib/seo";
 import { MediaBlock } from "@/components/media/MediaBlock";
 import { SegmentedControl } from "@/components/visuals/SegmentedControl";
-import { GlowCard } from "@/components/visuals/GlowCard";
 
 export default function Projetos() {
   useSEO({
@@ -78,7 +77,7 @@ export default function Projetos() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item: any) => (
-            <GlowCard key={item.id} enableTilt={true} className="flex flex-col justify-between">
+            <div key={item.id} className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-card transition-all hover:border-border hover:shadow-sm">
               {(item.thumbnail_url || item.video_url) && (
                 <MediaBlock
                   imageUrl={item.thumbnail_url}
@@ -109,7 +108,7 @@ export default function Projetos() {
                   </div>
                 )}
               </div>
-            </GlowCard>
+            </div>
           ))}
         </div>
       )}

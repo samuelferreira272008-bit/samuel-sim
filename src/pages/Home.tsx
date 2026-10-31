@@ -64,14 +64,14 @@ export default function Home() {
   const firstName = nameParts[0] || "Samuel";
   const restName = nameParts.slice(1).join(" ") || "Simão";
 
-  const headline: string = profile?.headline?.trim() || "Eletrónica · Telecomunicações · Empreendedorismo";
+  const headline: string = profile?.headline?.trim() || "Tecnologia · Software · Automação";
   const bioSummary: string = profile?.bio?.trim()
     ? profile.bio
         .replace(/[#*_>`~-]/g, "")
         .split(/\n+/)
         .filter(Boolean)[0]
         ?.slice(0, 280) ?? ""
-    : "Estudante de Eletrónica e Telecomunicações no IMPTEL (Camama, Luanda). Construo ferramentas digitais, projetos de robótica e conteúdos acessíveis para quem quer aprender e crescer na tecnologia.";
+    : "Criador de tecnologia, software e ferramentas digitais em Luanda, Angola. Desenvolvo aplicações úteis, projetos de automação e conteúdos práticos focados em simplificar a tecnologia para quem quer construir e crescer.";
   const location: string = profile?.location || "Luanda, Angola";
 
   const waLink = whatsappHref(profile?.whatsapp, `Olá ${fullName}!`);

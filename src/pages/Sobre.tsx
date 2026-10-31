@@ -22,10 +22,10 @@ import { db, whatsappHref } from "@/lib/repo";
 import portrait from "@/assets/hero-portrait.jpg";
 
 const timeline = [
-  { year: "2026 / Presente", title: "Unificação da Marca Samuel Simão", desc: "Decisão estratégica de unir todos os projetos sob a minha identidade. Projeto REPI Rover no IMPTEL (Curiosity Challenge) e ecossistema digital." },
-  { year: "2024 / 2025", title: "Eletrónica, Robótica & IA", desc: "Avanço nos estudos de Telecomunicações no IMPTEL (Camama) e desenvolvimento de assistentes práticos como o Pafiworky." },
-  { year: "2023", title: "Primeiros Protótipos", desc: "Criação de ferramentas web, exploração de servidores locais e prototipagem de aplicações." },
-  { year: "Origem", title: "Luanda, Angola", desc: "Nascido a 27 de julho de 2008, guiado pela fé cristã, família e paixão por construir." },
+  { year: "2026 / Presente", title: "Marca Pessoal & Ecossistema Digital", desc: "Consolidação de todos os produtos e softwares sob a identidade Samuel Simão. Desenvolvimento de protótipos de robótica e aplicações web." },
+  { year: "2024 / 2025", title: "Automação, Hardware & IA", desc: "Aprofundamento técnico em Eletrónica e Telecomunicações, automação de processos e criação de ferramentas como o Pafiworky." },
+  { year: "2023", title: "Primeiros Softwares", desc: "Desenvolvimento de ferramentas digitais, servidores locais e aplicações experimentais." },
+  { year: "Foco", title: "Luanda, Angola", desc: "Atuação orientada a inovação prática, ética, excelência e criação de valor." },
 ];
 
 const principles = [
@@ -66,7 +66,7 @@ export default function Sobre() {
   });
 
   const fullName = profile?.full_name || "Samuel Simão";
-  const headline = profile?.headline || "Estudante de Eletrónica e Telecomunicações no IMPTEL · Empreendedor Digital";
+  const headline = profile?.headline || "Criador de Tecnologia · Developer & Empreendedor Digital";
   const location = profile?.location || "Luanda, Angola";
   const photos: string[] = Array.isArray(profile?.photos) && profile.photos.length > 0 ? profile.photos : [portrait];
   const mainPhoto = photos[0] || portrait;
@@ -188,19 +188,19 @@ export default function Sobre() {
             ) : (
               <div className="space-y-5 text-base sm:text-lg leading-relaxed text-muted-foreground">
                 <p>
-                  Olá! Sou o <span className="font-semibold text-foreground">{fullName}</span> (Samuel Garcia Ferreira Simão), nascido a 27 de julho de 2008 em Luanda, Angola.
+                  Olá! Sou o <span className="font-semibold text-foreground">{fullName}</span>, criador de tecnologia, developer independente e empreendedor digital baseado em Luanda, Angola.
                 </p>
                 <p>
-                  Sou estudante do curso de <span className="text-foreground font-semibold">Eletrónica e Telecomunicações no IMPTEL</span> (Instituto Médio Politécnico de Telecomunicações, em Camama), a frequentar a 13.ª classe com conclusão prevista para 2027.
+                  Com sólida dedicação prática às áreas de <span className="text-foreground font-semibold">Eletrónica, Telecomunicações e Programação</span>, a minha missão é conceber e construir soluções tecnológicas que resolvem problemas reais com máxima simplicidade.
                 </p>
                 <p>
-                  A minha paixão é construir: desde sistemas físicos e robôs (como o projeto <span className="text-foreground font-medium">REPI Rover</span> para o Curiosity Challenge) até assistentes inteligentes como o <span className="text-foreground font-medium">Pafiworky</span> e ferramentas digitais que simplificam o dia a dia.
+                  O meu trabalho abrange desde projetos de hardware e sistemas embarcados (como o protótipo de robótica e monitorização ambiental <span className="text-foreground font-medium">REPI Rover</span>) até ferramentas de software na nuvem e assistentes inteligentes de automação como o <span className="text-foreground font-medium">Pafiworky</span>.
                 </p>
                 <p>
-                  Em outubro de 2026, tomei uma decisão essencial: <span className="text-foreground font-semibold">unificar tudo sob a minha própria identidade pessoal</span>. Deixei para trás marcas dispersas (D9, Seven, theNuvem, Demonicast, Caracol, MiniStral) para assumir o meu nome: <em className="text-foreground">"Tudo será Samuel Simão, sobre Samuel Simão, para Samuel Simão."</em>
+                  Em outubro de 2026, consolidei a minha visão estratégica: <span className="text-foreground font-semibold">unificar todos os meus produtos e soluções sob a minha marca pessoal — Samuel Simão</span>. Isto garante transparência total, comunicação direta em primeira pessoa e compromisso pessoal com cada utilizador que utiliza as minhas ferramentas.
                 </p>
                 <p>
-                  Sou cristão e coloco Deus, a família, o estudo e a honestidade na base de qualquer projeto. O meu objetivo é construir um negócio sustentável, alcançar independência financeira e ajudar quem está a começar, transmitindo conhecimento prático e sem complicações.
+                  Pauto a minha conduta por valores de integridade, ética cristã, disciplina e foco na geração de valor sustentável. Acredito que a melhor tecnologia é aquela que capacita pessoas e negócios a alcançar mais com menos esforço.
                 </p>
               </div>
             )}

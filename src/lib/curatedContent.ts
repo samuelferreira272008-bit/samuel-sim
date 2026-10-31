@@ -1,8 +1,8 @@
 /**
  * Publicações e Conteúdos Curados da Marca Pessoal Samuel Simão
  * 
- * Informações autênticas baseadas na história, projetos escolares no IMPTEL,
- * projetos de software e visão de negócio de Samuel Simão.
+ * Conteúdo público profissional, focado em produtos, engenharia de software,
+ * robótica prática e visão de negócio.
  */
 
 export interface CuratedPost {
@@ -42,7 +42,7 @@ export const CURATED_POSTS: CuratedPost[] = [
     id: "post-unificar-samuel-simao",
     slug: "por-que-decidi-unificar-tudo-sob-meu-nome-samuel-simao",
     title: "Por que decidi unificar tudo sob o meu nome: Samuel Simão",
-    excerpt: "Durante muito tempo criei marcas dispersas como D9, Seven, theNuvem e MiniStral. Em outubro de 2026, tomei a decisão mais importante: tudo será Samuel Simão.",
+    excerpt: "Durante muito tempo criei marcas dispersas como D9, Seven, theNuvem e MiniStral. Em outubro de 2026, tomei a decisão estratégica de unificar todo o meu ecossistema.",
     category: "Negócios",
     published: true,
     accessLevel: "public",
@@ -55,55 +55,53 @@ export const CURATED_POSTS: CuratedPost[] = [
 
 Se acompanhas o meu percurso desde o início, provavelmente já viste nomes diferentes associados às coisas que construo: **D9**, **Seven**, **Demonicast**, **Caracol**, **MiniStral**, **theNuvem**...
 
-Durante bastante tempo, acreditei que precisava de criar uma marca diferente para cada ideia. Parecia a coisa certa a fazer: uma "empresa" para software, um nome para tutoriais, outro para ferramentas experimentais. Falava muitas vezes no plural — *"nós"*, *"a nossa equipa"*, *"a nossa empresa"* —, como se precisasse de esconder que era apenas um jovem estudante em Luanda, com um computador, muita curiosidade e vontade de vencer.
+Durante bastante tempo, acreditei que precisava de criar uma marca diferente para cada ideia. Parecia o caminho natural: uma marca para software, um nome para conteúdos educativos, outro para ferramentas experimentais. Falava muitas vezes no plural — *"nós"*, *"a nossa equipa"* —, como se fosse necessário aparentar uma estrutura empresarial tradicional para ter credibilidade.
 
-Em outubro de 2026, parei para refletir e tomei uma decisão definitiva: **parar de fragmentar os meus esforços e unir tudo sob a minha própria identidade.**
+Em outubro de 2026, tomei uma decisão estratégica: **parar de fragmentar os meus esforços e unir tudo sob a minha própria marca pessoal.**
 
 > **Tudo será Samuel Simão, sobre Samuel Simão, para Samuel Simão.**
 
 ---
 
-## O peso de manter várias marcas invisíveis
+## O valor de uma Marca Pessoal Unificada
 
-Quando tens recursos limitados e estás a aprender, tentar gerir cinco marcas diferentes não é estratégia — é dispersão de energia. Cada projeto exigia um logótipo novo, uma página nova, redes sociais novas e uma mensagem diferente. No final, as pessoas não sabiam onde me encontrar nem quem estava verdadeiramente por trás daquilo.
+No ecossistema digital contemporâneo, a clareza é o ativo mais valioso. Gerir múltiplas marcas secundárias dispersa energia, fragmenta a atenção dos utilizadores e dilui a confiança.
 
-Percebi três verdades fundamentais:
+Compreendi três fatores essenciais:
 
-1. **As pessoas conectam-se com pessoas reais:** Ninguém quer seguir mais uma agência fictícia sem rosto. As pessoas querem ver quem está a construir, as vitórias e as dificuldades reais.
-2. **A minha reputação é o meu maior ativo:** Se eu construir uma boa ferramenta, quero que o meu nome esteja nela. Se eu errar, quero assumir a responsabilidade e aprender com isso.
-3. **Falar na primeira pessoa é libertador:** Eu não sou uma multinacional. Sou o **Samuel Simão**, estudante de Eletrónica e Telecomunicações no IMPTEL, em Camama. Dizer *"eu construí"*, *"eu testei"* e *"este é o meu projeto"* é muito mais honesto e direto do que fingir um conselho de administração.
-
----
-
-## O que é hoje o ecossistema Samuel Simão?
-
-A minha plataforma não é apenas um portfólio para mostrar trabalhos passados. Ela é a minha base de operações digitais, desenhada para crescer comigo nos próximos anos. Aqui reuni:
-
-* **O meu Portfólio & Projetos:** Onde mostro protótipos reais como o **REPI Rover**, o **Pafiworky** e as ferramentas que construo.
-* **Repositório de Aplicações:** Onde qualquer pessoa pode testar e executar programas diretamente no navegador, sem complicações.
-* **Conteúdos & Blog:** Onde partilho explicações práticas, sem rodeios e sem vocabulário técnico desnecessário, para quem quer aprender a usar a tecnologia no dia a dia.
-* **Produtos Digitais & Físicos:** Soluções que crio para resolver problemas reais e gerar valor sustentável.
-* **Comunidade:** Um espaço para trocar ideias com quem também quer crescer na área de tecnologia e negócios em Angola e pelo mundo fora.
+1. **Transparência e Autoria Direta:** As pessoas conectam-se com criadores autênticos. Assumir a autoria direta de cada produto, artigo ou software cria uma relação de confiança imediata com a comunidade e com os clientes.
+2. **Consolidação de Reputação:** Cada ferramenta bem construída e cada solução entregue reforça diretamente uma única assinatura: **Samuel Simão**.
+3. **Comunicação em Primeira Pessoa:** Falar na primeira pessoa (*"eu construí"*, *"eu testei"*, *"este é o meu produto"*) é direto, profissional e elimina barreiras desnecessárias.
 
 ---
 
-## Os valores que não negoceio
+## A Plataforma como Produto Integrado
 
-Tudo o que construo apoia-se em quatro pilares simples:
+A minha plataforma foi arquitetada como um ecossistema digital completo:
 
-* **Deus e a minha Fé Cristã:** É a base do meu caráter e das minhas decisões.
-* **Família e Estudo:** O compromisso com o meu percurso escolar no IMPTEL e o respeito por quem me apoia.
-* **Honestidade Absoluta:** Não invento testes que não fiz, não prometo resultados mágicos e não finjo ser o que ainda não sou.
-* **Servir os outros:** Acredito verdadeiramente que ser feliz também é fazer os outros felizes transmitindo conhecimento útil.
+* **Portfólio de Engenharia:** Apresentação de projetos de hardware, sistemas de automação e protótipos funcionais como o **REPI Rover** e o **Pafiworky**.
+* **Repositório de Software & Aplicações:** Ambiente onde os utilizadores podem rodar ferramentas web úteis diretamente no navegador, sem atritos ou barreiras de instalação.
+* **Publicações & Blog:** Artigos práticos, objetivos e fundamentados, orientados a desmistificar a tecnologia e capacitar profissionais e entusiastas.
+* **Produtos Digitais:** Soluções desenhadas para resolver problemas reais de produtividade e presença digital.
 
-Este site e as publicações que vais ver aqui são o reflexo direto de quem eu sou. Bem-vindo à minha jornada.
+---
+
+## Princípios de Atuação
+
+Tudo o que construo orienta-se por valores sólidos:
+
+* **Integridade e Ética:** Compromisso absoluto com a verdade, transparência nos produtos e entrega rigorosa do que é prometido.
+* **Excelência com Simplicidade:** Tecnologia só tem valor quando simplifica a vida das pessoas. Foco em experiência limpa e alta utilidade.
+* **Criação de Valor Sustentável:** Construir produtos que resolvem dores reais e geram impacto positivo no mercado.
+
+Esta plataforma é o reflexo da minha assinatura e da minha visão de produto.
     `,
   },
   {
     id: "post-como-a-internet-funciona",
     slug: "como-a-internet-realmente-funciona-explicacao-pratica",
-    title: "Como a Internet realmente funciona: Uma explicação sem rodeios nem termos complicados",
-    excerpt: "Sem manuais chatos nem teoria desnecessária. Como é que uma mensagem tua sai do Camama em Luanda e chega aos servidores do WhatsApp do outro lado do mundo em milissegundos?",
+    title: "Como a Internet realmente funciona: Uma explicação prática sem rodeios",
+    excerpt: "Sem manuais chatos nem teoria desnecessária. Como é que os dados saem do teu dispositivo em Luanda e chegam aos servidores globais em milissegundos?",
     category: "Educação",
     published: true,
     accessLevel: "public",
@@ -112,60 +110,57 @@ Este site e as publicações que vais ver aqui são o reflexo direto de quem eu 
     authorName: "Samuel Simão",
     coverImage: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80",
     content: `
-# Como a Internet realmente funciona: Sem rodeios nem termos complicados
+# Como a Internet realmente funciona: Uma explicação prática e sem rodeios
 
-Quase toda a gente usa a Internet todos os dias em Angola: mandamos mensagens no WhatsApp, vemos vídeos no YouTube, fazemos transferências no BAI Direto ou Multicaixa Express. Mas se perguntares à maioria das pessoas como isso realmente acontece, a resposta costuma ser: *"está na nuvem"* ou *"vem dos satélites"*.
+Quase toda a gente usa a Internet todos os dias: enviamos mensagens instantâneas, consumimos streaming, realizamos pagamentos digitais e operamos serviços na nuvem. Contudo, quando se pergunta como tudo isso opera por baixo da superfície, a resposta comum costuma ser vaga: *"está na nuvem"*.
 
-A verdade é muito mais prática, fascinante e física do que parece. Preparei esta explicação como parte do roteiro que desenhei para os meus vídeos explicativos no **Explainroo**.
-
----
-
-## 1. A Internet não é mágica no ar: são cabos debaixo da terra e do mar
-
-A primeira coisa que precisas de saber: **a maior parte da Internet é física**. 
-
-Não são satélites a fazer o trabalho pesado. Mais de 95% do tráfego internacional viaja por cabos de fibra ótica submarinos que atravessam os oceanos. Aqui mesmo em Luanda, temos cabos como o **SACS** (South Atlantic Cable System, que liga Angola ao Brasil através do Atlântico Sul) e o **WACS** (que desce pela costa ocidental de África).
-
-Quando abres um site hospedado nos Estados Unidos ou na Europa, o sinal luminoso viaja literalmente por baixo do mar a velocidades próximas da velocidade da luz.
+A infraestrutura real da Internet é física, fascinante e baseada em princípios de engenharia de telecomunicações extremamente práticos.
 
 ---
 
-## 2. A analogia simples: Moradas e Correios
+## 1. A Espinha Dorsal: Cabos Submarinos e Fibra Ótica
 
-Para entenderes o caminho de qualquer dado, pensa no sistema de encomendas:
+A primeira constatação importante: **mais de 95% do tráfego internacional de dados viaja por cabos de fibra ótica submarinos**, não por satélites.
 
-### O Endereço IP (O número da tua casa)
-Cada telemóvel, computador ou servidor ligado à rede recebe um número único chamado **Endereço IP** (por exemplo: \`192.168.1.1\` ou \`102.165.34.12\`). É a morada exata do teu dispositivo no mundo digital.
+Em Luanda, conectamo-nos a grandes rotas globais através de cabos de alta capacidade como o **SACS** (South Atlantic Cable System, conectando Angola diretamente ao continente americano) e o **WACS** (que percorre a costa ocidental africana até à Europa).
 
-### O DNS (A tua lista de contactos telefónica)
-Tu não decoras que o Google mora no número \`142.250.190.46\`. Tu só escreves \`google.com\`.
-O **DNS (Domain Name System)** é como a lista de contactos do teu telefone: tu procuras pelo nome do amigo (*"Samuel Simão"*), e o telefone marca o número dele. O DNS converte o nome bonito do site no endereço IP do computador onde esse site está guardado.
+Quando acedes a um serviço sediado noutro continente, os teus pacotes de dados percorrem oceanos sob o leito marinho através de pulsos de luz laser a velocidades próximas da velocidade da luz.
 
 ---
 
-## 3. Como uma mensagem tua viaja em 4 passos:
+## 2. A Estrutura de Endereçamento
 
-1. **A tua mensagem é dividida em pacotes:** Quando clicas em "Enviar", o teu telemóvel não manda o ficheiro inteiro de uma só vez. Ele divide o texto ou a foto em pedacinhos minúsculos chamados **pacotes de dados**.
-2. **O teu router / antena direciona os pacotes:** Os pacotes saem do teu telemóvel por ondas de rádio (Wi-Fi ou dados móveis 4G/5G) até à antena da operadora em Luanda.
-3. **A autoestrada da fibra:** A antena entrega os pacotes à rede de fibra ótica subterrânea e submarina, que os encaminha através de vários pontos chamados **routers**.
-4. **Montagem no destino:** O servidor onde o site ou aplicação está alojado recebe todos os pacotes, verifica se falta algum, junta tudo na ordem correta e envia a resposta de volta para o teu ecrã.
+Para que a informação chegue com precisão de um ponto A a um ponto B, a rede utiliza dois conceitos fundamentais:
 
-Tudo isto acontece em **menos de 150 milissegundos**.
+### O Endereço IP (O Identificador Lógico)
+Cada servidor, computador e telemóvel conectado à rede possui um **Endereço IP** exclusivo. Funciona como a coordenada exata de entrega de qualquer pacote digital.
+
+### O DNS (A Tabela de Tradução)
+Seria inviável memorizar endereços IP numéricos para cada serviço. O **DNS (Domain Name System)** atua como uma tabela de alta velocidade que traduz nomes legíveis por humanos (como \`google.com\`) para os endereços IP das máquinas onde as aplicações residem.
 
 ---
 
-## Por que é que isto importa?
+## 3. A Viagem de um Pacote de Dados em 4 Etapas:
 
-Quando compreendes o básico de como as coisas funcionam por baixo do capô, deixas de ter medo da tecnologia. Não precisas de saber programar em C ou configurar routers empresariais para tirar partido das ferramentas digitais.
+1. **Fragmentação em Pacotes:** A tua requisição é dividida em fragmentos padronizados de dados (pacotes IP).
+2. **Transmissão Rádio Local:** O dispositivo emite o sinal por radiofrequência até à torre de telecomunicações ou ao router local.
+3. **Roteamento em Fibra Ótica:** Os pacotes entram na infraestrutura de fibra terrestre e submarina, sendo comutados por routers de alta performance em milissegundos.
+4. **Reconstrução e Resposta:** O servidor de destino valida os pacotes, processa o pedido e envia os dados de retorno para o teu ecrã.
 
-É exatamente isso que procuro transmitir nos meus conteúdos: **desmistificar a tecnologia para que qualquer pessoa possa usar o conhecimento para construir os seus próprios negócios e projetos.**
+Todo este ciclo completa-se habitualmente em menos de 100 a 150 milissegundos.
+
+---
+
+## Engenharia Aplicada ao Utilizador
+
+Compreender a infraestrutura que sustenta o mundo digital é o primeiro passo para criar aplicações robustas, otimizadas para redes com latências variadas e prontas para o mercado real.
     `,
   },
   {
-    id: "post-repi-rover-imptel",
-    slug: "projeto-repi-rover-imptel-robotica-em-angola",
-    title: "O Projeto REPI Rover no IMPTEL: Robótica e automação local com poucos recursos",
-    excerpt: "Como desenvolvemos no IMPTEL (Camama) um sistema de robótica com Arduino, shield L293D e estação meteorológica funcionando 100% em rede local sem precisar de gastar saldo de dados.",
+    id: "post-repi-rover-robotica",
+    slug: "projeto-repi-rover-robotica-em-angola",
+    title: "O Projeto REPI Rover: Robótica e automação local com poucos recursos",
+    excerpt: "Como desenhei e implementei um sistema de robótica com microcontrolador Arduino, shield L293D e estação meteorológica operando em rede local offline.",
     category: "Tecnologia",
     published: true,
     accessLevel: "public",
@@ -174,67 +169,59 @@ Quando compreendes o básico de como as coisas funcionam por baixo do capô, dei
     authorName: "Samuel Simão",
     coverImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80",
     content: `
-# O Projeto REPI Rover no IMPTEL: Robótica e automação com poucos recursos
+# O Projeto REPI Rover: Robótica e automação local com poucos recursos
 
-No **IMPTEL** (Instituto Médio Politécnico de Telecomunicações), em Camama, Luanda, aprendemos todos os dias que a teoria de Eletrónica e Telecomunicações só ganha vida quando colocamos as mãos nos componentes, queimamos alguns fusíveis e resolvemos problemas práticos.
+No desenvolvimento de hardware e telecomunicações em Luanda, a teoria só se consolida quando enfrentamos os desafios práticos de prototipagem: limites de componentes, restrições energéticas e a necessidade de sistemas confiáveis que não dependam obrigatoriamente de conexão externa à Internet.
 
-Para o **Curiosity Challenge 2026**, liderei e desenvolvi com os meus colegas um projeto que me orgulha bastante: o **REPI Rover**.
-
----
-
-## O Desafio: Construir algo funcional numa realidade com restrições
-
-Em muitas escolas pelo mundo, os alunos têm kits caros e conexões de Internet de alta velocidade dedicadas nos laboratórios. Na nossa realidade, tínhamos de lidar com:
-
-* Orçamento restrito para aquisição de peças;
-* Falta de internet estável no laboratório para telemetria pesada na nuvem;
-* Necessidade de demonstrar o sistema em tempo real para um público de 30 a 50 pessoas sem falhas de conexão.
-
-A nossa resposta foi engenharia inteligente: **desenvolver uma arquitetura descentralizada e 100% autônoma numa rede local.**
+O **REPI Rover** nasceu dessa filosofia como um projeto de robótica e monitorização ambiental para desafios de inovação técnica.
 
 ---
 
-## A Arquitetura em Dois Nós
+## A Filosofia de Engenharia: Autonomia e Eficiência Local
 
-Dividimos o projeto em dois nós principais que comunicam de forma eficiente:
+Muitos sistemas modernos de robótica pecam por depender excessivamente de servidores remotos na nuvem para operações básicas. Num contexto prático, isso introduz pontos de falha e custos de largura de banda desnecessários.
 
-### 1. Nó Rover (Endereço I²C \`0x08\`)
-O veículo móvel de exploração:
-* **Cérebro:** Microcontrolador Arduino;
-* **Tração:** Shield de motores L293D com 4 motores DC de engrenagem;
-* **Navegação:** Sensor de distância ultrassónico HC-SR04 montado sobre um servo motor para mapear obstáculos à esquerda, ao centro e à direita antes de tomar decisões de manobra;
-* **Alimentação:** Pack de baterias recarregáveis com balanceamento de carga.
-
-### 2. Nó Estação Base / Ambiental (Endereço I²C \`0x09\`)
-A estação fixa de monitorização e suporte:
-* **Sensores ambientais:** DHT11 (temperatura e humidade do ar) e LDR (sensor de luminosidade);
-* **Segurança e presença:** Sensor infravermelho passivo (PIR);
-* **Atuadores:** Buzzer sonoro de alarme, LED RGB para indicação de estado e módulo relé para ligar e desligar iluminação física de apoio.
+A diretriz que estabeleci para o REPI Rover foi clara: **operação 100% autônoma e em tempo real sobre rede local descentralizada.**
 
 ---
 
-## A Escolha Técnica: Dicionário JSON em Rede Local Offline
+## Arquitetura em Dois Nós
 
-Em vez de enviar fluxos contínuos de vídeo ou telemetria pesada que saturariam a rede, estruturámos a comunicação através de um **dicionário de comandos JSON simples e leves**.
+O ecossistema foi estruturado em dois nós de telemetria e controle:
 
-* O controlo principal é feito via telemóvel ou computador local via **Wi-Fi local ou conexão OTG**;
-* O dashboard no computador lê e envia pacotes JSON limpos (ex: \`{"cmd":"MOVE","dir":"FWD","speed":200}\`);
-* A Internet só é ativada quando queremos solicitar análises inteligentes a modelos de IA rápidos (como **Groq** ou **Cerebras**), mantendo todo o funcionamento vital do robô totalmente operacional mesmo que a internet caia por completo.
+### 1. Nó Móvel: Rover de Exploração (Endereço \`0x08\`)
+* **Unidade de Processamento:** Microcontrolador dedicado com temporização precisa.
+* **Sistema de Tração:** Shield de potência de motores L293D com 4 motores DC de engrenagem.
+* **Sensorização de Prevenção de Obstáculos:** Sensor ultrassónico acoplado a servo motor para varredura angular (esquerda, centro, direita) antes da tomada de decisão de curso.
+* **Gestão Energética:** Baterias com circuito de proteção e balanceamento.
+
+### 2. Nó Fixo: Estação Meteorológica e de Alerta (Endereço \`0x09\`)
+* **Telemetria Climática:** Sensor digital de temperatura e humidade ambiente (DHT11) e sensor fotossensível de luminosidade (LDR).
+* **Deteção e Segurança:** Sensor de presença infravermelho passivo (PIR).
+* **Atuadores:** Sinalizador acústico (buzzer), indicador ótico RGB e relé de potência para controle de iluminação física.
 
 ---
 
-## A Lição Mais Importante
+## Comunicação por Pacotes JSON em Rede Local
 
-Este projeto provou-me que não precisas de estar num laboratório milionário no estrangeiro para fazer robótica de verdade. Quando compreendes a eletrónica básica, a lógica de programação e sabes liderar uma equipa focada em soluções simples, consegues criar tecnologia impressionante com os componentes disponíveis aqui mesmo em Angola.
+Para o controle e a telemetria, evitei fluxos pesados de dados. O sistema utiliza um **dicionário de comandos JSON otimizado**:
 
-O REPI Rover é um dos projetos centrais do meu percurso e continuará a evoluir nesta plataforma.
+* O controlo é exercido através de interface web/móvel via Wi-Fi local ou conexão OTG direta;
+* Mensagens leves de estado e comando garantem resposta instantânea sem latência perceptível;
+* Modelos de inteligência artificial de alta velocidade (como **Groq** ou **Cerebras**) são consultados apenas para análises preditivas opcionais, preservando a estabilidade total das operações mecânicas locais.
+
+---
+
+## Conclusão
+
+O REPI Rover exemplifica como princípios rigorosos de arquitetura de software e eletrónica permitem criar soluções de engenharia avançadas e plenamente funcionais com recursos controlados.
     `,
   },
   {
     id: "post-como-uso-ia-para-construir",
     slug: "como-uso-ia-para-construir-ferramentas-reais",
-    title: "Como uso Inteligência Artificial para construir ferramentas reais (sem ser um génio da programação)",
-    excerpt: "Não sou um sénior com dez anos de código. Sou um estudante a aprender que usa a IA como extensão do cérebro. A filosofia do Pafiworky: complexidade para a máquina, simplicidade para o utilizador.",
+    title: "Como uso Inteligência Artificial para construir produtos e ferramentas reais",
+    excerpt: "A tecnologia como alavanca produtiva. A filosofia do Pafiworky: complexidade para a máquina, simplicidade para o utilizador.",
     category: "Tecnologia",
     published: true,
     accessLevel: "public",
@@ -243,50 +230,44 @@ O REPI Rover é um dos projetos centrais do meu percurso e continuará a evoluir
     authorName: "Samuel Simão",
     coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
     content: `
-# Como uso IA para construir ferramentas reais (sem ser um génio da programação)
+# Como uso IA para construir produtos e ferramentas reais
 
-Existe um mito muito comum na Internet de que para criar ferramentas úteis, plataformas e aplicações precisas de dominar cinco linguagens de programação, passar anos a estudar algoritmos complexos e decorar todas as linhas de código.
+Existe um mito no meio tecnológico de que o valor de um produto reside na quantidade de linhas de código escritas manualmente ou na complexidade artificial de uma solução.
 
-Eu quero ser muito honesto contigo: **eu não sou um programador profissional sénior**. 
-
-Estou a estudar Eletrónica e Telecomunicações na 13ª classe. O que eu tenho é uma curiosidade gigante, clareza sobre o que quero construir e uma ferramenta poderosa nas mãos: a **Inteligência Artificial utilizada como extensão do meu cérebro.**
+A minha abordagem sempre foi diametralmente oposta: **o que define o sucesso de uma ferramenta é a velocidade e a eficácia com que ela resolve o problema do utilizador.**
 
 ---
 
 ## A Filosofia do Pafiworky
 
-Um dos projetos que explorei e que melhor resume o meu pensamento é o **Pafiworky**. A frase que guia esse projeto é simples:
+O projeto **Pafiworky** foi desenhado em torno de uma máxima fundamental:
 
 > *"Complexidade para a máquina. Simplicidade para o utilizador."*
 
-O utilizador comum não quer saber se o código foi feito em TypeScript, se corre num container Docker ou se usa algoritmos recursivos. Ele quer uma coisa só: **resolver o problema dele no menor tempo possível e sem dor de cabeça.**
+Quem utiliza uma ferramenta digital quer resultados rápidos, estabilidade e uma interface intuitiva. Toda a engenharia de backend, APIs e integrações deve existir para facilitar a vida do cliente, nunca para criar fricção.
 
-Quando uso ferramentas como **Lovable**, **Claude**, **Groq** ou **Cerebras**, eu não peço à IA para fazer "mágica". Eu atuo como o arquiteto da solução:
+No meu fluxo de trabalho, utilizo ferramentas de ponta de Inteligência Artificial — como **Claude**, **Lovable**, **Groq** e **Cerebras** — como aceleradores de arquitetura e prototipagem:
 
-1. **Defino o problema real:** Quem vai usar isto? Qual é a dor exata?
-2. **Desenho a arquitetura:** Quais são as tabelas necessárias? Como é que o utilizador vai interagir?
-3. **Uso a IA para a sintaxe e prototipagem rápida:** A IA escreve o código com base nas minhas orientações detalhadas;
-4. **Eu testo, valido e refino:** Garanto que a experiência é fluida, que não há erros e que o resultado final serve o propósito prático.
+1. **Engenharia de Requisitos:** Definição rigorosa da dor do utilizador e da jornada de experiência.
+2. **Modelagem de Dados & Arquitetura:** Especificação de contratos de API, schemas de banco de dados e regras de segurança.
+3. **Execução Acelerada:** Utilização de modelos de linguagem para geração precisa de boilerplate e testes de validação.
+4. **Refinamento e Garantia de Qualidade:** Testes exaustivos de UX, performance e acessibilidade em dispositivos reais.
 
 ---
 
-## O que aprendi na prática construindo esta plataforma
+## Acessibilidade e Eficiência
 
-Construir a plataforma **Samuel Simão** com React, Vite, Tailwind CSS e Supabase ensinou-me muito mais do que qualquer aula teórica:
+A proliferação de modelos de inferência rápida permite que criadores independentes entreguem soluções com o mesmo nível de polimento e robustez de grandes equipes de tecnologia.
 
-* **Aprender fazendo:** É quando um botão não funciona, quando uma política RLS do banco de dados bloqueia um registo, ou quando o deploy no Vercel falha que realmente entendes como a web funciona.
-* **Foco no que importa:** Não perco tempo a inventar a roda do zero quando existem bibliotecas excelentes. Se preciso de uma animação fluida, uso física de molas autêntica; se preciso de persistência segura, uso um backend confiável.
-* **Autonomia com ferramentas acessíveis:** Uso planos gratuitos, modelos de inferência otimizados e evito custos pesados de servidores. É possível construir tecnologia de ponta com disciplina e economia inteligente.
-
-A Inteligência Artificial nivelou o campo de jogo. Hoje, um jovem em Camama tem acesso às mesmas ferramentas de criação que um estudante em Silicon Valley. A única diferença é a vontade de sentar, aprender e executar.
+O segredo não é delegar o pensamento à máquina, mas sim ter clareza de visão, critério de design e foco constante em gerar valor real para o cliente final.
     `,
   },
   {
-    id: "post-fe-familia-e-negocios",
-    slug: "fe-familia-e-codigo-os-meus-valores",
-    title: "Fé, Família e Negócios: O que me guia na caminhada",
-    excerpt: "Quero construir um negócio sustentável, ajudar pessoas e alcançar a independência financeira. Mas o sucesso sem valores sólidos é um castelo na areia.",
-    category: "Espiritualidade",
+    id: "post-valores-e-visao-de-negocio",
+    slug: "valores-solidos-e-visao-de-negocio",
+    title: "Valores sólidos e visão de negócio: Os princípios que guiam os meus projetos",
+    excerpt: "Construir produtos sustentáveis, gerar rendimentos honestos e capacitar a comunidade. A integridade e o trabalho diligente como pilares inegociáveis.",
+    category: "Vida Pessoal",
     published: true,
     accessLevel: "public",
     createdAt: "2026-10-28T16:00:00Z",
@@ -294,103 +275,101 @@ A Inteligência Artificial nivelou o campo de jogo. Hoje, um jovem em Camama tem
     authorName: "Samuel Simão",
     coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
     content: `
-# Fé, Família e Negócios: O que me guia na caminhada
+# Valores sólidos e visão de negócio: Os princípios que guiam os meus projetos
 
-Tenho metas grandes e não tenho vergonha de as assumir abertamente: quero ser financeiramente bem-sucedido, construir um negócio sólido, gerar receitas online em dólares e em kwanzas, e transformar a vida da minha família através do trabalho honesto.
+Tenho objetivos empresariais claros e ambiciosos: construir um negócio de tecnologia sustentável, diversificar fontes de receita online em moeda forte e em kwanzas, e desenvolver produtos com alcance global.
 
-Mas aprendi cedo que o sucesso sem princípios não vale nada. De nada adianta construir um império financeiro se perderes a tua integridade pelo caminho.
-
----
-
-## 1. A minha Fé Cristã
-
-Sou cristão e coloco Deus no centro de tudo o que planeio e executo. Quando os planos dão errado ou quando os desafios parecem grandes demais para a minha idade, é na oração e na fé que encontro clareza e serenidade. 
-
-A Bíblia ensina que o trabalho honesto e a diligência trazem frutos. Para mim, a tecnologia e o conhecimento são dons que devem ser usados para abençoar outras pessoas e criar valor real no mundo.
+No entanto, o crescimento financeiro desprovido de princípios éticos é insustentável. Em todos os projetos que assino, mantenho diretrizes claras:
 
 ---
 
-## 2. A Família e o Estudo
+## 1. Fé Cristã e Integridade Ética
 
-A minha família é a minha base. Cada hora que passo a estudar no IMPTEL, cada linha de código que escrevo e cada projeto que desenvolvo tem como motivação honrar os meus pais e preparar um futuro seguro para os que amo. 
+A fé em Deus e a ética cristã são os alicerces das minhas decisões profissionais. O trabalho diligente, a honestidade absoluta com clientes e parceiros e a transparência em cada transação são regras fundamentais.
 
-Estudar não é apenas uma obrigação para obter uma nota na pauta; é o caminho para ter autoridade e conhecimento real sobre o que faço.
+Construir com base sólida significa entregar sempre o que é prometido, sem exageros comerciais ou atalhos duvidosos.
 
 ---
 
-## 3. O Verdadeiro Sentido de Prosperar
+## 2. Disciplina e Aprendizado Contínuo
 
-Gosto muito de uma frase que trago sempre comigo:
+O conhecimento técnico não é um destino estático, mas uma busca diária. Cada linha de código, teste de circuito ou arquitetura de software é fruto de disciplina rigorosa, estudo constante e foco em domínio prático.
 
-> *"Ser feliz também é fazer os outros felizes."*
+---
 
-Ganhar dinheiro é consequência de resolver problemas reais de pessoas reais. Quando crio um tutorial gratuito explicando como a Internet funciona, quando construo uma ferramenta que facilita o dia a dia de um empreendedor ou quando partilho o código do meu projeto de robótica, estou a retribuir o conhecimento que recebi.
+## 3. Criar Valor e Capacitar Pessoas
 
-A minha marca pessoal — **Samuel Simão** — está fundada nestes valores. Obrigado por fazeres parte desta jornada comigo.
+Um dos princípios que levo comigo em todas as iniciativas:
+
+> *"O sucesso genuíno mede-se pelo valor que criamos para a vida dos outros."*
+
+A tecnologia é uma ferramenta formidável de democratização de oportunidades. Quando construo uma aplicação acessível, escrevo um guia prático ou desenho um produto digital eficiente, o objetivo central é sempre empoderar utilizadores e empreendedores para que prosperem.
+
+A marca **Samuel Simão** continuará a expandir-se com base nesta visão.
     `,
   },
 ];
 
 export const CURATED_PROJECTS: CuratedContentItem[] = [
   {
-    id: "proj-repi-rover-imptel",
+    id: "proj-repi-rover",
     type: "project",
-    title: "REPI Rover & Estação Base (Curiosity Challenge 2026)",
-    description: "Sistema de robótica e automação local desenvolvido no IMPTEL (Camama). Composto por um Rover explorador com Arduino e shield L293D, e uma Estação meteorológica com sensores DHT11, LDR, PIR e relé, operando 100% offline em rede local.",
+    title: "REPI Rover & Estação de Telemetria Ambiental",
+    description: "Sistema avançado de robótica móvel e monitorização climática local. Integração de microcontroladores, shield de tração L293D, sensores ambientais (temperatura, luminosidade e presença) com operação 100% autônoma em rede local.",
     status: "published",
     created_at: "2026-10-22T00:00:00Z",
     thumbnail_url: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
-    category_name: "Robótica & Eletrónica",
+    category_name: "Robótica & Hardware",
     body: `
-# REPI Rover & Estação Base — IMPTEL Camama
+# REPI Rover & Estação de Telemetria Ambiental
 
-Desenvolvido para o **Curiosity Challenge 2026** no Instituto Médio Politécnico de Telecomunicações (IMPTEL), em Luanda.
+Projeto de engenharia de hardware e automação desenvolvido para demonstrações de telemetria autônoma e robótica móvel em Luanda.
 
-### Especificações do Sistema:
-* **Nó Rover (0x08):** Arduino Uno, Shield L293D com 4 motores DC, sensor ultrassónico HC-SR04 em servo motor para prevenção de colisões.
-* **Nó Estação Base (0x09):** Leitura de temperatura e humidade (DHT11), sensor crepuscular (LDR), deteção de movimento infravermelho (PIR), alarme sonoro e iluminação controlada por relé.
-* **Comunicação:** Protocolo baseado em pacotes JSON em rede Wi-Fi local sem necessidade de consumo de dados móveis.
+### Especificações Técnicas:
+* **Nó Móvel (0x08):** Unidade de controlo com tração integral de 4 motores DC via shield L293D, sensor ultrassónico HC-SR04 montado sobre servomotor para varredura angular e algoritmo de evasão de colisões.
+* **Nó Fixo (0x09):** Telemetria climática de temperatura e humidade (DHT11), sensor crepuscular (LDR), deteção volumétrica de presença (PIR) e acionamento por relé de potência.
+* **Comunicação:** Protocolo baseado em pacotes JSON ultraleves sobre rede Wi-Fi local sem dependência de acesso à Internet pública.
     `,
   },
   {
     id: "proj-pafiworky-assistant",
     type: "project",
-    title: "Pafiworky — Assistente Pessoal & Automação",
-    description: "Assistente pessoal e plataforma de integrações concebida sob o lema: 'Complexidade para a máquina. Simplicidade para o utilizador.' Foco em simplificar rotinas digitais e acelerar tarefas do dia a dia.",
+    title: "Pafiworky — Automação & Assistente Inteligente",
+    description: "Plataforma de automação e assistência desenhada sob o princípio: 'Complexidade para a máquina. Simplicidade para o utilizador.' Otimização de fluxos de trabalho e simplificação de rotinas digitais.",
     status: "published",
     created_at: "2026-10-10T00:00:00Z",
     thumbnail_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
     category_name: "Inteligência Artificial",
     body: `
-# Pafiworky — Assistente Pessoal & Automação
+# Pafiworky — Automação & Assistente Inteligente
 
-Projeto orientado para simplificar o uso da tecnologia por pessoas comuns e pequenos empreendedores.
+Solução orientada a acelerar processos e eliminar tarefas repetitivas para profissionais e empreendedores digitais.
 
 ### Destaques:
-* Orquestração de tarefas e rotinas repetitivas.
-* Interfaces intuitivas sem complicação técnica.
-* Integração com modelos de inteligência artificial de alta velocidade.
+* Orquestração fluida de tarefas digitais.
+* Interface tátil e intuitiva com mínima curva de aprendizado.
+* Conexão com motores de processamento e modelos de linguagem de resposta rápida.
     `,
   },
   {
     id: "proj-samuka-play",
     type: "project",
-    title: "Samuka Play Angola",
-    description: "Protótipo de plataforma de streaming e distribuição de conteúdos multimédia desenhado com foco na estabilidade e baixo consumo de dados móveis para o público angolano.",
+    title: "Samuka Play — Plataforma de Mídia & Streaming",
+    description: "Arquitetura de distribuição de conteúdo multimédia otimizada para alto desempenho, baixa latência e consumo eficiente de dados móveis em redes angolanas.",
     status: "published",
     created_at: "2026-09-15T00:00:00Z",
     thumbnail_url: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=800&q=80",
-    category_name: "Multimédia & Web",
+    category_name: "Aplicações Web",
   },
   {
     id: "proj-linkduo",
     type: "project",
-    title: "LinkDuo — Micro-Websites de Alta Conversão",
-    description: "Ferramenta e conceito para criação ultrarrápida de micro-sites, páginas de links e cartões de visita digitais interativos para profissionais e negócios em Angola.",
+    title: "LinkDuo — Micro-Websites & Conversão Rápida",
+    description: "Ferramenta para criação instantânea de páginas de links profissionais e micro-sites de alta conversão para empreendedores e prestadores de serviços.",
     status: "published",
     created_at: "2026-08-20T00:00:00Z",
     thumbnail_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-    category_name: "Negócios & Ferramentas",
+    category_name: "Produtos Digitais",
   },
 ];
 
@@ -398,17 +377,17 @@ export const CURATED_LAB_ITEMS: CuratedContentItem[] = [
   {
     id: "lab-explainroo-pipeline",
     type: "lab",
-    title: "Pipeline de Vídeos Explainroo",
-    description: "Ambiente de testes para geração automatizada de vídeos educativos em formato paper e motion graphics de 3 a 5 minutos, adaptados para o canal de YouTube Samuel Simão.",
+    title: "Pipeline Explainroo (Motion & Vídeo Educativo)",
+    description: "Pesquisa e automação de roteiros para geração de vídeos explicativos em formato paper motion de 3 a 5 minutos, orientados a simplificar a tecnologia para o público geral.",
     status: "beta",
     created_at: "2026-10-20T00:00:00Z",
-    category_name: "Vídeo & Motion",
+    category_name: "Automação Multimédia",
   },
   {
     id: "lab-app-sandbox-iframe",
     type: "lab",
-    title: "Motor de Execução de Apps em Sandbox (Iframe)",
-    description: "Arquitetura para abrir, isolar e rodar softwares web interativos diretamente na plataforma sem necessidade de download ou instalação por parte do visitante.",
+    title: "Motor Sandbox Web para Execução de Aplicações",
+    description: "Mecanismo para carregar, isolar e executar aplicações e ferramentas web diretamente na plataforma sem necessidade de download ou configuração local.",
     status: "published",
     created_at: "2026-10-28T00:00:00Z",
     category_name: "Engenharia Web",
@@ -416,8 +395,8 @@ export const CURATED_LAB_ITEMS: CuratedContentItem[] = [
   {
     id: "lab-groq-cerebras-node",
     type: "lab",
-    title: "Nó de Inferência Ultrarrápida (Groq & Cerebras)",
-    description: "Experimentos de processamento de linguagem e automação com latência inferior a 150ms para assistentes pessoais e análise de documentos sem dependência de hardware pesado local.",
+    title: "Motor de Inferência Ultrarrápida de IA",
+    description: "Testes e benchmarks de inferência de altíssima velocidade (<150ms) com arquiteturas LPU e aceleradores para assistentes e análise documental.",
     status: "alpha",
     created_at: "2026-10-12T00:00:00Z",
     category_name: "Inteligência Artificial",

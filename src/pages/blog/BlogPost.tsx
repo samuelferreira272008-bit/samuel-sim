@@ -11,6 +11,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { db, repoTypeLabel, repoTypePath } from "@/lib/repo";
 import { useSEO } from "@/lib/seo";
+import { CURATED_POSTS } from "@/lib/curatedContent";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -19,6 +20,25 @@ export default function BlogPost() {
   const { data: post, isLoading, error } = useQuery({
     queryKey: ["post-or-repo", slug],
     queryFn: async () => {
+      // 0. Check curated authoritative posts first
+      const curated = CURATED_POSTS.find((p) => p.slug === slug || p.id === slug);
+      if (curated) {
+        return {
+          id: curated.id,
+          title: curated.title,
+          slug: curated.slug,
+          excerpt: curated.excerpt,
+          content: curated.content,
+          cover_image: curated.coverImage,
+          video_url: null,
+          access_level: curated.accessLevel,
+          created_at: curated.createdAt,
+          categories: { name: curated.category },
+          author_name: curated.authorName,
+          _source: "post" as const,
+        };
+      }
+
       // 1. Try posts table by slug
       const { data } = await supabase
         .from("posts")

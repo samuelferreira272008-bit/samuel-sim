@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/dashboard/EmptyState";
 import { useSEO } from "@/lib/seo";
 import { MediaBlock } from "@/components/media/MediaBlock";
 import { GlowCard } from "@/components/visuals/GlowCard";
+import { CURATED_LAB_ITEMS } from "@/lib/curatedContent";
 
 const tierLabel: Record<string, string> = {
   wip: "Em desenvolvimento",
@@ -32,7 +33,16 @@ export default function Lab() {
         .eq("type", "lab")
         .neq("status", "archived")
         .order("created_at", { ascending: false });
-      return data ?? [];
+
+      const dbItems = data ?? [];
+      const combined = [...CURATED_LAB_ITEMS, ...dbItems];
+      const seen = new Set<string>();
+      return combined.filter((it) => {
+        const key = it.title.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
     },
   });
 

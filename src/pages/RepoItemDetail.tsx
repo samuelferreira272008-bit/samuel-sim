@@ -20,6 +20,7 @@ import { MediaBlock } from "@/components/media/MediaBlock";
 import { AppRunner } from "@/components/repo/AppRunner";
 import { useSEO } from "@/lib/seo";
 import { db, formatPrice, repoTypeLabel, repoTypePath } from "@/lib/repo";
+import { CURATED_PROJECTS, CURATED_LAB_ITEMS } from "@/lib/curatedContent";
 
 export default function RepoItemDetail() {
   const { id } = useParams();
@@ -31,8 +32,11 @@ export default function RepoItemDetail() {
 
   const { data: it, isLoading } = useQuery({
     queryKey: ["repo-item", id],
-    queryFn: async () =>
-      (await db.from("content_items").select("*").eq("id", id).maybeSingle()).data,
+    queryFn: async () => {
+      const curated = [...CURATED_PROJECTS, ...CURATED_LAB_ITEMS].find((item) => item.id === id);
+      if (curated) return curated;
+      return (await db.from("content_items").select("*").eq("id", id).maybeSingle()).data;
+    },
   });
 
   useEffect(() => {

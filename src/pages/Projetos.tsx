@@ -9,6 +9,7 @@ import { useSEO } from "@/lib/seo";
 import { MediaBlock } from "@/components/media/MediaBlock";
 import { SegmentedControl } from "@/components/visuals/SegmentedControl";
 import { GlowCard } from "@/components/visuals/GlowCard";
+import { CURATED_PROJECTS } from "@/lib/curatedContent";
 
 export default function Projetos() {
   useSEO({
@@ -35,7 +36,18 @@ export default function Projetos() {
         .order("created_at", { ascending: false });
       if (selected !== "all") q = q.eq("category_id", selected);
       const { data } = await q;
-      return data ?? [];
+
+      const dbItems = data ?? [];
+      const curated = selected === "all" ? CURATED_PROJECTS : [];
+
+      const combined = [...curated, ...dbItems];
+      const seen = new Set<string>();
+      return combined.filter((it) => {
+        const key = it.title.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
     },
   });
 

@@ -22,16 +22,17 @@ import { db, whatsappHref } from "@/lib/repo";
 import portrait from "@/assets/hero-portrait.jpg";
 
 const timeline = [
-  { year: "Hoje", title: "A construir o ecossistema", desc: "Plataforma única com blog, lab, ferramentas, apps e comunidade." },
-  { year: "2024", title: "Educador digital", desc: "Conteúdo e tutoriais em português para quem quer crescer." },
-  { year: "2023", title: "Developer & criador", desc: "Projetos open source, produtos digitais e experiências web." },
-  { year: "Sempre", title: "Curiosidade infinita", desc: "Aprender, construir, partilhar — em loop." },
+  { year: "2026 / Presente", title: "Unificação da Marca Samuel Simão", desc: "Decisão estratégica de unir todos os projetos sob a minha identidade. Projeto REPI Rover no IMPTEL (Curiosity Challenge) e ecossistema digital." },
+  { year: "2024 / 2025", title: "Eletrónica, Robótica & IA", desc: "Avanço nos estudos de Telecomunicações no IMPTEL (Camama) e desenvolvimento de assistentes práticos como o Pafiworky." },
+  { year: "2023", title: "Primeiros Protótipos", desc: "Criação de ferramentas web, exploração de servidores locais e prototipagem de aplicações." },
+  { year: "Origem", title: "Luanda, Angola", desc: "Nascido a 27 de julho de 2008, guiado pela fé cristã, família e paixão por construir." },
 ];
 
 const principles = [
-  { title: "Construir em público", desc: "Mostro o processo, não só o resultado." },
-  { title: "Conteúdo livre", desc: "A maioria do que partilho é gratuito." },
-  { title: "Excelência simples", desc: "Menos é mais — clareza acima de tudo." },
+  { title: "Tudo é Samuel Simão", desc: "Uma marca pessoal transparente e direta. Falo na primeira pessoa, construo com a minha assinatura e assumo a responsabilidade." },
+  { title: "Simplicidade para o utilizador", desc: "Complexidade para a máquina, simplicidade para quem usa. A tecnologia deve resolver problemas sem burocracia." },
+  { title: "Fé, Família & Honestidade", desc: "Sou cristão. Deus está no centro das minhas decisões e a honestidade é um princípio inegociável." },
+  { title: "Fazer os outros felizes", desc: "Acredito que ser feliz é também ajudar os outros a prosperar através do conhecimento prático." },
 ];
 
 const socialLabels: Record<string, string> = {
@@ -65,7 +66,8 @@ export default function Sobre() {
   });
 
   const fullName = profile?.full_name || "Samuel Simão";
-  const headline = profile?.headline || "Criador digital, developer e educador";
+  const headline = profile?.headline || "Estudante de Eletrónica e Telecomunicações no IMPTEL · Empreendedor Digital";
+  const location = profile?.location || "Luanda, Angola";
   const photos: string[] = Array.isArray(profile?.photos) && profile.photos.length > 0 ? profile.photos : [portrait];
   const mainPhoto = photos[0] || portrait;
   const extraPhotos = photos.slice(1);
@@ -111,12 +113,10 @@ export default function Sobre() {
                   Contacto & Redes
                 </h3>
                 <div className="space-y-2 text-sm text-muted-foreground">
-                  {profile?.location && (
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-foreground shrink-0" />
-                      <span className="truncate">{profile.location}</span>
-                    </div>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-foreground shrink-0" />
+                    <span className="truncate">{location}</span>
+                  </div>
                   {profile?.contact_email && (
                     <a
                       href={`mailto:${profile.contact_email}`}
@@ -186,16 +186,23 @@ export default function Sobre() {
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{profile.bio}</ReactMarkdown>
               </div>
             ) : (
-              <>
+              <div className="space-y-5 text-base sm:text-lg leading-relaxed text-muted-foreground">
                 <p>
-                  Sou <span className="font-semibold text-foreground">{fullName}</span> — criador digital, developer e educador.
-                  Construo plataformas, escrevo conteúdo e partilho ferramentas para ajudar outras pessoas a aprender tecnologia.
+                  Olá! Sou o <span className="font-semibold text-foreground">{fullName}</span> (Samuel Garcia Ferreira Simão), nascido a 27 de julho de 2008 em Luanda, Angola.
                 </p>
                 <p>
-                  Esta é a minha plataforma pessoal: um ponto único onde encontras o blog, projetos, aplicações, ferramentas que recomendo,
-                  experiências em desenvolvimento (Lab), uma comunidade e a vitrine de produtos.
+                  Sou estudante do curso de <span className="text-foreground font-semibold">Eletrónica e Telecomunicações no IMPTEL</span> (Instituto Médio Politécnico de Telecomunicações, em Camama), a frequentar a 13.ª classe com conclusão prevista para 2027.
                 </p>
-              </>
+                <p>
+                  A minha paixão é construir: desde sistemas físicos e robôs (como o projeto <span className="text-foreground font-medium">REPI Rover</span> para o Curiosity Challenge) até assistentes inteligentes como o <span className="text-foreground font-medium">Pafiworky</span> e ferramentas digitais que simplificam o dia a dia.
+                </p>
+                <p>
+                  Em outubro de 2026, tomei uma decisão essencial: <span className="text-foreground font-semibold">unificar tudo sob a minha própria identidade pessoal</span>. Deixei para trás marcas dispersas (D9, Seven, theNuvem, Demonicast, Caracol, MiniStral) para assumir o meu nome: <em className="text-foreground">"Tudo será Samuel Simão, sobre Samuel Simão, para Samuel Simão."</em>
+                </p>
+                <p>
+                  Sou cristão e coloco Deus, a família, o estudo e a honestidade na base de qualquer projeto. O meu objetivo é construir um negócio sustentável, alcançar independência financeira e ajudar quem está a começar, transmitindo conhecimento prático e sem complicações.
+                </p>
+              </div>
             )}
           </motion.div>
 

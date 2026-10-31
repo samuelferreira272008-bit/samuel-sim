@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useSEO } from "@/lib/seo";
 import { db, repoTypeLabel } from "@/lib/repo";
+import { CURATED_POSTS } from "@/lib/curatedContent";
 
 export default function Blog() {
   useSEO({
@@ -48,6 +49,25 @@ export default function Blog() {
 
       const [postsRes, repoRes] = await Promise.all([postsQuery, repoQuery]);
 
+      const selectedCatObj = categories.find((c: any) => c.id === selectedCategory);
+      const selectedCatName = selectedCatObj ? selectedCatObj.name.toLowerCase() : null;
+
+      const curatedEntries = CURATED_POSTS.filter((p) => {
+        if (!selectedCatName) return true;
+        return p.category.toLowerCase() === selectedCatName;
+      }).map((p) => ({
+        id: p.id,
+        title: p.title,
+        slug: p.slug,
+        excerpt: p.excerpt,
+        coverImage: p.coverImage,
+        category: p.category,
+        accessLevel: p.accessLevel,
+        createdAt: p.createdAt,
+        typeBadge: "Artigo",
+        href: `/blog/${p.slug}`,
+      }));
+
       const postEntries = (postsRes.data ?? []).map((p: any) => ({
         id: `post-${p.id}`,
         title: p.title,
@@ -74,7 +94,16 @@ export default function Blog() {
         href: `/blog/${it.id}`,
       }));
 
-      return [...postEntries, ...repoEntries].sort(
+      // Combine and deduplicate by slug
+      const combined = [...curatedEntries, ...postEntries, ...repoEntries];
+      const seen = new Set<string>();
+      const deduplicated = combined.filter((entry) => {
+        if (seen.has(entry.slug)) return false;
+        seen.add(entry.slug);
+        return true;
+      });
+
+      return deduplicated.sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       );
     },

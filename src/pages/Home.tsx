@@ -64,14 +64,15 @@ export default function Home() {
   const firstName = nameParts[0] || "Samuel";
   const restName = nameParts.slice(1).join(" ") || "Simão";
 
-  const headline: string = profile?.headline?.trim() || "Criador · Developer · Educador";
+  const headline: string = profile?.headline?.trim() || "Eletrónica · Telecomunicações · Empreendedorismo";
   const bioSummary: string = profile?.bio?.trim()
     ? profile.bio
         .replace(/[#*_>`~-]/g, "")
         .split(/\n+/)
         .filter(Boolean)[0]
         ?.slice(0, 280) ?? ""
-    : "A construir ferramentas, conteúdo e comunidade. Bem-vindo ao meu ecossistema digital — onde partilho projetos, ideias e recursos para quem quer crescer na tecnologia.";
+    : "Estudante de Eletrónica e Telecomunicações no IMPTEL (Camama, Luanda). Construo ferramentas digitais, projetos de robótica e conteúdos acessíveis para quem quer aprender e crescer na tecnologia.";
+  const location: string = profile?.location || "Luanda, Angola";
 
   const waLink = whatsappHref(profile?.whatsapp, `Olá ${fullName}!`);
 
@@ -120,21 +121,18 @@ export default function Home() {
               {bioSummary}
             </motion.p>
 
-            {/* Quick Socials & Location from Sobre Mim */}
-            {(profile?.location || socialEntries.length > 0) && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.65 }}
-                className="mt-6 flex flex-wrap items-center gap-2"
-              >
-                {profile?.location && (
-                  <TactileBadge>
-                    <MapPin className="h-3.5 w-3.5 text-foreground" />
-                    {profile.location}
-                  </TactileBadge>
-                )}
-                {socialEntries.slice(0, 5).map(([key, url]) => (
+            {/* Quick Socials & Location */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
+              className="mt-6 flex flex-wrap items-center gap-2"
+            >
+              <TactileBadge>
+                <MapPin className="h-3.5 w-3.5 text-foreground" />
+                {location}
+              </TactileBadge>
+              {socialEntries.slice(0, 5).map(([key, url]) => (
                   <a
                     key={key}
                     href={url}
@@ -148,7 +146,6 @@ export default function Home() {
                   </a>
                 ))}
               </motion.div>
-            )}
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}

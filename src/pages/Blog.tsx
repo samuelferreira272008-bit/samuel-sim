@@ -94,8 +94,8 @@ export default function Blog() {
         href: `/blog/${it.id}`,
       }));
 
-      // Combine and deduplicate by slug
-      const combined = [...curatedEntries, ...postEntries, ...repoEntries];
+      // Combine and deduplicate by slug (DB posts take precedence so synced UUID posts are canonical)
+      const combined = [...postEntries, ...curatedEntries, ...repoEntries];
       const seen = new Set<string>();
       const deduplicated = combined.filter((entry) => {
         if (seen.has(entry.slug)) return false;

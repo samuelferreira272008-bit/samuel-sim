@@ -11,7 +11,7 @@ import { AppRunnerModal } from "@/components/repo/AppRunner";
 import { GlowCard } from "@/components/visuals/GlowCard";
 import { LottiePlayPulse } from "@/components/visuals/LottieMicro";
 import { useSEO } from "@/lib/seo";
-import { db, formatPrice, repoTypePath } from "@/lib/repo";
+import { db, formatPrice, normalizeExternalUrl, repoTypePath } from "@/lib/repo";
 
 const config: Record<string, { title: string; subtitle: string; eyebrow: string }> = {
   app: {
@@ -37,7 +37,7 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
   const [q, setQ] = useState("");
   const [runningApp, setRunningApp] = useState<{ title: string; url: string } | null>(null);
 
-  const { data: items = [], isLoading } = useQuery({
+  const { data: rawItems = [], isLoading } = useQuery({
     queryKey: ["repo", type],
     queryFn: async () =>
       (
@@ -49,6 +49,27 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
           .order("created_at", { ascending: false })
       ).data ?? [],
   });
+
+  // Deduplicate entries by normalized title (e.g., OpenCut published vs duplicate Opencut beta)
+  const items = Array.from(
+    (rawItems as Array<Record<string, unknown>>).reduce((map, current) => {
+      const key = String(current.title ?? "").trim().toLowerCase();
+      if (!key) return map;
+      const existing = map.get(key);
+      if (!existing) {
+        map.set(key, current);
+      } else {
+        const existingScore =
+          (existing.status === "published" ? 2 : 0) + (existing.content_url ? 1 : 0);
+        const currentScore =
+          (current.status === "published" ? 2 : 0) + (current.content_url ? 1 : 0);
+        if (currentScore > existingScore) {
+          map.set(key, current);
+        }
+      }
+      return map;
+    }, new Map<string, Record<string, unknown>>()).values(),
+  );
 
   const shown = items.filter((i: any) =>
     `${i.title} ${i.description ?? ""}`.toLowerCase().includes(q.toLowerCase()),
@@ -95,7 +116,8 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
         <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((it: any) => {
             const img = it.thumbnail_url ?? it.gallery?.[0];
-            const hasWebUrl = !!it.content_url;
+            const resolvedUrl = normalizeExternalUrl(it.content_url);
+            const hasWebUrl = !!resolvedUrl;
 
             return (
               <GlowCard
@@ -156,10 +178,10 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
                     <Link to={`${repoTypePath[type]}/${it.id}`}>Ver Detalhes</Link>
                   </Button>
 
-                  {hasWebUrl && (
+                  {hasWebUrl && resolvedUrl && (
                     <Button
                       size="sm"
-                      onClick={() => setRunningApp({ title: it.title, url: it.content_url })}
+                      onClick={() => setRunningApp({ title: it.title, url: resolvedUrl })}
                       className="text-xs font-semibold shadow-xs min-h-[40px] px-3.5"
                     >
                       <Play className="mr-1.5 h-3.5 w-3.5 fill-current" /> Executar App

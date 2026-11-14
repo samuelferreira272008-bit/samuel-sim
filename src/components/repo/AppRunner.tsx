@@ -17,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
+import { normalizeExternalUrl } from "@/lib/repo";
 
 interface AppRunnerProps {
   url: string;
@@ -35,6 +36,7 @@ export function AppRunner({
   initialFullscreen = false,
   onClose,
 }: AppRunnerProps) {
+  const safeUrl = normalizeExternalUrl(url) ?? url;
   const [isFullscreen, setIsFullscreen] = useState(initialFullscreen);
   const [viewport, setViewport] = useState<ViewportMode>("desktop");
   const [isLoading, setIsLoading] = useState(true);
@@ -61,7 +63,7 @@ export function AppRunner({
   };
 
   const handleCopyUrl = () => {
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(safeUrl);
     setCopied(true);
     toast.success("Link da app copiado!");
     setTimeout(() => setCopied(false), 2000);
@@ -176,7 +178,7 @@ export function AppRunner({
             className="h-8 w-8 sm:h-8 sm:w-8 p-0 text-muted-foreground hover:text-foreground"
             title="Abrir diretamente em nova aba"
           >
-            <a href={url} target="_blank" rel="noopener noreferrer">
+            <a href={safeUrl} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="h-3.5 w-3.5" />
               <span className="sr-only">Abrir Externamente</span>
             </a>
@@ -233,7 +235,7 @@ export function AppRunner({
           <iframe
             key={loadKey}
             ref={iframeRef}
-            src={url}
+            src={safeUrl}
             title={title}
             onLoad={() => setIsLoading(false)}
             className="h-full w-full border-0 bg-background"
@@ -250,9 +252,9 @@ export function AppRunner({
           <div className="flex items-center gap-1.5 truncate">
             <AlertCircle className="h-3.5 w-3.5 text-foreground/70 shrink-0" />
             <span className="truncate">
-              A executar <strong className="text-foreground">{url}</strong> em sandbox. Se o ecrã ficar em branco devido a bloqueios de segurança do site externo (X-Frame-Options), clica em{" "}
+              A executar <strong className="text-foreground">{safeUrl}</strong> em sandbox. Se o ecrã ficar em branco devido a bloqueios de segurança do site externo (X-Frame-Options), clica em{" "}
               <a
-                href={url}
+                href={safeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline text-foreground font-medium hover:text-foreground/80"

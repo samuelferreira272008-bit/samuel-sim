@@ -11,8 +11,9 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
-import { Plus, Pencil, Trash2, ExternalLink, Download, X, Upload } from "lucide-react";
+import { Plus, Pencil, Trash2, ExternalLink, Download, X, Upload, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
+import { CURATED_POSTS } from "@/lib/curatedContent";
 
 interface PostForm {
   title: string;
@@ -46,6 +47,7 @@ export default function AdminConteudo() {
   const [links, setLinks] = useState<LinkItem[]>([]);
   const [resources, setResources] = useState<ResourceItem[]>([]);
   const [saving, setSaving] = useState(false);
+  const [syncingCurated, setSyncingCurated] = useState(false);
 
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ["admin-posts"],
@@ -186,16 +188,62 @@ export default function AdminConteudo() {
     onError: () => toast.error("Erro ao eliminar."),
   });
 
+  const existingSlugs = new Set((posts ?? []).map((p: { slug?: string }) => p.slug));
+  const missingCurated = CURATED_POSTS.filter((c) => !existingSlugs.has(c.slug));
+
+  const syncCuratedPosts = async () => {
+    if (!user || missingCurated.length === 0) return;
+    setSyncingCurated(true);
+    try {
+      const catByName = new Map<string, string>();
+      (categories as Array<{ id: string; name: string }>).forEach((c) => {
+        catByName.set(c.name.toLowerCase(), c.id);
+      });
+
+      const payload = missingCurated.map((c) => ({
+        title: c.title,
+        slug: c.slug,
+        excerpt: c.excerpt,
+        content: c.content.trim(),
+        cover_image: c.coverImage,
+        category_id: catByName.get(c.category.toLowerCase()) ?? null,
+        access_level: c.accessLevel,
+        content_type: "blog",
+        published: c.published,
+        author_id: user.id,
+        created_at: c.createdAt,
+      }));
+
+      const { error } = await supabase.from("posts").insert(payload);
+      if (error) throw error;
+      toast.success(`${payload.length} artigo(s) curado(s) sincronizado(s) na base de dados!`);
+      queryClient.invalidateQueries({ queryKey: ["admin-posts"] });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Erro ao sincronizar artigos.";
+      toast.error(message);
+    } finally {
+      setSyncingCurated(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Gestão de Conteúdo</h1>
           <p className="mt-1 text-sm text-muted-foreground">Criar e gerir blog, tutoriais e conteúdo do Lab.</p>
         </div>
-        <Button onClick={openCreate} className="gap-2">
-          <Plus className="h-4 w-4" /> Novo Post
-        </Button>
+        <div className="flex flex-wrap items-center gap-2">
+          {missingCurated.length > 0 && (
+            <Button variant="outline" onClick={syncCuratedPosts} disabled={syncingCurated} className="gap-2">
+              <RefreshCw className={`h-4 w-4 ${syncingCurated ? "animate-spin" : ""}`} />
+              Sincronizar {missingCurated.length} Curado(s)
+            </Button>
+          )}
+          <Button onClick={openCreate} className="gap-2">
+            <Plus className="h-4 w-4" /> Novo Post
+          </Button>
+        </div>
       </div>
 
       {/* Posts list */}

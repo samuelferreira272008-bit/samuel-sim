@@ -19,6 +19,14 @@ export function whatsappHref(v?: string | null, text?: string) {
   return `https://wa.me/${digits}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 }
 
+export function normalizeExternalUrl(url?: string | null): string | null {
+  if (!url) return null;
+  const trimmed = url.trim();
+  if (!trimmed) return null;
+  if (trimmed.startsWith("/") || /^https?:\/\//i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
+}
+
 export const repoTypeLabel: Record<string, string> = {
   app: "App / Programa",
   project: "Projeto",

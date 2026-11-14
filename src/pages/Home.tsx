@@ -27,7 +27,7 @@ import { GsapCounter } from "@/components/visuals/GsapCounter";
 import { LottieSpark, TactileBadge } from "@/components/visuals/LottieMicro";
 import { Magnetic } from "@/components/visuals/Magnetic";
 import { db, whatsappHref } from "@/lib/repo";
-import { CURATED_LAB_ITEMS, CURATED_POSTS, CURATED_PROJECTS } from "@/lib/curatedContent";
+import { CURATED_LAB_ITEMS, CURATED_POSTS, CURATED_PRODUCTS, CURATED_PROJECTS } from "@/lib/curatedContent";
 
 const features = [
   { icon: AppWindow, title: "Apps & Programas", desc: "Aplicações e softwares prontos para usar ou transferir.", to: "/apps" },
@@ -63,34 +63,49 @@ export default function Home() {
   const { data: metrics } = useQuery({
     queryKey: ["home-metrics"],
     queryFn: async () => {
-      const [{ data: contentRows }, { data: postRows }] = await Promise.all([
-        db.from("content_items").select("id, title"),
-        db.from("posts").select("id, slug").eq("published", true),
-      ]);
+      const [{ data: contentRows }, { data: postRows }, { data: productRows }, { data: businessRows }] =
+        await Promise.all([
+          db.from("content_items").select("id, title, status"),
+          db.from("posts").select("id, slug").eq("published", true),
+          db.from("products").select("id, name").eq("is_active", true),
+          db.from("businesses").select("id").eq("is_published", true),
+        ]);
+
+      const activeContent = ((contentRows ?? []) as Array<{ title?: string | null; status?: string | null }>).filter(
+        (i) => i.status !== "archived",
+      );
 
       const contentTitles = new Set<string>(
-        [
-          ...((contentRows ?? []) as Array<{ title?: string | null }>),
-          ...CURATED_PROJECTS,
-          ...CURATED_LAB_ITEMS,
-        ].map((i) => (i.title || "").toLowerCase()),
+        [...activeContent, ...CURATED_PROJECTS, ...CURATED_LAB_ITEMS].map((i) =>
+          (i.title || "").trim().toLowerCase(),
+        ),
       );
       const postSlugs = new Set<string>(
         [
           ...((postRows ?? []) as Array<{ id?: string; slug?: string | null }>),
           ...CURATED_POSTS,
-        ].map((p) => (p.slug || p.id || "").toLowerCase()),
+        ].map((p) => (p.slug || p.id || "").trim().toLowerCase()),
+      );
+      const productNames = new Set<string>(
+        [
+          ...((productRows ?? []) as Array<{ name?: string | null }>),
+          ...CURATED_PRODUCTS,
+        ].map((p) => (p.name || "").trim().toLowerCase()),
       );
 
       return {
         itemsCount: contentTitles.size,
         postsCount: postSlugs.size,
+        productsCount: productNames.size,
+        businessesCount: (businessRows ?? []).length,
       };
     },
   });
 
   const itemsCount = metrics?.itemsCount ?? CURATED_PROJECTS.length + CURATED_LAB_ITEMS.length;
   const postsCount = metrics?.postsCount ?? CURATED_POSTS.length;
+  const productsCount = metrics?.productsCount ?? CURATED_PRODUCTS.length;
+  const businessesCount = metrics?.businessesCount ?? 0;
 
   const fullName: string = profile?.full_name?.trim() || "Samuel Simão";
   const nameParts = fullName.split(/\s+/);
@@ -165,6 +180,14 @@ export default function Home() {
                 <MapPin className="h-3.5 w-3.5 text-foreground" />
                 {location}
               </TactileBadge>
+              {profile?.contact_email && (
+                <a href={`mailto:${profile.contact_email}`}>
+                  <TactileBadge>
+                    <Mail className="h-3 w-3" />
+                    {profile.contact_email}
+                  </TactileBadge>
+                </a>
+              )}
               {socialEntries.slice(0, 5).map(([key, url]) => (
                   <a
                     key={key}
@@ -223,22 +246,24 @@ export default function Home() {
         <div className="relative z-10 border-t border-border/60 bg-card/60 backdrop-blur-xl">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              <div className="flex flex-col items-center sm:items-start p-2">
+              <Link to="/apps" className="group flex flex-col items-center sm:items-start p-2 rounded-xl transition-colors hover:bg-secondary/60">
                 <GsapCounter value={itemsCount} className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5">Apps, Projetos & Lab</span>
-              </div>
-              <div className="flex flex-col items-center sm:items-start p-2">
+                <span className="text-xs text-muted-foreground mt-0.5 group-hover:text-foreground transition-colors">Apps, Projetos & Lab</span>
+              </Link>
+              <Link to="/blog" className="group flex flex-col items-center sm:items-start p-2 rounded-xl transition-colors hover:bg-secondary/60">
                 <GsapCounter value={postsCount} className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5">Artigos Publicados</span>
-              </div>
-              <div className="flex flex-col items-center sm:items-start p-2">
-                <GsapCounter value={features.length} suffix=" Áreas" className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5">Módulos Integrados</span>
-              </div>
-              <div className="flex flex-col items-center sm:items-start p-2">
-                <GsapCounter value={100} suffix="%" className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5">Ecossistema Unificado</span>
-              </div>
+                <span className="text-xs text-muted-foreground mt-0.5 group-hover:text-foreground transition-colors">Artigos Publicados</span>
+              </Link>
+              <Link to="/produtos" className="group flex flex-col items-center sm:items-start p-2 rounded-xl transition-colors hover:bg-secondary/60">
+                <GsapCounter value={productsCount} className="text-2xl sm:text-3xl text-foreground" />
+                <span className="text-xs text-muted-foreground mt-0.5 group-hover:text-foreground transition-colors">Produtos & Soluções</span>
+              </Link>
+              <Link to="/empresas" className="group flex flex-col items-center sm:items-start p-2 rounded-xl transition-colors hover:bg-secondary/60">
+                <GsapCounter value={businessesCount || features.length} className="text-2xl sm:text-3xl text-foreground" />
+                <span className="text-xs text-muted-foreground mt-0.5 group-hover:text-foreground transition-colors">
+                  {businessesCount > 0 ? "Marcas & Negócios" : "Áreas Integradas"}
+                </span>
+              </Link>
             </div>
           </div>
         </div>

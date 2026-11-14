@@ -402,3 +402,110 @@ export const CURATED_LAB_ITEMS: CuratedContentItem[] = [
     category_name: "Inteligência Artificial",
   },
 ];
+
+export interface CuratedProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+  type: "digital" | "course" | "template" | "ebook" | "physical";
+  image_url: string;
+  gallery: string[];
+  checkout_url: string | null;
+  whatsapp_url: string;
+  is_active: boolean;
+  created_at: string;
+  payment_metadata: {
+    methods: Array<"multicaixa" | "bai_direto" | "paypal">;
+    usd_price: number;
+    delivery: string;
+  };
+}
+
+export const CURATED_PRODUCTS: CuratedProduct[] = [
+  {
+    id: "prod-kit-linkduo",
+    name: "Kit LinkDuo — Micro-Site Profissional & Catálogo WhatsApp",
+    description:
+      "Template web completo e código-fonte pronto a publicar para criadores, freelancers e negócios angolanos apresentarem os seus serviços e receberem encomendas diretas no WhatsApp.",
+    price: 15000,
+    currency: "AOA",
+    type: "template",
+    image_url:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80",
+    gallery: [],
+    checkout_url: null,
+    whatsapp_url: "+244955142515",
+    is_active: true,
+    created_at: "2026-10-25T10:00:00Z",
+    payment_metadata: {
+      methods: ["multicaixa", "bai_direto", "paypal"],
+      usd_price: 18,
+      delivery: "Acesso imediato ao código e guia passo a passo após confirmação.",
+    },
+  },
+  {
+    id: "prod-consultoria-tecnica",
+    name: "Consultoria Técnica & Arquitetura de Projeto (1:1 — 60 min)",
+    description:
+      "Sessão privada comigo por videochamada para estruturar o teu produto digital, escolher as ferramentas certas, integrar IA ou desbloquear o desenvolvimento do teu projeto.",
+    price: 25000,
+    currency: "AOA",
+    type: "digital",
+    image_url:
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1000&q=80",
+    gallery: [],
+    checkout_url: null,
+    whatsapp_url: "+244955142515",
+    is_active: true,
+    created_at: "2026-10-22T10:00:00Z",
+    payment_metadata: {
+      methods: ["multicaixa", "bai_direto", "paypal"],
+      usd_price: 30,
+      delivery: "Agendamento direto nas próximas 24h após confirmação.",
+    },
+  },
+  {
+    id: "prod-guia-ferramentas-ia",
+    name: "Guia Prático: Construir e Lançar Ferramentas Digitais com IA",
+    description:
+      "Manual objetivo em português acessível sobre como transformo ideias em ferramentas web reais combinando arquitetura simples, automação e modelos de IA rápidos.",
+    price: 8500,
+    currency: "AOA",
+    type: "ebook",
+    image_url:
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80",
+    gallery: [],
+    checkout_url: null,
+    whatsapp_url: "+244955142515",
+    is_active: true,
+    created_at: "2026-10-20T10:00:00Z",
+    payment_metadata: {
+      methods: ["multicaixa", "bai_direto", "paypal"],
+      usd_price: 10,
+      delivery: "Download imediato em PDF + checklists editáveis após confirmação.",
+    },
+  },
+  {
+    id: "prod-sistema-web-medida",
+    name: "Desenvolvimento de Website & Sistema Web Sob Medida",
+    description:
+      "Construo o teu website ou plataforma digital completa com design moderno, painel de gestão, SEO configurado e integração direta para vendas em Angola e no exterior.",
+    price: 95000,
+    currency: "AOA",
+    type: "digital",
+    image_url:
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80",
+    gallery: [],
+    checkout_url: null,
+    whatsapp_url: "+244955142515",
+    is_active: true,
+    created_at: "2026-10-18T10:00:00Z",
+    payment_metadata: {
+      methods: ["multicaixa", "bai_direto", "paypal"],
+      usd_price: 110,
+      delivery: "Kickoff em 48h e entrega faseada com acompanhamento direto.",
+    },
+  },
+];

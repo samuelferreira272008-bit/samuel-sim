@@ -150,7 +150,7 @@ const COMPARISON_MATRIX: ComparisonRow[] = [
 const FAQS = [
   {
     q: "Quais são os métodos de pagamento aceites?",
-    a: "Em Angola aceitamos transferência bancária direta (com envio de comprovativo via Multicaixa Express / IBAN angolano). Para apoiantes no exterior, aceitamos pagamentos via Cartão Internacional, PayPal ou transferência SEPA (EUR / USD).",
+    a: "Em Angola aceito transferência bancária direta (Multicaixa Express / BAI Direto / IBAN angolano). Para apoiantes no exterior, aceito pagamentos via Cartão Internacional, PayPal ou transferência SEPA (EUR / USD).",
   },
   {
     q: "Como é ativado o meu plano após o pagamento?",
@@ -162,7 +162,7 @@ const FAQS = [
   },
   {
     q: "Empresas e marcas recebem fatura/recibo?",
-    a: "Sim. Para o plano Ouro ou contribuições empresariais, emitimos fatura e recibo comercial para despesas de apoio institucional e patrocínio.",
+    a: "Sim. Para o plano Ouro ou contribuições empresariais, emito fatura e recibo comercial para despesas de apoio institucional e patrocínio.",
   },
   {
     q: "Para onde vai o valor das contribuições?",

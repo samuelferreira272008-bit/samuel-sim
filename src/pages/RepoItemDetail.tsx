@@ -19,7 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { MediaBlock } from "@/components/media/MediaBlock";
 import { AppRunner } from "@/components/repo/AppRunner";
 import { useSEO } from "@/lib/seo";
-import { db, formatPrice, repoTypeLabel, repoTypePath } from "@/lib/repo";
+import { db, formatPrice, normalizeExternalUrl, repoTypeLabel, repoTypePath } from "@/lib/repo";
 import { CURATED_PROJECTS, CURATED_LAB_ITEMS } from "@/lib/curatedContent";
 
 export default function RepoItemDetail() {
@@ -85,7 +85,8 @@ export default function RepoItemDetail() {
   const gallery: string[] = it.gallery ?? [];
   const isApp = it.type === "app";
   const paid = Number(it.price) > 0;
-  const hasExecutableUrl = !!it.content_url;
+  const resolvedContentUrl = normalizeExternalUrl(it.content_url);
+  const hasExecutableUrl = !!resolvedContentUrl;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
@@ -148,14 +149,14 @@ export default function RepoItemDetail() {
         )}
 
         {/* External Link */}
-        {it.content_url && (
+        {resolvedContentUrl && (
           <Button
             size="lg"
             variant={hasExecutableUrl && !isRunning ? "outline" : "secondary"}
             asChild
             className="min-h-[44px] w-full sm:w-auto justify-center"
           >
-            <a href={it.content_url} target="_blank" rel="noopener noreferrer">
+            <a href={resolvedContentUrl} target="_blank" rel="noopener noreferrer">
               <span>{isApp && paid ? "Comprar / Obter" : "Abrir em Nova Aba"}</span>
               <ExternalLink className="ml-2 h-4 w-4" />
             </a>
@@ -182,7 +183,7 @@ export default function RepoItemDetail() {
               Fechar Player
             </Button>
           </div>
-          <AppRunner url={it.content_url} title={it.title} />
+          <AppRunner url={resolvedContentUrl} title={it.title} />
         </div>
       )}
 

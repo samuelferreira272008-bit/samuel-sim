@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -11,6 +12,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { db, repoTypeLabel, repoTypePath } from "@/lib/repo";
 import { useSEO } from "@/lib/seo";
+import { trackEvent } from "@/lib/analytics";
 import { CURATED_POSTS } from "@/lib/curatedContent";
 
 export default function BlogPost() {
@@ -20,26 +22,7 @@ export default function BlogPost() {
   const { data: post, isLoading, error } = useQuery({
     queryKey: ["post-or-repo", slug],
     queryFn: async () => {
-      // 0. Check curated authoritative posts first
-      const curated = CURATED_POSTS.find((p) => p.slug === slug || p.id === slug);
-      if (curated) {
-        return {
-          id: curated.id,
-          title: curated.title,
-          slug: curated.slug,
-          excerpt: curated.excerpt,
-          content: curated.content,
-          cover_image: curated.coverImage,
-          video_url: null,
-          access_level: curated.accessLevel,
-          created_at: curated.createdAt,
-          categories: { name: curated.category },
-          author_name: curated.authorName,
-          _source: "post" as const,
-        };
-      }
-
-      // 1. Try posts table by slug
+      // 1. Try posts table by slug FIRST (so migrated posts use real UUIDs for comments & analytics)
       const { data } = await supabase
         .from("posts")
         .select("*, categories:category_id(name)")
@@ -57,6 +40,25 @@ export default function BlogPost() {
           authorName = (prof as any)?.display_name ?? null;
         }
         return { ...data, author_name: authorName, _source: "post" as const };
+      }
+
+      // 2. Fallback: Check curated authoritative posts if not yet synced to posts table
+      const curated = CURATED_POSTS.find((p) => p.slug === slug || p.id === slug);
+      if (curated) {
+        return {
+          id: curated.id,
+          title: curated.title,
+          slug: curated.slug,
+          excerpt: curated.excerpt,
+          content: curated.content,
+          cover_image: curated.coverImage,
+          video_url: null,
+          access_level: curated.accessLevel,
+          created_at: curated.createdAt,
+          categories: { name: curated.category },
+          author_name: curated.authorName,
+          _source: "post" as const,
+        };
       }
 
       // 2. Fallback: Try content_items table by id (for published projects & content)
@@ -114,6 +116,16 @@ export default function BlogPost() {
   });
 
   const isPostSource = post?._source === "post";
+
+  useEffect(() => {
+    if (!post?.id) return;
+    trackEvent("post_view", {
+      post_id: post.id,
+      slug: post.slug,
+      title: post.title,
+      source: post._source,
+    });
+  }, [post?.id, post?.slug, post?.title, post?._source]);
 
   const { data: links = [] } = useQuery({
     queryKey: ["post-links", post?.id],

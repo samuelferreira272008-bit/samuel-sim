@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Plus, Pencil, Power, Trash2, Package } from "lucide-react";
+import { Plus, Pencil, Power, Trash2, Package, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { MediaUploader } from "@/components/media/MediaUploader";
 import { GalleryEditor } from "@/components/repo/GalleryEditor";
 import { db, formatPrice } from "@/lib/repo";
+import { CURATED_PRODUCTS } from "@/lib/curatedContent";
 
 const typeOptions = [
   { value: "physical", label: "Produto físico" },
@@ -92,14 +93,51 @@ export default function AdminOfertas() {
 
   const set = (patch: Partial<typeof emptyProduct>) => setForm((f) => ({ ...f, ...patch }));
 
+  const existingNames = new Set((products as Array<{ name: string }>).map((p) => p.name.trim().toLowerCase()));
+  const missingStarterProducts = CURATED_PRODUCTS.filter((p) => !existingNames.has(p.name.trim().toLowerCase()));
+
+  const seedStarter = useMutation({
+    mutationFn: async () => {
+      if (missingStarterProducts.length === 0) return;
+      const rows = missingStarterProducts.map((p) => ({
+        name: p.name,
+        description: p.description,
+        price: p.price,
+        currency: p.currency,
+        type: p.type,
+        image_url: p.image_url,
+        gallery: p.gallery,
+        checkout_url: p.checkout_url,
+        whatsapp_url: p.whatsapp_url,
+        is_active: p.is_active,
+        payment_metadata: p.payment_metadata,
+      }));
+      const { error } = await db.from("products").insert(rows);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      toast.success("Produtos iniciais adicionados à base de dados!");
+      qc.invalidateQueries({ queryKey: ["admin-products"] });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-bold text-foreground"><Package className="h-6 w-6" /> Produtos</h1>
-          <p className="text-sm text-muted-foreground">Produtos físicos e digitais. A compra é feita pelo link de checkout ou WhatsApp.</p>
+          <p className="text-sm text-muted-foreground">Produtos físicos e digitais. Pagamentos por Multicaixa Express, BAI Direto, PayPal ou WhatsApp.</p>
         </div>
-        <Button onClick={() => { setEditingId(null); setForm(emptyProduct); setOpen(true); }}><Plus className="mr-2 h-4 w-4" />Novo produto</Button>
+        <div className="flex flex-wrap items-center gap-2">
+          {missingStarterProducts.length > 0 && (
+            <Button variant="outline" onClick={() => seedStarter.mutate()} disabled={seedStarter.isPending}>
+              <RefreshCw className={`mr-2 h-4 w-4 ${seedStarter.isPending ? "animate-spin" : ""}`} />
+              Carregar {missingStarterProducts.length} Produtos Iniciais
+            </Button>
+          )}
+          <Button onClick={() => { setEditingId(null); setForm(emptyProduct); setOpen(true); }}><Plus className="mr-2 h-4 w-4" />Novo produto</Button>
+        </div>
       </div>
 
       {isLoading ? <p className="text-sm text-muted-foreground">A carregar...</p> : products.length === 0 ? (

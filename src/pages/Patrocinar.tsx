@@ -264,7 +264,7 @@ export default function Patrocinar() {
 
       if (error) {
         // Fallback to mailto
-        const contactEmail = profile?.contact_email?.trim() || "samuelgarcia.272008@gmail.com";
+        const contactEmail = profile?.contact_email?.trim() || "ola@samuelsimao.com";
         const body = encodeURIComponent(`${payload.message}\n\n— ${payload.name} (${payload.email})`);
         window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(payload.subject)}&body=${body}`;
       }

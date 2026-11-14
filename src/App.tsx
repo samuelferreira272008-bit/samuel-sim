@@ -29,6 +29,7 @@ import Produtos from "@/pages/Produtos";
 import ProdutoDetail from "@/pages/ProdutoDetail";
 import Repositorio from "@/pages/Repositorio";
 import RepoItemDetail from "@/pages/RepoItemDetail";
+import Projetos from "@/pages/Projetos";
 import Legal from "@/pages/Legal";
 
 import Login from "@/pages/auth/Login";
@@ -76,7 +77,7 @@ const App = () => (
               <Route path="/sobre" element={<Sobre />} />
               <Route path="/apps" element={<Repositorio type="app" />} />
               <Route path="/apps/:id" element={<RepoItemDetail />} />
-              <Route path="/projetos" element={<Repositorio type="project" />} />
+              <Route path="/projetos" element={<Projetos />} />
               <Route path="/projetos/:id" element={<RepoItemDetail />} />
               <Route path="/conteudos" element={<Repositorio type="content" />} />
               <Route path="/conteudos/:id" element={<RepoItemDetail />} />

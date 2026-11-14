@@ -82,7 +82,7 @@ export default function ProdutoDetail() {
                 <a href={wa} target="_blank" rel="noopener noreferrer"><MessageCircle className="mr-2 h-4 w-4" /> Pedir pelo WhatsApp</a>
               </Button>
             )}
-            {!p.checkout_url && !wa && <p className="text-sm text-muted-foreground">Contacta-nos para encomendar este produto.</p>}
+            {!p.checkout_url && !wa && <p className="text-sm text-muted-foreground">Contacta-me para encomendar este produto.</p>}
           </div>
         </div>
       </div>

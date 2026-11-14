@@ -27,6 +27,7 @@ import { GsapCounter } from "@/components/visuals/GsapCounter";
 import { LottieSpark, TactileBadge } from "@/components/visuals/LottieMicro";
 import { Magnetic } from "@/components/visuals/Magnetic";
 import { db, whatsappHref } from "@/lib/repo";
+import { CURATED_LAB_ITEMS, CURATED_POSTS, CURATED_PROJECTS } from "@/lib/curatedContent";
 
 const features = [
   { icon: AppWindow, title: "Apps & Programas", desc: "Aplicações e softwares prontos para usar ou transferir.", to: "/apps" },
@@ -58,6 +59,38 @@ export default function Home() {
     queryKey: ["site-profile"],
     queryFn: async () => (await db.from("site_profile").select("*").limit(1).maybeSingle()).data,
   });
+
+  const { data: metrics } = useQuery({
+    queryKey: ["home-metrics"],
+    queryFn: async () => {
+      const [{ data: contentRows }, { data: postRows }] = await Promise.all([
+        db.from("content_items").select("id, title"),
+        db.from("posts").select("id, slug").eq("published", true),
+      ]);
+
+      const contentTitles = new Set<string>(
+        [
+          ...((contentRows ?? []) as Array<{ title?: string | null }>),
+          ...CURATED_PROJECTS,
+          ...CURATED_LAB_ITEMS,
+        ].map((i) => (i.title || "").toLowerCase()),
+      );
+      const postSlugs = new Set<string>(
+        [
+          ...((postRows ?? []) as Array<{ id?: string; slug?: string | null }>),
+          ...CURATED_POSTS,
+        ].map((p) => (p.slug || p.id || "").toLowerCase()),
+      );
+
+      return {
+        itemsCount: contentTitles.size,
+        postsCount: postSlugs.size,
+      };
+    },
+  });
+
+  const itemsCount = metrics?.itemsCount ?? CURATED_PROJECTS.length + CURATED_LAB_ITEMS.length;
+  const postsCount = metrics?.postsCount ?? CURATED_POSTS.length;
 
   const fullName: string = profile?.full_name?.trim() || "Samuel Simão";
   const nameParts = fullName.split(/\s+/);
@@ -191,20 +224,20 @@ export default function Home() {
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               <div className="flex flex-col items-center sm:items-start p-2">
-                <GsapCounter value={18} suffix="+" className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5">Apps & Ferramentas</span>
+                <GsapCounter value={itemsCount} className="text-2xl sm:text-3xl text-foreground" />
+                <span className="text-xs text-muted-foreground mt-0.5">Apps, Projetos & Lab</span>
               </div>
               <div className="flex flex-col items-center sm:items-start p-2">
-                <GsapCounter value={100} suffix="%" className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5">Ecossistema Aberto</span>
+                <GsapCounter value={postsCount} className="text-2xl sm:text-3xl text-foreground" />
+                <span className="text-xs text-muted-foreground mt-0.5">Artigos Publicados</span>
               </div>
               <div className="flex flex-col items-center sm:items-start p-2">
-                <GsapCounter value={9} suffix=" Áreas" className="text-2xl sm:text-3xl text-foreground" />
+                <GsapCounter value={features.length} suffix=" Áreas" className="text-2xl sm:text-3xl text-foreground" />
                 <span className="text-xs text-muted-foreground mt-0.5">Módulos Integrados</span>
               </div>
               <div className="flex flex-col items-center sm:items-start p-2">
-                <GsapCounter value={60} suffix=" FPS" className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5">Apple Spring Motion</span>
+                <GsapCounter value={100} suffix="%" className="text-2xl sm:text-3xl text-foreground" />
+                <span className="text-xs text-muted-foreground mt-0.5">Ecossistema Unificado</span>
               </div>
             </div>
           </div>

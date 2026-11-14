@@ -12,13 +12,17 @@ interface CommentSectionProps {
   postId: string;
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export function CommentSection({ postId }: CommentSectionProps) {
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const [content, setContent] = useState("");
+  const isUuid = UUID_RE.test(postId);
 
   const { data: comments = [], isLoading } = useQuery({
     queryKey: ["comments", postId],
+    enabled: isUuid,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("comments")
@@ -32,7 +36,7 @@ export function CommentSection({ postId }: CommentSectionProps) {
 
   const addComment = useMutation({
     mutationFn: async () => {
-      if (!user || !content.trim()) return;
+      if (!user || !content.trim() || !isUuid) return;
       const { error } = await supabase.from("comments").insert({
         post_id: postId,
         user_id: user.id,
@@ -58,6 +62,28 @@ export function CommentSection({ postId }: CommentSectionProps) {
       toast.success("Comentário removido.");
     },
   });
+
+  if (!isUuid) {
+    return (
+      <div className="mt-10 border-t border-border pt-8">
+        <h3 className="mb-3 flex items-center gap-2 text-xl font-semibold text-foreground">
+          <MessageCircle className="h-5 w-5" />
+          Comentários
+        </h3>
+        <p className="rounded-xl border border-border/60 bg-muted/40 p-4 text-sm text-muted-foreground">
+          Tens alguma dúvida ou queres debater este artigo? Participa na{" "}
+          <a href="/comunidade" className="text-foreground underline underline-offset-4 hover:text-primary">
+            Comunidade
+          </a>{" "}
+          ou{" "}
+          <a href="/contacto" className="text-foreground underline underline-offset-4 hover:text-primary">
+            entra em contacto comigo
+          </a>
+          .
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-10 border-t border-border pt-8">

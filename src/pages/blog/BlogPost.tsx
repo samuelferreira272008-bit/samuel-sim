@@ -249,6 +249,8 @@ export default function BlogPost() {
         <img
           src={post.cover_image}
           alt={post.title}
+          decoding="async"
+          fetchPriority="high"
           className="mb-8 w-full rounded-lg border border-border object-cover"
         />
       )}

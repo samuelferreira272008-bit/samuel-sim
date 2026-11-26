@@ -37,7 +37,13 @@ export function BlogCard({
       <Card className="group h-full overflow-hidden border-border/50 transition-all hover:border-primary/30 hover:shadow-lg">
         <div className="aspect-video w-full overflow-hidden bg-muted">
           {coverImage ? (
-            <img src={coverImage} alt={title} className="h-full w-full object-cover transition-transform group-hover:scale-105" />
+            <img
+              src={coverImage}
+              alt={title}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover transition-transform group-hover:scale-105"
+            />
           ) : (
             <div className="flex h-full items-center justify-center text-muted-foreground">
               <span className="text-4xl font-bold opacity-20">SS</span>

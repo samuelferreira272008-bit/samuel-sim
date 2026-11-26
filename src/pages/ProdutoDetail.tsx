@@ -295,7 +295,7 @@ export default function ProdutoDetail() {
         <div className="space-y-3">
           <div className="aspect-square overflow-hidden rounded-2xl border border-border/60 bg-muted">
             {main ? (
-              <img src={main} alt={p.name} className="h-full w-full object-cover" />
+              <img src={main} alt={p.name} decoding="async" fetchPriority="high" className="h-full w-full object-cover" />
             ) : (
               <div className="flex h-full items-center justify-center">
                 <Package className="h-12 w-12 text-muted-foreground" />
@@ -313,7 +313,7 @@ export default function ProdutoDetail() {
                     src === main ? "border-foreground" : "border-border"
                   }`}
                 >
-                  <img src={src} alt="" className="h-full w-full object-cover" />
+                  <img src={src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
                 </button>
               ))}
             </div>

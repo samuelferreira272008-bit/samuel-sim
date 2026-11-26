@@ -78,6 +78,8 @@ export function MediaBlock({
             <img
               src={imageUrl}
               alt={alt}
+              loading="lazy"
+              decoding="async"
               className={cn("h-full w-full", fit === "contain" ? "object-contain" : "object-cover")}
             />
           )
@@ -87,6 +89,7 @@ export function MediaBlock({
           src={imageUrl!}
           alt={alt}
           loading="lazy"
+          decoding="async"
           className={cn("h-full w-full", fit === "contain" ? "object-contain" : "object-cover")}
         />
       )}

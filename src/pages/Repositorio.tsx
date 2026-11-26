@@ -131,6 +131,8 @@ export default function Repositorio({ type }: { type: "app" | "project" | "conte
                       <img
                         src={img}
                         alt={it.title}
+                        loading="lazy"
+                        decoding="async"
                         className={`h-full w-full transition-transform duration-500 group-hover:scale-105 ${
                           it.transparent_thumbnail ? "object-contain p-6" : "object-cover"
                         }`}

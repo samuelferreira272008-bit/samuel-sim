@@ -10,7 +10,7 @@ type SEOOptions = {
 };
 
 const DEFAULT_DESCRIPTION =
-  "Plataforma de Samuel Simão para conteúdos, projetos, aplicações, ferramentas, comunidade e formação em tecnologia.";
+  "Plataforma oficial de Samuel Simão: aplicações web, projetos de robótica e software, ferramentas, produtos digitais e artigos práticos sobre tecnologia.";
 const DEFAULT_IMAGE =
   "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f532055f-7af3-4c07-a111-be059db63d48/id-preview-f856f29e--1c48bd6f-9db4-4b93-9251-f34489991c6d.lovable.app-1775861842621.png";
 
@@ -42,7 +42,9 @@ export function useSEO({ title, description, canonical, image, type = "website",
       upsertMeta('meta[property="og:url"]', "property", "og:url", url);
     }
     upsertMeta('meta[property="og:image"]', "property", "og:image", ogImage);
+    upsertMeta('meta[property="og:image:alt"]', "property", "og:image:alt", fullTitle);
     upsertMeta('meta[name="twitter:card"]', "name", "twitter:card", "summary_large_image");
+    upsertMeta('meta[name="twitter:site"]', "name", "twitter:site", "@SamuelSimao");
     upsertMeta('meta[name="twitter:title"]', "name", "twitter:title", fullTitle);
     upsertMeta('meta[name="twitter:description"]', "name", "twitter:description", desc);
     upsertMeta('meta[name="twitter:image"]', "name", "twitter:image", ogImage);

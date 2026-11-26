@@ -49,7 +49,7 @@ export const CURATED_POSTS: CuratedPost[] = [
     createdAt: "2026-10-15T10:00:00Z",
     readTime: "5 min de leitura",
     authorName: "Samuel Simão",
-    coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=75",
     content: `
 # Por que decidi unificar tudo sob o meu nome: Samuel Simão
 
@@ -108,7 +108,7 @@ Esta plataforma é o reflexo da minha assinatura e da minha visão de produto.
     createdAt: "2026-10-18T14:30:00Z",
     readTime: "4 min de leitura",
     authorName: "Samuel Simão",
-    coverImage: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=900&q=75",
     content: `
 # Como a Internet realmente funciona: Uma explicação prática e sem rodeios
 
@@ -167,7 +167,7 @@ Compreender a infraestrutura que sustenta o mundo digital é o primeiro passo pa
     createdAt: "2026-10-22T09:15:00Z",
     readTime: "6 min de leitura",
     authorName: "Samuel Simão",
-    coverImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=75",
     content: `
 # O Projeto REPI Rover: Robótica e automação local com poucos recursos
 
@@ -228,7 +228,7 @@ O REPI Rover exemplifica como princípios rigorosos de arquitetura de software e
     createdAt: "2026-10-25T11:00:00Z",
     readTime: "5 min de leitura",
     authorName: "Samuel Simão",
-    coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=900&q=75",
     content: `
 # Como uso IA para construir produtos e ferramentas reais
 
@@ -273,7 +273,7 @@ O segredo não é delegar o pensamento à máquina, mas sim ter clareza de visã
     createdAt: "2026-10-28T16:00:00Z",
     readTime: "4 min de leitura",
     authorName: "Samuel Simão",
-    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=75",
     content: `
 # Valores sólidos e visão de negócio: Os princípios que guiam os meus projetos
 
@@ -318,7 +318,7 @@ export const CURATED_PROJECTS: CuratedContentItem[] = [
     description: "Sistema avançado de robótica móvel e monitorização climática local. Integração de microcontroladores, shield de tração L293D, sensores ambientais (temperatura, luminosidade e presença) com operação 100% autônoma em rede local.",
     status: "published",
     created_at: "2026-10-22T00:00:00Z",
-    thumbnail_url: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
+    thumbnail_url: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=700&q=75",
     category_name: "Robótica & Hardware",
     body: `
 # REPI Rover & Estação de Telemetria Ambiental
@@ -338,7 +338,7 @@ Projeto de engenharia de hardware e automação desenvolvido para demonstraçõe
     description: "Plataforma de automação e assistência desenhada sob o princípio: 'Complexidade para a máquina. Simplicidade para o utilizador.' Otimização de fluxos de trabalho e simplificação de rotinas digitais.",
     status: "published",
     created_at: "2026-10-10T00:00:00Z",
-    thumbnail_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    thumbnail_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=700&q=75",
     category_name: "Inteligência Artificial",
     body: `
 # Pafiworky — Automação & Assistente Inteligente
@@ -358,7 +358,7 @@ Solução orientada a acelerar processos e eliminar tarefas repetitivas para pro
     description: "Arquitetura de distribuição de conteúdo multimédia otimizada para alto desempenho, baixa latência e consumo eficiente de dados móveis em redes angolanas.",
     status: "published",
     created_at: "2026-09-15T00:00:00Z",
-    thumbnail_url: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=800&q=80",
+    thumbnail_url: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=700&q=75",
     category_name: "Aplicações Web",
   },
   {
@@ -368,7 +368,7 @@ Solução orientada a acelerar processos e eliminar tarefas repetitivas para pro
     description: "Ferramenta para criação instantânea de páginas de links profissionais e micro-sites de alta conversão para empreendedores e prestadores de serviços.",
     status: "published",
     created_at: "2026-08-20T00:00:00Z",
-    thumbnail_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    thumbnail_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=75",
     category_name: "Produtos Digitais",
   },
 ];
@@ -433,7 +433,7 @@ export const CURATED_PRODUCTS: CuratedProduct[] = [
     currency: "AOA",
     type: "template",
     image_url:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=750&q=75",
     gallery: [],
     checkout_url: null,
     whatsapp_url: "+244955142515",
@@ -454,7 +454,7 @@ export const CURATED_PRODUCTS: CuratedProduct[] = [
     currency: "AOA",
     type: "digital",
     image_url:
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=750&q=75",
     gallery: [],
     checkout_url: null,
     whatsapp_url: "+244955142515",
@@ -475,7 +475,7 @@ export const CURATED_PRODUCTS: CuratedProduct[] = [
     currency: "AOA",
     type: "ebook",
     image_url:
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=750&q=75",
     gallery: [],
     checkout_url: null,
     whatsapp_url: "+244955142515",
@@ -496,7 +496,7 @@ export const CURATED_PRODUCTS: CuratedProduct[] = [
     currency: "AOA",
     type: "digital",
     image_url:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=750&q=75",
     gallery: [],
     checkout_url: null,
     whatsapp_url: "+244955142515",

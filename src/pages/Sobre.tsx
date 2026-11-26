@@ -227,6 +227,8 @@ export default function Sobre() {
                             <img
                               src={b.logo_url}
                               alt={b.name}
+                              loading="lazy"
+                              decoding="async"
                               className="h-10 w-10 rounded-lg border border-border/60 bg-checker object-contain p-1"
                             />
                           )}

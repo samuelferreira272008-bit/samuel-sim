@@ -59,6 +59,8 @@ export function PhotoFrame({ src, alt, photos, badge, subtitle, className }: Pho
           <img
             src={currentSrc}
             alt={alt}
+            decoding="async"
+            fetchPriority="high"
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
 

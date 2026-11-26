@@ -445,7 +445,6 @@ async function main() {
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries.join("\n")}\n</urlset>\n`;
   fs.writeFileSync(path.join(DIST_DIR, "sitemap.xml"), sitemapXml, "utf8");
-  fs.writeFileSync(path.join(ROOT_DIR, "public", "sitemap.xml"), sitemapXml, "utf8");
 
   console.log(
     `[prerender-seo] Pre-rendered ${routeMap.size} SEO routes and generated sitemap.xml (${sitemapEntries.length} URLs).`,

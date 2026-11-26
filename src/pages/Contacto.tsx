@@ -102,7 +102,7 @@ export default function Contacto() {
 
   return (
     <div className="relative overflow-hidden bg-mesh">
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:py-16 lg:py-20 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -110,10 +110,10 @@ export default function Contacto() {
           className="max-w-2xl"
         >
           <p className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">Contacto</p>
-          <h1 className="mt-3 text-5xl font-bold tracking-tight text-foreground sm:text-6xl">
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             Vamos falar
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-muted-foreground">
             Para colaborações, dúvidas, parcerias ou apoio — envia uma mensagem ou escolhe o canal que preferires.
           </p>
         </motion.div>
@@ -198,7 +198,7 @@ export default function Contacto() {
                   required
                 />
               </div>
-              <Button type="submit" disabled={submitting} className="w-full sm:w-auto">
+              <Button type="submit" disabled={submitting} className="min-h-[44px] w-full sm:w-auto rounded-xl">
                 {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {submitting ? "A enviar..." : "Enviar mensagem"}
               </Button>
@@ -215,13 +215,13 @@ export default function Contacto() {
                 transition={{ duration: 0.5, delay: i * 0.08 }}
               >
                 <Card className="group h-full border-border/60 transition-all hover:-translate-y-1 hover:shadow-elegant">
-                  <CardContent className="p-6">
+                  <CardContent className="p-5 sm:p-6">
                     <div className="mb-4 inline-flex rounded-xl bg-secondary p-3">
                       <c.icon className="h-5 w-5 text-foreground" />
                     </div>
                     <h3 className="font-semibold text-foreground">{c.name}</h3>
                     <p className="mt-1 truncate text-sm text-muted-foreground">{c.value}</p>
-                    <Button variant="outline" size="sm" className="mt-4" asChild>
+                    <Button variant="outline" size="sm" className="mt-4 min-h-[44px] sm:min-h-[36px] w-full sm:w-auto rounded-xl" asChild>
                       {c.isRoute ? (
                         <Link to={c.href}>Abrir</Link>
                       ) : (

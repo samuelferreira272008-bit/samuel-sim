@@ -174,15 +174,15 @@ export default function Home() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.65 }}
-              className="mt-6 flex flex-wrap items-center gap-2"
+              className="mt-6 flex flex-wrap items-center gap-2.5 sm:gap-2"
             >
-              <TactileBadge>
+              <TactileBadge className="py-1.5 sm:py-1">
                 <MapPin className="h-3.5 w-3.5 text-foreground" />
                 {location}
               </TactileBadge>
               {profile?.contact_email && (
-                <a href={`mailto:${profile.contact_email}`}>
-                  <TactileBadge>
+                <a href={`mailto:${profile.contact_email}`} className="inline-flex min-h-[40px] sm:min-h-0 items-center">
+                  <TactileBadge className="py-2 sm:py-1">
                     <Mail className="h-3 w-3" />
                     {profile.contact_email}
                   </TactileBadge>
@@ -194,8 +194,9 @@ export default function Home() {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="inline-flex min-h-[40px] sm:min-h-0 items-center"
                   >
-                    <TactileBadge>
+                    <TactileBadge className="py-2 sm:py-1">
                       <Globe className="h-3 w-3" />
                       {socialLabels[key] ?? key}
                     </TactileBadge>
@@ -245,22 +246,22 @@ export default function Home() {
         {/* GSAP Smooth Metrics Ribbon (Apple Design precision) */}
         <div className="relative z-10 border-t border-border/60 bg-card/60 backdrop-blur-xl">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              <Link to="/apps" className="group flex flex-col items-center sm:items-start p-2 rounded-xl transition-colors hover:bg-secondary/60">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-4">
+              <Link to="/apps" className="group flex min-h-[64px] flex-col items-center justify-center sm:items-start p-3 sm:p-2 rounded-xl transition-colors hover:bg-secondary/60">
                 <GsapCounter value={itemsCount} className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5 group-hover:text-foreground transition-colors">Apps, Projetos & Lab</span>
+                <span className="text-xs text-muted-foreground mt-0.5 text-center sm:text-left group-hover:text-foreground transition-colors">Apps, Projetos & Lab</span>
               </Link>
-              <Link to="/blog" className="group flex flex-col items-center sm:items-start p-2 rounded-xl transition-colors hover:bg-secondary/60">
+              <Link to="/blog" className="group flex min-h-[64px] flex-col items-center justify-center sm:items-start p-3 sm:p-2 rounded-xl transition-colors hover:bg-secondary/60">
                 <GsapCounter value={postsCount} className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5 group-hover:text-foreground transition-colors">Artigos Publicados</span>
+                <span className="text-xs text-muted-foreground mt-0.5 text-center sm:text-left group-hover:text-foreground transition-colors">Artigos Publicados</span>
               </Link>
-              <Link to="/produtos" className="group flex flex-col items-center sm:items-start p-2 rounded-xl transition-colors hover:bg-secondary/60">
+              <Link to="/produtos" className="group flex min-h-[64px] flex-col items-center justify-center sm:items-start p-3 sm:p-2 rounded-xl transition-colors hover:bg-secondary/60">
                 <GsapCounter value={productsCount} className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5 group-hover:text-foreground transition-colors">Produtos & Soluções</span>
+                <span className="text-xs text-muted-foreground mt-0.5 text-center sm:text-left group-hover:text-foreground transition-colors">Produtos & Soluções</span>
               </Link>
-              <Link to="/empresas" className="group flex flex-col items-center sm:items-start p-2 rounded-xl transition-colors hover:bg-secondary/60">
+              <Link to="/empresas" className="group flex min-h-[64px] flex-col items-center justify-center sm:items-start p-3 sm:p-2 rounded-xl transition-colors hover:bg-secondary/60">
                 <GsapCounter value={businessesCount || features.length} className="text-2xl sm:text-3xl text-foreground" />
-                <span className="text-xs text-muted-foreground mt-0.5 group-hover:text-foreground transition-colors">
+                <span className="text-xs text-muted-foreground mt-0.5 text-center sm:text-left group-hover:text-foreground transition-colors">
                   {businessesCount > 0 ? "Marcas & Negócios" : "Áreas Integradas"}
                 </span>
               </Link>
@@ -281,16 +282,16 @@ export default function Home() {
       </section>
 
       {/* Features grid */}
-      <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+      <section className="relative mx-auto max-w-7xl px-4 py-12 sm:py-20 lg:py-24 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12 max-w-2xl"
+          className="mb-8 sm:mb-12 max-w-2xl"
         >
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">Explora</p>
-          <h2 className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
             Um ecossistema completo
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -325,7 +326,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="relative mx-auto max-w-7xl px-4 pb-20 sm:pb-24 sm:px-6 lg:px-8">
+      <section className="relative mx-auto max-w-7xl px-4 pb-12 sm:pb-20 lg:pb-24 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}

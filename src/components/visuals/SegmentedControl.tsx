@@ -49,7 +49,7 @@ export function SegmentedControl<T extends string = string>({
             type="button"
             onClick={() => onChange(opt.value)}
             className={cn(
-              "relative z-10 flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs sm:text-sm font-medium transition-colors duration-200 outline-none select-none rounded-xl active:scale-[0.96]",
+              "relative z-10 flex min-h-[44px] sm:min-h-[38px] items-center justify-center gap-1.5 px-4 py-2 sm:px-3.5 sm:py-1.5 text-xs sm:text-sm font-medium transition-colors duration-200 outline-none select-none rounded-xl active:scale-[0.96]",
               isActive
                 ? "text-foreground font-semibold"
                 : "text-muted-foreground hover:text-foreground/90",

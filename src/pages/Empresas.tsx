@@ -34,28 +34,28 @@ export default function Empresas() {
 
   return (
     <div className="relative overflow-hidden bg-mesh">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:py-16 lg:py-20 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
-          className="mb-12 max-w-2xl"
+          className="mb-8 sm:mb-12 max-w-2xl"
         >
           <p className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">Portfolio</p>
-          <h1 className="mt-3 text-5xl font-bold tracking-tight text-foreground sm:text-6xl">
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             Empresas
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-muted-foreground">
             Negócios e marcas que apresento — com missão, visão, produtos e projetos vinculados.
           </p>
         </motion.div>
 
         {isLoading ? (
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => <Skeleton key={i} className="h-80 w-full rounded-2xl" />)}
           </div>
         ) : businesses.length === 0 ? (
           <EmptyState icon={Building2} title="Sem empresas publicadas" description="Em breve serão apresentadas aqui." />
         ) : (
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {businesses.map((b: any, i: number) => (
               <motion.div
                 key={b.id}

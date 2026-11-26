@@ -87,8 +87,8 @@ export default function Projetos() {
   }, [allItems, selected]);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-8">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6 lg:px-8">
+      <div className="mb-6 sm:mb-8">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">Portfólio</p>
         <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">Projetos</h1>
         <p className="mt-2 text-base sm:text-lg text-muted-foreground">
@@ -108,7 +108,7 @@ export default function Projetos() {
       )}
 
       {isLoading ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => <Skeleton key={i} className="h-64 w-full rounded-2xl" />)}
         </div>
       ) : items.length === 0 ? (
@@ -118,7 +118,7 @@ export default function Projetos() {
           description="Brevemente publicarei aqui novos projetos nesta categoria."
         />
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
             <GlowCard key={item.id} enableTilt={true} className="flex flex-col justify-between overflow-hidden">
               <div>
@@ -135,7 +135,7 @@ export default function Projetos() {
                   </Link>
                 )}
               </div>
-              <div className="p-5 flex-1 flex flex-col justify-between">
+              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="mb-2 flex flex-wrap items-center gap-1.5">
                     {item.resolvedCategory && (
@@ -161,14 +161,14 @@ export default function Projetos() {
                   )}
                 </div>
                 <div className="mt-5 pt-3 border-t border-border/40 flex flex-wrap items-center gap-2">
-                  <Button variant="default" size="sm" asChild className="rounded-xl font-medium">
+                  <Button variant="default" size="sm" asChild className="min-h-[44px] sm:min-h-[36px] flex-1 sm:flex-none rounded-xl font-medium">
                     <Link to={`/projetos/${item.id}`}>
                       Detalhes
                       <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                     </Link>
                   </Button>
                   {item.content_url && (
-                    <Button variant="outline" size="sm" asChild className="rounded-xl font-medium">
+                    <Button variant="outline" size="sm" asChild className="min-h-[44px] sm:min-h-[36px] flex-1 sm:flex-none rounded-xl font-medium">
                       <a href={item.content_url} target="_blank" rel="noopener noreferrer">
                         Abrir
                         <ExternalLink className="ml-1.5 h-3.5 w-3.5" />

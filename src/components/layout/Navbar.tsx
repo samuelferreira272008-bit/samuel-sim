@@ -82,7 +82,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/75 backdrop-blur-2xl shadow-xs transition-colors">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
         <Magnetic strength={0.15} radius={60}>
-          <Link to="/" className="shrink-0 whitespace-nowrap text-xl font-bold tracking-tight inline-block active:scale-[0.98]">
+          <Link to="/" className="shrink-0 whitespace-nowrap text-xl font-bold tracking-tight inline-flex min-h-[44px] items-center active:scale-[0.98]">
             <span className="text-gradient">Samuel</span> <span className="text-foreground">Simão</span>
           </Link>
         </Magnetic>
@@ -172,7 +172,7 @@ export function Navbar() {
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" className="h-10 w-10 min-h-[44px] min-w-[44px]">
+              <Button variant="ghost" size="icon" className="h-11 w-11 min-h-[44px] min-w-[44px]">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Abrir menu</span>
               </Button>

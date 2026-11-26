@@ -29,23 +29,23 @@ export default function Ferramentas() {
   });
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-10">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6 lg:px-8">
+      <div className="mb-8 sm:mb-10">
         <p className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">Catálogo</p>
-        <h1 className="mt-2 text-4xl font-bold text-foreground">Ferramentas</h1>
-        <p className="mt-2 text-lg text-muted-foreground">
+        <h1 className="mt-2 text-3xl sm:text-4xl font-bold text-foreground">Ferramentas</h1>
+        <p className="mt-2 text-base sm:text-lg text-muted-foreground">
           Coleção de ferramentas e recursos que uso ou recomendo.
         </p>
       </div>
 
       {isLoading ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => <Skeleton key={i} className="h-48 w-full rounded-lg" />)}
         </div>
       ) : items.length === 0 ? (
         <EmptyState icon={Wrench} title="Sem ferramentas ainda" description="Em breve este catálogo será populado." />
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item: any) => (
             <Card key={item.id} className="group flex flex-col overflow-hidden border-border/60 transition-all hover:-translate-y-1 hover:shadow-elegant">
               {(item.thumbnail_url || item.video_url) && (
@@ -71,13 +71,13 @@ export default function Ferramentas() {
                   <p className="line-clamp-3 text-sm text-muted-foreground">{item.description}</p>
                 )}
                 <div className="flex flex-wrap gap-2">
-                  <Button variant="secondary" size="sm" asChild>
+                  <Button variant="secondary" size="sm" asChild className="min-h-[44px] sm:min-h-[36px] flex-1 sm:flex-none rounded-xl">
                     <Link to={`/ferramentas/${item.id}`}>
                       Detalhes <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                     </Link>
                   </Button>
                   {item.content_url && (
-                    <Button variant="outline" size="sm" asChild>
+                    <Button variant="outline" size="sm" asChild className="min-h-[44px] sm:min-h-[36px] flex-1 sm:flex-none rounded-xl">
                       <a href={item.content_url} target="_blank" rel="noopener noreferrer">
                         Abrir <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
                       </a>

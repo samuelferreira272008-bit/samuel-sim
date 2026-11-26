@@ -20,22 +20,34 @@ export function NotificationBell() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Notificações"
+          className="relative h-11 w-11 min-h-[44px] min-w-[44px]"
+        >
           <Bell className="h-5 w-5" />
           {unreadCount > 0 && (
-            <Badge className="absolute -right-1 -top-1 h-5 min-w-5 justify-center rounded-full px-1 text-[10px]">
+            <Badge className="absolute right-1 top-1 h-5 min-w-5 justify-center rounded-full px-1 text-[10px]">
               {unreadCount > 9 ? "9+" : unreadCount}
             </Badge>
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-80 p-0">
+      <PopoverContent align="end" className="w-80 max-w-[calc(100vw-2rem)] p-0">
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <div>
             <p className="text-sm font-semibold">Notificações</p>
             <p className="text-xs text-muted-foreground">Atualizações da plataforma</p>
           </div>
-          <Button variant="ghost" size="icon" onClick={markAllRead} disabled={unreadCount === 0}>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Marcar todas como lidas"
+            className="h-10 w-10 sm:h-9 sm:w-9"
+            onClick={markAllRead}
+            disabled={unreadCount === 0}
+          >
             <CheckCheck className="h-4 w-4" />
           </Button>
         </div>

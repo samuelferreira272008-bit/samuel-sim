@@ -45,7 +45,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border/40 bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Info */}
           <div className="space-y-3">
@@ -62,12 +62,12 @@ export function Footer() {
           {/* Links */}
           <div>
             <h4 className="text-sm font-semibold text-foreground">Plataforma</h4>
-            <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-2">
+            <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-0.5 sm:gap-y-2">
               {footerLinks.map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="inline-flex min-h-[44px] sm:min-h-0 items-center py-1 sm:py-0 text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {link.label}
                   </Link>
@@ -79,12 +79,12 @@ export function Footer() {
           {/* Direct Channels & Social */}
           <div>
             <h4 className="text-sm font-semibold text-foreground">Contacto & Redes</h4>
-            <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
+            <ul className="mt-2 space-y-0.5 sm:space-y-2 text-sm text-muted-foreground">
               {profile?.contact_email && (
                 <li>
                   <a
                     href={`mailto:${profile.contact_email}`}
-                    className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground break-all"
+                    className="inline-flex min-h-[44px] sm:min-h-0 items-center gap-2 py-1 sm:py-0 transition-colors hover:text-foreground break-all"
                   >
                     <Mail className="h-3.5 w-3.5 shrink-0" />
                     {profile.contact_email}
@@ -97,7 +97,7 @@ export function Footer() {
                     href={waLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+                    className="inline-flex min-h-[44px] sm:min-h-0 items-center gap-2 py-1 sm:py-0 transition-colors hover:text-foreground"
                   >
                     <MessageCircle className="h-3.5 w-3.5 shrink-0" />
                     WhatsApp direto
@@ -110,7 +110,7 @@ export function Footer() {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+                    className="inline-flex min-h-[44px] sm:min-h-0 items-center gap-2 py-1 sm:py-0 transition-colors hover:text-foreground"
                   >
                     <Globe className="h-3.5 w-3.5 shrink-0" />
                     {socialLabels[key] ?? key}
@@ -123,14 +123,20 @@ export function Footer() {
           {/* Legal */}
           <div>
             <h4 className="text-sm font-semibold text-foreground">Legal</h4>
-            <ul className="mt-2 space-y-2">
+            <ul className="mt-2 space-y-0.5 sm:space-y-2">
               <li>
-                <Link to="/termos" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                <Link
+                  to="/termos"
+                  className="inline-flex min-h-[44px] sm:min-h-0 items-center py-1 sm:py-0 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
                   Termos de Uso
                 </Link>
               </li>
               <li>
-                <Link to="/privacidade" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                <Link
+                  to="/privacidade"
+                  className="inline-flex min-h-[44px] sm:min-h-0 items-center py-1 sm:py-0 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
                   Política de Privacidade
                 </Link>
               </li>

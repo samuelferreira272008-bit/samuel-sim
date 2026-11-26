@@ -53,10 +53,10 @@ export default function Comunidade() {
   ];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-10">
-        <h1 className="text-4xl font-bold text-foreground">Comunidade</h1>
-        <p className="mt-2 text-lg text-muted-foreground">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6 lg:px-8">
+      <div className="mb-8 sm:mb-10">
+        <h1 className="text-3xl sm:text-4xl font-bold text-foreground">Comunidade</h1>
+        <p className="mt-2 text-base sm:text-lg text-muted-foreground">
           Conecta-te com outras pessoas que partilham os mesmos interesses.
         </p>
       </div>
@@ -74,7 +74,7 @@ export default function Comunidade() {
               </CardHeader>
               <CardContent>
                 {ch.url ? (
-                  <Button variant="outline" size="sm" asChild>
+                  <Button variant="outline" size="sm" asChild className="min-h-[44px] sm:min-h-[36px] w-full sm:w-auto rounded-xl">
                     <a href={ch.url} target="_blank" rel="noopener noreferrer">Entrar</a>
                   </Button>
                 ) : (
@@ -111,7 +111,7 @@ export default function Comunidade() {
                 <CardContent className="py-4">
                   <p className="text-sm text-foreground line-clamp-2">{c.content}</p>
                   {c.post && (
-                    <Link to={`/blog/${c.post.slug}`} className="mt-2 inline-block text-xs text-primary hover:underline">
+                    <Link to={`/blog/${c.post.slug}`} className="mt-2 inline-flex min-h-[36px] items-center py-1 text-xs text-primary hover:underline">
                       em: {c.post.title}
                     </Link>
                   )}

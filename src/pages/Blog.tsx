@@ -116,59 +116,69 @@ export default function Blog() {
   );
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-10">
-        <h1 className="text-4xl font-bold text-foreground">Blog</h1>
-        <p className="mt-2 text-lg text-muted-foreground">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6 lg:px-8">
+      <div className="mb-8 sm:mb-10">
+        <h1 className="text-3xl sm:text-4xl font-bold text-foreground">Blog</h1>
+        <p className="mt-2 text-base sm:text-lg text-muted-foreground">
           Artigos, projetos publicados, conteúdos e reflexões sobre tecnologia e desenvolvimento.
         </p>
       </div>
 
       {/* Search & Filters */}
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="relative max-w-sm flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <div className="relative w-full sm:max-w-sm flex-1">
+          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Pesquisar artigos, projetos e conteúdos..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
+            className="h-11 sm:h-10 rounded-xl pl-10"
           />
         </div>
         <div className="flex flex-wrap gap-2">
-          <Badge
-            variant={selectedCategory === null ? "default" : "outline"}
-            className="cursor-pointer"
+          <button
+            type="button"
             onClick={() => setSelectedCategory(null)}
+            className="inline-flex min-h-[40px] sm:min-h-[32px] items-center rounded-full focus-visible:outline-none"
           >
-            Todos
-          </Badge>
-          {categories.map((cat: any) => (
             <Badge
-              key={cat.id}
-              variant={selectedCategory === cat.id ? "default" : "outline"}
-              className="cursor-pointer"
-              onClick={() => setSelectedCategory(cat.id)}
+              variant={selectedCategory === null ? "default" : "outline"}
+              className="cursor-pointer px-3.5 py-1.5 sm:px-2.5 sm:py-0.5 text-xs"
             >
-              {cat.name}
+              Todos
             </Badge>
+          </button>
+          {categories.map((cat: any) => (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => setSelectedCategory(cat.id)}
+              className="inline-flex min-h-[40px] sm:min-h-[32px] items-center rounded-full focus-visible:outline-none"
+            >
+              <Badge
+                variant={selectedCategory === cat.id ? "default" : "outline"}
+                className="cursor-pointer px-3.5 py-1.5 sm:px-2.5 sm:py-0.5 text-xs"
+              >
+                {cat.name}
+              </Badge>
+            </button>
           ))}
         </div>
       </div>
 
       {/* Posts Grid */}
       {isLoading ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="h-80 animate-pulse rounded-lg bg-muted" />
           ))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="py-20 text-center">
+        <div className="py-16 sm:py-20 text-center">
           <p className="text-lg text-muted-foreground">Nenhuma publicação encontrada.</p>
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((post: any) => (
             <BlogCard
               key={post.id}

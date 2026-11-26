@@ -69,7 +69,7 @@ export default function Produtos() {
   });
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6 lg:px-8">
       <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">Vitrine</p>
       <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">Produtos & Serviços</h1>
       <p className="mt-2 text-base sm:text-lg text-muted-foreground">
@@ -86,7 +86,7 @@ export default function Produtos() {
       </div>
 
       {isLoading ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
             <Skeleton key={i} className="h-80 rounded-2xl" />
           ))}
@@ -98,7 +98,7 @@ export default function Produtos() {
           description="Brevemente disponibilizarei novos itens nesta categoria da vitrine."
         />
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {shown.map((p) => (
             <GlowCard key={p.id} enableTilt={true} className="flex flex-col justify-between overflow-hidden">
               <Link to={`/produtos/${p.id}`} className="group flex flex-1 flex-col justify-between">

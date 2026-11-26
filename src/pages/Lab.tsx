@@ -47,7 +47,7 @@ export default function Lab() {
   });
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 space-y-10">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">Experimental</p>
         <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">Lab</h1>
@@ -59,7 +59,7 @@ export default function Lab() {
       {/* Lab Experiment Items */}
       <div>
         {isLoading ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => <Skeleton key={i} className="h-56 w-full rounded-2xl" />)}
           </div>
         ) : items.length === 0 ? (
@@ -69,7 +69,7 @@ export default function Lab() {
             description="Sem experiências publicadas neste momento. Em breve novos protótipos."
           />
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((item: any) => (
               <GlowCard key={item.id} enableTilt={true} className="flex flex-col justify-between">
                 {(item.thumbnail_url || item.video_url) && (
@@ -94,14 +94,14 @@ export default function Lab() {
                       </p>
                     )}
                   </div>
-                  <div className="flex flex-wrap gap-2 pt-2 border-t border-border/40">
-                    <Button variant="secondary" size="sm" asChild className="rounded-xl">
+                  <div className="flex flex-wrap gap-2 pt-3 border-t border-border/40">
+                    <Button variant="secondary" size="sm" asChild className="min-h-[44px] sm:min-h-[36px] flex-1 sm:flex-none rounded-xl">
                       <Link to={`/lab/${item.id}`}>
                         Detalhes <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                       </Link>
                     </Button>
                     {item.content_url && (
-                      <Button variant="outline" size="sm" asChild className="rounded-xl">
+                      <Button variant="outline" size="sm" asChild className="min-h-[44px] sm:min-h-[36px] flex-1 sm:flex-none rounded-xl">
                         <a href={item.content_url} target={item.content_url.startsWith("/") ? "_self" : "_blank"} rel="noopener noreferrer">
                           Experimentar <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
                         </a>

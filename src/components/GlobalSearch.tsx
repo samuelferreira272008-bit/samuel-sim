@@ -66,7 +66,13 @@ export function GlobalSearch() {
         <Search className="h-4 w-4 shrink-0" />
         <span className="hidden xl:inline">Procurar...</span>
       </Button>
-      <Button variant="ghost" size="icon" className="lg:hidden shrink-0" onClick={() => setOpen(true)}>
+      <Button
+        variant="ghost"
+        size="icon"
+        aria-label="Pesquisar"
+        className="lg:hidden shrink-0 h-11 w-11 min-h-[44px] min-w-[44px]"
+        onClick={() => setOpen(true)}
+      >
         <Search className="h-5 w-5" />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>

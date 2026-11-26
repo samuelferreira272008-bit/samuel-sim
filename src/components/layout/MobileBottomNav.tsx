@@ -54,9 +54,9 @@ export function MobileBottomNav() {
   return (
     <nav
       aria-label="Navegação móvel inferior"
-      className="fixed bottom-0 left-0 right-0 z-40 md:hidden border-t border-border/80 bg-background/95 backdrop-blur-xl shadow-2xl transition-all"
+      className="fixed bottom-0 left-0 right-0 z-40 md:hidden border-t border-border/80 bg-background/95 backdrop-blur-xl shadow-2xl pb-safe transition-all"
     >
-      <div className="grid h-16 grid-cols-5 items-center px-1 pb-safe">
+      <div className="grid h-16 grid-cols-5 items-center gap-1 px-1.5">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = item.matches ? item.matches(currentPath) : false;
@@ -68,12 +68,12 @@ export function MobileBottomNav() {
                 type="button"
                 onClick={item.action}
                 aria-label="Abrir menu completo"
-                className="flex flex-col items-center justify-center gap-1 py-1 text-muted-foreground transition-all active:scale-95 hover:text-foreground focus-visible:outline-none"
+                className="flex min-h-[48px] flex-col items-center justify-center gap-0.5 rounded-xl py-1 text-muted-foreground transition-all active:scale-95 hover:text-foreground focus-visible:outline-none"
               >
                 <div className="relative flex h-7 w-7 items-center justify-center rounded-lg">
                   <Icon className="h-5 w-5" />
                 </div>
-                <span className="text-[10px] font-medium tracking-tight">{item.label}</span>
+                <span className="text-[11px] font-medium tracking-tight">{item.label}</span>
               </button>
             );
           }
@@ -82,7 +82,7 @@ export function MobileBottomNav() {
             <Link
               key={item.label}
               to={item.to!}
-              className={`flex flex-col items-center justify-center gap-1 py-1 transition-all active:scale-95 focus-visible:outline-none ${
+              className={`flex min-h-[48px] flex-col items-center justify-center gap-0.5 rounded-xl py-1 transition-all active:scale-95 focus-visible:outline-none ${
                 isActive
                   ? "text-foreground font-semibold"
                   : "text-muted-foreground hover:text-foreground"
@@ -98,7 +98,7 @@ export function MobileBottomNav() {
                   <span className="absolute -bottom-0.5 h-1 w-1 rounded-full bg-foreground" />
                 )}
               </div>
-              <span className="text-[10px] tracking-tight">{item.label}</span>
+              <span className="text-[11px] tracking-tight">{item.label}</span>
             </Link>
           );
         })}

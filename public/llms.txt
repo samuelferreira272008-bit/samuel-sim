@@ -1,0 +1,37 @@
+# Samuel Simão
+
+> Plataforma oficial de Samuel Simão, criador de tecnologia, developer independente e empreendedor digital baseado em Luanda, Angola. Reúne aplicações web executáveis, projetos de robótica prática e engenharia, ferramentas digitais curadas, produtos e serviços (com pagamento por Multicaixa Express, BAI Direto e PayPal) e artigos técnicos objetivos.
+
+## Identidade & Plataforma
+
+- [Início](https://samuel-sim.lovable.app/): Visão geral do ecossistema Samuel Simão, métricas em tempo real e acesso rápido às áreas principais.
+- [Sobre Samuel Simão](https://samuel-sim.lovable.app/sobre): Biografia, percurso em Eletrónica, Telecomunicações e Engenharia de Software, princípios e redes sociais.
+- [Empresas & Marcas](https://samuel-sim.lovable.app/empresas): Negócios, produtos e organizações integradas na marca pessoal Samuel Simão.
+- [Contacto](https://samuel-sim.lovable.app/contacto): Canal direto por formulário, email e WhatsApp para consultoria, desenvolvimento e parcerias.
+
+## Aplicações, Projetos & Laboratório
+
+- [Apps & Programas](https://samuel-sim.lovable.app/apps): Aplicações web e softwares prontos a executar no navegador ou transferir.
+- [Projetos & Engenharia](https://samuel-sim.lovable.app/projetos): Portfólio de robótica, automação e software, incluindo REPI Rover, Pafiworky e Samuka Play.
+- [Ferramentas & Stack](https://samuel-sim.lovable.app/ferramentas): Ferramentas digitais, utilitários e motores de IA recomendados para construir software.
+- [Lab Experimental](https://samuel-sim.lovable.app/lab): Experiências em curso, pipelines de automação com IA e protótipos em fase de validação.
+- [Repositório de Conteúdos](https://samuel-sim.lovable.app/conteudos): Guias técnicos, materiais práticos e recursos educativos.
+
+## Loja Digital & Serviços
+
+- [Produtos & Serviços](https://samuel-sim.lovable.app/produtos): Templates, guias digitais e consultoria técnica com checkout via Multicaixa Express, BAI Direto e PayPal.
+
+## Artigos & Guias Práticos
+
+- [Blog & Artigos](https://samuel-sim.lovable.app/blog): Artigos práticos sobre tecnologia, inteligência artificial, funcionamento da Internet e empreendedorismo.
+- [Por que decidi unificar tudo sob o meu nome: Samuel Simão](https://samuel-sim.lovable.app/blog/por-que-decidi-unificar-tudo-sob-meu-nome-samuel-simao): Estratégia de marca pessoal e consolidação do ecossistema digital.
+- [Como a Internet realmente funciona](https://samuel-sim.lovable.app/blog/como-a-internet-realmente-funciona-explicacao-pratica): Explicação prática sobre DNS, pacotes IP, servidores e arquitetura web.
+- [Projeto REPI Rover: Robótica em Angola](https://samuel-sim.lovable.app/blog/projeto-repi-rover-robotica-em-angola): Arquitetura de hardware, sensores e telemetria de robótica experimental.
+- [Como uso IA para construir ferramentas reais](https://samuel-sim.lovable.app/blog/como-uso-ia-para-construir-ferramentas-reais): Fluxos práticos de programação assistida e automação aplicada.
+
+## Optional
+
+- [Comunidade](https://samuel-sim.lovable.app/comunidade): Espaço de conversa, partilha de aprendizagem e networking entre criadores.
+- [Planos & Patrocínio](https://samuel-sim.lovable.app/patrocinar): Planos de acompanhamento e apoio direto aos projetos em público.
+- [Termos de Utilização](https://samuel-sim.lovable.app/termos): Termos e condições gerais de utilização da plataforma.
+- [Política de Privacidade](https://samuel-sim.lovable.app/privacidade): Práticas de tratamento de dados e privacidade na plataforma.

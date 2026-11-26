@@ -7,8 +7,10 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { UserPlus } from "lucide-react";
+import { useSEO } from "@/lib/seo";
 
 export default function Register() {
+  useSEO({ title: "Registar — Samuel Simão", noindex: true });
   const { signUp } = useAuth();
   const navigate = useNavigate();
   const [displayName, setDisplayName] = useState("");

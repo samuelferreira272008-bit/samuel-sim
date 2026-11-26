@@ -6,7 +6,9 @@
     <title>Samuel Simão — Tecnologia, Software & Automação</title>
     <meta name="description" content="Plataforma oficial de Samuel Simão: aplicações web, projetos de robótica e software, ferramentas, produtos digitais e artigos práticos sobre tecnologia." />
     <meta name="author" content="Samuel Simão" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href="https://samuel-sim.lovable.app/" />
+    <link rel="alternate" type="text/plain" title="LLM Context" href="/llms.txt" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <!-- Network Preconnect & DNS Prefetch -->
@@ -16,6 +18,8 @@
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_AO" />
+    <meta property="og:locale:alternate" content="pt_PT" />
     <meta property="og:site_name" content="Samuel Simão" />
     <meta property="og:url" content="https://samuel-sim.lovable.app/" />
     <meta property="og:title" content="Samuel Simão — Tecnologia, Software & Automação" />
@@ -32,11 +36,42 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Samuel Simão",
-        "jobTitle": "Criador Digital, Developer e Empreendedor",
-        "url": "https://samuel-sim.lovable.app/",
-        "description": "Plataforma oficial de Samuel Simão: aplicações web, projetos de robótica e software, ferramentas, produtos digitais e artigos práticos sobre tecnologia."
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://samuel-sim.lovable.app/#person",
+            "name": "Samuel Simão",
+            "jobTitle": "Criador de Tecnologia, Developer e Empreendedor Digital",
+            "url": "https://samuel-sim.lovable.app/",
+            "homeLocation": {
+              "@type": "Place",
+              "name": "Luanda, Angola"
+            },
+            "knowsAbout": [
+              "Engenharia de Software",
+              "Eletrónica e Telecomunicações",
+              "Robótica",
+              "Automação",
+              "Inteligência Artificial"
+            ],
+            "description": "Plataforma oficial de Samuel Simão: aplicações web, projetos de robótica e software, ferramentas, produtos digitais e artigos práticos sobre tecnologia."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://samuel-sim.lovable.app/#website",
+            "name": "Samuel Simão",
+            "url": "https://samuel-sim.lovable.app/",
+            "inLanguage": "pt",
+            "publisher": {
+              "@id": "https://samuel-sim.lovable.app/#person"
+            },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://samuel-sim.lovable.app/blog?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
       }
     </script>
   </head>

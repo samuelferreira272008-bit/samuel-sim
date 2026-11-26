@@ -128,9 +128,47 @@ export default function Home() {
     ([, url]) => typeof url === "string" && url.trim().length > 0,
   ) as [string, string][];
 
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://samuel-sim.lovable.app";
+  const sameAs = socialEntries.map(([, url]) => url);
+
   useSEO({
     title: `${fullName} — ${headline}`,
     description: bioSummary,
+    jsonLd: [
+      {
+        "@type": "Person",
+        "@id": `${origin}/#person`,
+        name: fullName,
+        jobTitle: headline,
+        url: `${origin}/`,
+        description: bioSummary,
+        homeLocation: {
+          "@type": "Place",
+          name: location,
+        },
+        knowsAbout: [
+          "Engenharia de Software",
+          "Eletrónica e Telecomunicações",
+          "Robótica",
+          "Automação",
+          "Inteligência Artificial",
+        ],
+        ...(sameAs.length > 0 ? { sameAs } : {}),
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${origin}/#website`,
+        name: fullName,
+        url: `${origin}/`,
+        inLanguage: "pt",
+        publisher: { "@id": `${origin}/#person` },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${origin}/blog?q={search_term_string}`,
+          "query-input": "required name=search_term_string",
+        },
+      },
+    ],
   });
 
   return (

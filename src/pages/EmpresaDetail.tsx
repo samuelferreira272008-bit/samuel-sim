@@ -37,18 +37,27 @@ export default function EmpresaDetail() {
     enabled: !!business?.id,
   });
 
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://samuel-sim.lovable.app";
+
   useSEO({
     title: business ? `${business.name} — Empresas` : "Empresa — Samuel Simão",
     description: business?.tagline ?? business?.description ?? undefined,
     image: business?.cover_url ?? business?.logo_url ?? null,
+    breadcrumbs: business
+      ? [
+          { name: "Início", path: "/" },
+          { name: "Empresas", path: "/empresas" },
+          { name: business.name, path: `/empresas/${business.slug}` },
+        ]
+      : undefined,
     jsonLd: business
       ? {
-          "@context": "https://schema.org",
           "@type": "Organization",
           name: business.name,
           description: business.tagline ?? business.description ?? "",
-          url: business.website ?? undefined,
+          url: business.website ?? `${origin}/empresas/${business.slug}`,
           logo: business.logo_url ?? undefined,
+          founder: { "@type": "Person", name: "Samuel Simão" },
         }
       : undefined,
   });

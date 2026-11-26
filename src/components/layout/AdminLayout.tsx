@@ -19,6 +19,7 @@ import {
   Home,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { useSEO } from "@/lib/seo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -97,6 +98,8 @@ function AdminSidebar() {
 }
 
 export function AdminLayout() {
+  useSEO({ title: "Administração — Samuel Simão", noindex: true });
+
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">

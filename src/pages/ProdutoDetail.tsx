@@ -130,23 +130,36 @@ export default function ProdutoDetail() {
     () => `SS-${Math.abs((id ?? "PRD").split("").reduce((a, c) => a + c.charCodeAt(0), 0)).toString(36).toUpperCase()}-${Date.now().toString(36).slice(-4).toUpperCase()}`,
   );
 
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://samuel-sim.lovable.app";
+  const canonicalUrl = p ? `${origin}/produtos/${p.id}` : undefined;
+
   useSEO({
     title: p ? `${p.name} — Samuel Simão` : "Produto — Samuel Simão",
     description: p?.description ?? "Produto disponível na vitrine oficial de Samuel Simão.",
     image: main,
     type: "product",
+    breadcrumbs: p
+      ? [
+          { name: "Início", path: "/" },
+          { name: "Produtos", path: "/produtos" },
+          { name: p.name, path: `/produtos/${p.id}` },
+        ]
+      : undefined,
     jsonLd: p
       ? {
-          "@context": "https://schema.org",
           "@type": "Product",
           name: p.name,
           description: p.description ?? "",
           image: images,
+          brand: { "@type": "Brand", name: "Samuel Simão" },
+          category: typeLabels[p.type] ?? "Produto digital",
           offers: {
             "@type": "Offer",
+            url: canonicalUrl,
             price: String(p.price ?? 0),
             priceCurrency: p.currency ?? "AOA",
             availability: "https://schema.org/InStock",
+            seller: { "@type": "Person", name: "Samuel Simão" },
           },
         }
       : undefined,

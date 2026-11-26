@@ -1,25 +1,131 @@
+# Robots & AI Search / Crawler Policy (RFC 9309 + Content-Signal)
+
 User-agent: Googlebot
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 Disallow: /admin
 Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+Disallow: /perfil
+Disallow: /compras
+Disallow: /certificados
+Disallow: /ficheiros
+Disallow: /configuracoes
+Disallow: /oauth
+
+User-agent: Google-Extended
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
 
 User-agent: Bingbot
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 Disallow: /admin
 Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+
+User-agent: OAI-SearchBot
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+
+User-agent: ChatGPT-User
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+
+User-agent: GPTBot
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+
+User-agent: PerplexityBot
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+
+User-agent: Perplexity-User
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+
+User-agent: Claude-SearchBot
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+
+User-agent: Claude-User
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+
+User-agent: ClaudeBot
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+
+User-agent: Applebot
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
 
 User-agent: Twitterbot
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
 User-agent: facebookexternalhit
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
 User-agent: WhatsApp
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 Disallow: /admin
 Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+Disallow: /perfil
+Disallow: /compras
+Disallow: /certificados
+Disallow: /ficheiros
+Disallow: /configuracoes
+Disallow: /oauth
 
 Sitemap: https://samuel-sim.lovable.app/sitemap.xml

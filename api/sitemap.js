@@ -6,21 +6,21 @@ const SUPABASE_URL = "https://eagqdnmzgoodmxfkqprd.supabase.co";
 const SUPABASE_KEY = "sb_publishable_VAKy-L2r4tZeWEKiczfHlg_J999Ndo5";
 
 const STATIC_ROUTES = [
-  { path: "/", priority: "1.0", changefreq: "daily" },
-  { path: "/sobre", priority: "0.9", changefreq: "weekly" },
-  { path: "/apps", priority: "0.9", changefreq: "weekly" },
-  { path: "/projetos", priority: "0.9", changefreq: "weekly" },
-  { path: "/conteudos", priority: "0.8", changefreq: "weekly" },
-  { path: "/produtos", priority: "0.9", changefreq: "weekly" },
-  { path: "/ferramentas", priority: "0.8", changefreq: "weekly" },
-  { path: "/lab", priority: "0.8", changefreq: "weekly" },
-  { path: "/blog", priority: "0.9", changefreq: "daily" },
-  { path: "/empresas", priority: "0.8", changefreq: "weekly" },
-  { path: "/comunidade", priority: "0.8", changefreq: "weekly" },
-  { path: "/patrocinar", priority: "0.7", changefreq: "monthly" },
-  { path: "/contacto", priority: "0.7", changefreq: "monthly" },
-  { path: "/termos", priority: "0.3", changefreq: "monthly" },
-  { path: "/privacidade", priority: "0.3", changefreq: "monthly" },
+  "/",
+  "/sobre",
+  "/apps",
+  "/projetos",
+  "/conteudos",
+  "/produtos",
+  "/ferramentas",
+  "/lab",
+  "/blog",
+  "/empresas",
+  "/comunidade",
+  "/patrocinar",
+  "/contacto",
+  "/termos",
+  "/privacidade",
 ];
 
 const TYPE_PREFIX = {
@@ -67,28 +67,26 @@ export default async function handler(req) {
   const seen = new Set();
   const urls = [];
 
-  const addUrl = (loc, lastmod, changefreq = "weekly", priority = "0.7") => {
+  const addUrl = (loc, lastmod) => {
     const full = `${origin}${loc}`;
     if (seen.has(full)) return;
     seen.add(full);
-    urls.push(
-      `  <url><loc>${esc(full)}</loc><lastmod>${lastmod || today}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>`,
-    );
+    urls.push(`  <url><loc>${esc(full)}</loc><lastmod>${lastmod || today}</lastmod></url>`);
   };
 
-  for (const r of STATIC_ROUTES) addUrl(r.path, today, r.changefreq, r.priority);
+  for (const path of STATIC_ROUTES) addUrl(path, today);
   for (const p of posts) {
-    if (p.slug) addUrl(`/blog/${p.slug}`, (p.updated_at || p.created_at || "").split("T")[0], "weekly", "0.8");
+    if (p.slug) addUrl(`/blog/${p.slug}`, (p.updated_at || p.created_at || "").split("T")[0]);
   }
   for (const prod of products) {
-    if (prod.id) addUrl(`/produtos/${prod.id}`, (prod.updated_at || prod.created_at || "").split("T")[0], "weekly", "0.8");
+    if (prod.id) addUrl(`/produtos/${prod.id}`, (prod.updated_at || prod.created_at || "").split("T")[0]);
   }
   for (const item of contentItems) {
     const prefix = TYPE_PREFIX[item.type];
-    if (prefix && item.id) addUrl(`${prefix}/${item.id}`, (item.updated_at || item.created_at || "").split("T")[0], "monthly", "0.7");
+    if (prefix && item.id) addUrl(`${prefix}/${item.id}`, (item.updated_at || item.created_at || "").split("T")[0]);
   }
   for (const biz of businesses) {
-    if (biz.slug) addUrl(`/empresas/${biz.slug}`, (biz.updated_at || "").split("T")[0], "monthly", "0.7");
+    if (biz.slug) addUrl(`/empresas/${biz.slug}`, (biz.updated_at || "").split("T")[0]);
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>`;

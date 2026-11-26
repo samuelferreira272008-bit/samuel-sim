@@ -45,23 +45,41 @@ export default function RepoItemDetail() {
     }
   }, [autoRun, it?.content_url]);
 
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://samuel-sim.lovable.app";
+  const backPath = it ? repoTypePath[it.type] ?? "/" : "/";
+  const backLabel = it ? repoTypeLabel[it.type] ?? "Repositório" : "Repositório";
+  const canonicalUrl = it ? `${origin}${backPath}/${it.id}` : undefined;
+
   useSEO({
     title: it ? `${it.title} — Samuel Simão` : "Samuel Simão",
     description: it?.description ?? undefined,
     image: it?.thumbnail_url ?? it?.gallery?.[0] ?? null,
     type: it?.type === "content" || it?.type === "project" ? "article" : "website",
+    breadcrumbs: it
+      ? [
+          { name: "Início", path: "/" },
+          { name: backLabel, path: backPath },
+          { name: it.title, path: `${backPath}/${it.id}` },
+        ]
+      : undefined,
     jsonLd: it
       ? {
-          "@context": "https://schema.org",
           "@type": it.type === "app" ? "SoftwareApplication" : "CreativeWork",
           name: it.title,
           description: it.description ?? "",
           image: it.thumbnail_url ?? it.gallery?.[0] ?? undefined,
+          url: canonicalUrl,
+          author: { "@type": "Person", name: "Samuel Simão" },
           ...(it.type === "app"
             ? {
                 applicationCategory: "UtilitiesApplication",
                 operatingSystem: it.platforms || "All",
                 softwareVersion: it.version || "1.0",
+                offers: {
+                  "@type": "Offer",
+                  price: String(it.price ?? 0),
+                  priceCurrency: "AOA",
+                },
               }
             : {}),
         }

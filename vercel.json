@@ -5,6 +5,27 @@
   "outputDirectory": "dist",
   "headers": [
     {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         {
@@ -14,11 +35,20 @@
       ]
     },
     {
-      "source": "/(sitemap.xml|robots.txt)",
+      "source": "/(sitemap.xml|robots.txt|llms.txt)",
       "headers": [
         {
           "key": "Cache-Control",
           "value": "public, s-maxage=3600, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/llms.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
         }
       ]
     }
@@ -34,10 +64,21 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(WhatsApp|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|TelegramBot|Googlebot|bingbot|Applebot|Pinterest|Embedly).*"
+          "value": ".*(WhatsApp|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|TelegramBot|Googlebot|Google-Extended|bingbot|Applebot|Pinterest|Embedly|OAI-SearchBot|ChatGPT-User|GPTBot|PerplexityBot|Perplexity-User|Claude-SearchBot|Claude-User|ClaudeBot|DuckDuckBot).*"
         }
       ],
       "destination": "/api/meta?path=/$1/$2"
+    },
+    {
+      "source": "/(sobre|apps|projetos|conteudos|produtos|ferramentas|lab|blog|empresas|comunidade|patrocinar|contacto|termos|privacidade)?",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(WhatsApp|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|TelegramBot|Googlebot|Google-Extended|bingbot|Applebot|Pinterest|Embedly|OAI-SearchBot|ChatGPT-User|GPTBot|PerplexityBot|Perplexity-User|Claude-SearchBot|Claude-User|ClaudeBot|DuckDuckBot).*"
+        }
+      ],
+      "destination": "/api/meta?path=/$1"
     },
     {
       "source": "/(.*)",

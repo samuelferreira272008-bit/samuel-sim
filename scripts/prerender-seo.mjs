@@ -30,6 +30,17 @@ function clamp(str = "", max = 160) {
   return clean.slice(0, max - 1).trimEnd() + "…";
 }
 
+function stripMarkdown(md = "") {
+  return String(md)
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/[*_`>~#-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 async function loadCuratedData() {
   try {
     const { transformSync } = await import("esbuild");
@@ -71,19 +82,56 @@ async function fetchSupabaseRows(table, query) {
   }
 }
 
+function makeBreadcrumbsNode(breadcrumbs = []) {
+  if (!breadcrumbs || breadcrumbs.length === 0) return null;
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((b, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: b.name,
+      item: `${SITE_URL}${b.path === "/" ? "/" : b.path}`,
+    })),
+  };
+}
+
 function buildPageHtml(template, routeMeta) {
   const title = clamp(routeMeta.title, 60);
   const description = clamp(routeMeta.description, 160);
   const canonical = `${SITE_URL}${routeMeta.route === "/" ? "/" : routeMeta.route}`;
   const image = routeMeta.image || DEFAULT_IMAGE;
   const ogType = routeMeta.type || "website";
-  const jsonLd = routeMeta.jsonLd || {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: title,
+
+  const breadcrumbs =
+    routeMeta.breadcrumbs ||
+    (routeMeta.route === "/"
+      ? []
+      : [
+          { name: "Início", path: "/" },
+          { name: routeMeta.heading || title, path: routeMeta.route },
+        ]);
+
+  const primaryNode = routeMeta.jsonLd || {
+    "@type": routeMeta.schemaType || "WebPage",
+    name: routeMeta.heading || title,
     description,
     url: canonical,
+    inLanguage: "pt",
   };
+
+  let finalJsonLd;
+  if (primaryNode["@graph"]) {
+    finalJsonLd = primaryNode;
+  } else {
+    const { "@context": _ignored, ...restNode } = primaryNode;
+    const graph = [restNode];
+    const bc = makeBreadcrumbsNode(breadcrumbs);
+    if (bc) graph.push(bc);
+    finalJsonLd = {
+      "@context": "https://schema.org",
+      "@graph": graph,
+    };
+  }
 
   let html = template;
 
@@ -130,18 +178,23 @@ function buildPageHtml(template, routeMeta) {
   );
   html = html.replace(
     /<script\s+type="application\/ld\+json">[\s\S]*?<\/script>/i,
-    `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`,
+    `<script type="application/ld+json">${JSON.stringify(finalJsonLd)}</script>`,
   );
 
-  // Inject lightweight semantic fallback inside #root for instant bot/crawler readability
-  // React 18 createRoot().render() cleanly replaces #root children when mounted.
+  // Lightweight semantic fallback inside #root for zero-JS crawlers and AI answer engines (GEO)
   const heading = escapeHtml(routeMeta.heading || title);
   const summary = escapeHtml(description);
   const bodySnippet = routeMeta.snippet
-    ? `<p>${escapeHtml(clamp(routeMeta.snippet, 320))}</p>`
+    ? `<p style="font-size:15px;line-height:1.7;color:#444;margin-top:12px">${escapeHtml(clamp(routeMeta.snippet, 750))}</p>`
     : "";
+  const crumbsHtml =
+    breadcrumbs.length > 0
+      ? `<nav aria-label="Breadcrumb" style="font-size:13px;color:#666;margin-bottom:12px">${breadcrumbs
+          .map((b) => `<a href="${escapeHtml(b.path)}">${escapeHtml(b.name)}</a>`)
+          .join(" / ")}</nav>`
+      : "";
 
-  const semanticRoot = `<div id="root"><main style="max-width:760px;margin:48px auto;padding:0 20px;font-family:system-ui,-apple-system,sans-serif;color:#111"><header><p style="font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:#666">Samuel Simão</p><h1 style="font-size:28px;margin:8px 0">${heading}</h1></header><p style="font-size:16px;line-height:1.6;color:#444">${summary}</p>${bodySnippet}<nav aria-label="Navegação principal" style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;font-size:14px"><a href="/">Início</a><a href="/sobre">Sobre</a><a href="/apps">Apps</a><a href="/projetos">Projetos</a><a href="/produtos">Produtos</a><a href="/blog">Blog</a><a href="/contacto">Contacto</a></nav></main></div>`;
+  const semanticRoot = `<div id="root"><main style="max-width:760px;margin:48px auto;padding:0 20px;font-family:system-ui,-apple-system,sans-serif;color:#111">${crumbsHtml}<article><header><p style="font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:#666">Samuel Simão</p><h1 style="font-size:28px;margin:8px 0">${heading}</h1></header><p style="font-size:16px;line-height:1.6;color:#333">${summary}</p>${bodySnippet}</article><nav aria-label="Navegação principal" style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;font-size:14px"><a href="/">Início</a><a href="/sobre">Sobre</a><a href="/apps">Apps</a><a href="/projetos">Projetos</a><a href="/produtos">Produtos</a><a href="/blog">Blog</a><a href="/contacto">Contacto</a></nav></main></div>`;
 
   html = html.replace(/<div\s+id="root"><\/div>/i, semanticRoot);
   return html;
@@ -168,11 +221,29 @@ async function main() {
   const curated = await loadCuratedData();
 
   const [dbPosts, dbProducts, dbContentItems, dbBusinesses] = await Promise.all([
-    fetchSupabaseRows("posts", "select=id,slug,title,excerpt,cover_image,created_at,updated_at,seo_title,seo_description&published=eq.true"),
+    fetchSupabaseRows("posts", "select=id,slug,title,excerpt,content,cover_image,created_at,updated_at,seo_title,seo_description&published=eq.true"),
     fetchSupabaseRows("products", "select=id,name,description,price,currency,image_url,created_at,updated_at&is_active=eq.true"),
-    fetchSupabaseRows("content_items", "select=id,type,title,description,thumbnail_url,created_at,updated_at&status=neq.archived"),
-    fetchSupabaseRows("businesses", "select=id,slug,name,tagline,description,logo_url,updated_at&is_published=eq.true"),
+    fetchSupabaseRows("content_items", "select=id,type,title,description,body,thumbnail_url,platforms,version,price,created_at,updated_at&status=neq.archived"),
+    fetchSupabaseRows("businesses", "select=id,slug,name,tagline,description,logo_url,website,updated_at&is_published=eq.true"),
   ]);
+
+  const personNode = {
+    "@type": "Person",
+    "@id": `${SITE_URL}/#person`,
+    name: "Samuel Simão",
+    url: `${SITE_URL}/`,
+    jobTitle: "Criador de Tecnologia, Developer e Empreendedor Digital",
+    homeLocation: { "@type": "Place", name: "Luanda, Angola" },
+    knowsAbout: [
+      "Engenharia de Software",
+      "Eletrónica e Telecomunicações",
+      "Robótica",
+      "Automação",
+      "Inteligência Artificial",
+    ],
+    description:
+      "Plataforma oficial de Samuel Simão para aplicações, projetos de tecnologia, produtos digitais e blog.",
+  };
 
   const staticRoutes = [
     {
@@ -181,16 +252,26 @@ async function main() {
       heading: "Samuel Simão",
       description:
         "Criador de tecnologia, software e ferramentas digitais em Luanda, Angola. Aplicações web, robótica prática e artigos objetivos.",
-      changefreq: "daily",
-      priority: "1.0",
+      snippet:
+        "Samuel Simão é criador de tecnologia, engenheiro de software e empreendedor digital baseado em Luanda, Angola. Desenvolve aplicações web, projetos de robótica prática (REPI Rover), automação com IA (Pafiworky) e produtos digitais com checkout via Multicaixa Express, BAI Direto e PayPal.",
       jsonLd: {
         "@context": "https://schema.org",
-        "@type": "Person",
-        name: "Samuel Simão",
-        url: `${SITE_URL}/`,
-        jobTitle: "Criador Digital, Developer e Empreendedor",
-        description:
-          "Plataforma oficial de Samuel Simão para aplicações, projetos de tecnologia, produtos digitais e blog.",
+        "@graph": [
+          personNode,
+          {
+            "@type": "WebSite",
+            "@id": `${SITE_URL}/#website`,
+            name: "Samuel Simão",
+            url: `${SITE_URL}/`,
+            inLanguage: "pt",
+            publisher: { "@id": `${SITE_URL}/#person` },
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${SITE_URL}/blog?q={search_term_string}`,
+              "query-input": "required name=search_term_string",
+            },
+          },
+        ],
       },
     },
     {
@@ -199,8 +280,13 @@ async function main() {
       heading: "Sobre Samuel Simão",
       description:
         "Conheça o meu percurso em Eletrónica, Telecomunicações e Engenharia de Software, os meus princípios e os projetos que construo.",
-      changefreq: "weekly",
-      priority: "0.9",
+      schemaType: "ProfilePage",
+      jsonLd: {
+        "@type": "ProfilePage",
+        name: "Sobre Samuel Simão",
+        url: `${SITE_URL}/sobre`,
+        mainEntity: personNode,
+      },
     },
     {
       route: "/apps",
@@ -208,8 +294,6 @@ async function main() {
       heading: "Apps & Programas",
       description:
         "Aplicações web e softwares construídos por Samuel Simão prontos para executar diretamente no navegador ou transferir.",
-      changefreq: "weekly",
-      priority: "0.9",
     },
     {
       route: "/projetos",
@@ -217,8 +301,6 @@ async function main() {
       heading: "Projetos & Engenharia",
       description:
         "Portfólio de projetos de robótica, automação, hardware e plataformas web como o REPI Rover, Pafiworky e Samuka Play.",
-      changefreq: "weekly",
-      priority: "0.9",
     },
     {
       route: "/conteudos",
@@ -226,8 +308,6 @@ async function main() {
       heading: "Repositório de Conteúdos",
       description:
         "Artigos técnicos, guias práticos, materiais de estudo e recursos educativos publicados por Samuel Simão.",
-      changefreq: "weekly",
-      priority: "0.8",
     },
     {
       route: "/produtos",
@@ -235,8 +315,6 @@ async function main() {
       heading: "Produtos & Serviços Digitais",
       description:
         "Templates, guias práticos e consultoria técnica com pagamento rápido via Multicaixa Express, BAI Direto e PayPal.",
-      changefreq: "weekly",
-      priority: "0.9",
     },
     {
       route: "/ferramentas",
@@ -244,8 +322,6 @@ async function main() {
       heading: "Ferramentas & Stack",
       description:
         "Coleção curada das ferramentas digitais, motores de IA e utilitários que utilizo diariamente para construir projetos.",
-      changefreq: "weekly",
-      priority: "0.8",
     },
     {
       route: "/lab",
@@ -253,8 +329,6 @@ async function main() {
       heading: "Laboratório de Ideias & Protótipos",
       description:
         "Experiências em curso, pipelines de automação com IA e protótipos interativos em fase de validação.",
-      changefreq: "weekly",
-      priority: "0.8",
     },
     {
       route: "/blog",
@@ -262,17 +336,12 @@ async function main() {
       heading: "Blog de Tecnologia e Empreendedorismo",
       description:
         "Artigos práticos sobre tecnologia, inteligência artificial, funcionamento da Internet, engenharia e visão de negócio.",
-      changefreq: "daily",
-      priority: "0.9",
     },
     {
       route: "/empresas",
       title: "Empresas & Marcas — Samuel Simão",
       heading: "Empresas & Iniciativas",
-      description:
-        "Negócios, produtos e organizações integradas sob o ecossistema Samuel Simão.",
-      changefreq: "weekly",
-      priority: "0.8",
+      description: "Negócios, produtos e organizações integradas sob o ecossistema Samuel Simão.",
     },
     {
       route: "/comunidade",
@@ -280,8 +349,6 @@ async function main() {
       heading: "Comunidade de Criadores e Tecnologia",
       description:
         "Espaço de conversa, partilha de aprendizagem e networking entre criadores e entusiastas de tecnologia.",
-      changefreq: "weekly",
-      priority: "0.8",
     },
     {
       route: "/patrocinar",
@@ -289,8 +356,6 @@ async function main() {
       heading: "Planos, Membros & Patrocínio",
       description:
         "Apoia os projetos em público ou adquire acesso aos planos de acompanhamento e ferramentas exclusivas.",
-      changefreq: "monthly",
-      priority: "0.7",
     },
     {
       route: "/contacto",
@@ -298,24 +363,19 @@ async function main() {
       heading: "Fala Comigo",
       description:
         "Envia uma mensagem direta, solicita orçamento de software ou entra em contacto via WhatsApp.",
-      changefreq: "monthly",
-      priority: "0.7",
+      schemaType: "ContactPage",
     },
     {
       route: "/termos",
       title: "Termos de Utilização — Samuel Simão",
       heading: "Termos de Utilização",
       description: "Termos e condições de uso da plataforma oficial de Samuel Simão.",
-      changefreq: "monthly",
-      priority: "0.3",
     },
     {
       route: "/privacidade",
       title: "Política de Privacidade — Samuel Simão",
       heading: "Política de Privacidade",
       description: "Política de privacidade e tratamento de dados na plataforma de Samuel Simão.",
-      changefreq: "monthly",
-      priority: "0.3",
     },
   ];
 
@@ -329,24 +389,35 @@ async function main() {
   for (const p of allPosts) {
     if (!p?.slug) continue;
     const route = `/blog/${p.slug}`;
+    const canonical = `${SITE_URL}${route}`;
+    const plain = stripMarkdown(p.content || p.excerpt || "");
+    const words = plain ? plain.split(/\s+/).length : undefined;
     routeMap.set(route, {
       route,
       title: `${p.seo_title || p.title} — Samuel Simão`,
       heading: p.title,
       description: p.seo_description || p.excerpt || p.title,
+      snippet: plain || p.excerpt || "",
       image: p.cover_image || p.coverImage || DEFAULT_IMAGE,
       type: "article",
       lastmod: (p.updated_at || p.created_at || p.createdAt || "").split("T")[0],
-      changefreq: "weekly",
-      priority: "0.8",
+      breadcrumbs: [
+        { name: "Início", path: "/" },
+        { name: "Blog", path: "/blog" },
+        { name: p.title, path: route },
+      ],
       jsonLd: {
-        "@context": "https://schema.org",
         "@type": "Article",
         headline: p.title,
         description: clamp(p.seo_description || p.excerpt || p.title, 160),
         image: [p.cover_image || p.coverImage || DEFAULT_IMAGE],
         datePublished: p.created_at || p.createdAt || undefined,
-        author: { "@type": "Person", name: p.authorName || "Samuel Simão" },
+        dateModified: p.updated_at || p.created_at || p.createdAt || undefined,
+        inLanguage: "pt",
+        wordCount: words,
+        mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
+        author: { "@type": "Person", name: p.authorName || "Samuel Simão", url: `${SITE_URL}/sobre` },
+        publisher: { "@type": "Person", name: "Samuel Simão", url: `${SITE_URL}/` },
       },
     });
   }
@@ -356,27 +427,34 @@ async function main() {
   for (const prod of allProducts) {
     if (!prod?.id) continue;
     const route = `/produtos/${prod.id}`;
+    const canonical = `${SITE_URL}${route}`;
     routeMap.set(route, {
       route,
       title: `${prod.name} — Samuel Simão`,
       heading: prod.name,
       description: prod.description || `Adquire ${prod.name} com Multicaixa Express, BAI Direto ou PayPal.`,
+      snippet: prod.description || "",
       image: prod.image_url || DEFAULT_IMAGE,
       type: "product",
       lastmod: (prod.updated_at || prod.created_at || "").split("T")[0],
-      changefreq: "weekly",
-      priority: "0.8",
+      breadcrumbs: [
+        { name: "Início", path: "/" },
+        { name: "Produtos", path: "/produtos" },
+        { name: prod.name, path: route },
+      ],
       jsonLd: {
-        "@context": "https://schema.org",
         "@type": "Product",
         name: prod.name,
         description: clamp(prod.description || prod.name, 160),
         image: prod.image_url ? [prod.image_url] : [DEFAULT_IMAGE],
+        brand: { "@type": "Brand", name: "Samuel Simão" },
         offers: {
           "@type": "Offer",
+          url: canonical,
           price: String(prod.price ?? 0),
           priceCurrency: prod.currency || "AOA",
           availability: "https://schema.org/InStock",
+          seller: { "@type": "Person", name: "Samuel Simão" },
         },
       },
     });
@@ -390,27 +468,53 @@ async function main() {
     tool: "/ferramentas",
     lab: "/lab",
   };
+  const prefixToLabel = {
+    "/apps": "Apps & Programas",
+    "/projetos": "Projetos",
+    "/conteudos": "Conteúdos",
+    "/ferramentas": "Ferramentas",
+    "/lab": "Lab",
+  };
   const allContent = [...curated.projects, ...curated.labItems, ...dbContentItems];
   for (const item of allContent) {
     const prefix = typeToPrefix[item?.type];
     if (!prefix || !item?.id) continue;
     const route = `${prefix}/${item.id}`;
+    const canonical = `${SITE_URL}${route}`;
+    const plainBody = stripMarkdown(item.body || item.description || "");
     routeMap.set(route, {
       route,
       title: `${item.title} — Samuel Simão`,
       heading: item.title,
       description: item.description || `${item.title} na plataforma Samuel Simão.`,
+      snippet: plainBody || item.description || "",
       image: item.thumbnail_url || DEFAULT_IMAGE,
       type: item.type === "project" || item.type === "content" ? "article" : "website",
       lastmod: (item.updated_at || item.created_at || "").split("T")[0],
-      changefreq: "monthly",
-      priority: "0.7",
+      breadcrumbs: [
+        { name: "Início", path: "/" },
+        { name: prefixToLabel[prefix], path: prefix },
+        { name: item.title, path: route },
+      ],
       jsonLd: {
-        "@context": "https://schema.org",
         "@type": item.type === "app" ? "SoftwareApplication" : "CreativeWork",
         name: item.title,
         description: clamp(item.description || item.title, 160),
         image: item.thumbnail_url || DEFAULT_IMAGE,
+        url: canonical,
+        author: { "@type": "Person", name: "Samuel Simão" },
+        ...(item.type === "app"
+          ? {
+              applicationCategory: "UtilitiesApplication",
+              operatingSystem: item.platforms || "All",
+              softwareVersion: item.version || "1.0",
+              offers: {
+                "@type": "Offer",
+                price: String(item.price ?? 0),
+                priceCurrency: "AOA",
+              },
+            }
+          : {}),
       },
     });
   }
@@ -419,16 +523,29 @@ async function main() {
   for (const biz of dbBusinesses) {
     if (!biz?.slug) continue;
     const route = `/empresas/${biz.slug}`;
+    const canonical = `${SITE_URL}${route}`;
     routeMap.set(route, {
       route,
       title: `${biz.name} — Samuel Simão`,
       heading: biz.name,
       description: biz.description || biz.tagline || `${biz.name} — Empresa do ecossistema Samuel Simão.`,
+      snippet: biz.description || biz.tagline || "",
       image: biz.logo_url || DEFAULT_IMAGE,
       type: "website",
       lastmod: (biz.updated_at || "").split("T")[0],
-      changefreq: "monthly",
-      priority: "0.7",
+      breadcrumbs: [
+        { name: "Início", path: "/" },
+        { name: "Empresas", path: "/empresas" },
+        { name: biz.name, path: route },
+      ],
+      jsonLd: {
+        "@type": "Organization",
+        name: biz.name,
+        description: clamp(biz.description || biz.tagline || biz.name, 160),
+        url: biz.website || canonical,
+        logo: biz.logo_url || undefined,
+        founder: { "@type": "Person", name: "Samuel Simão" },
+      },
     });
   }
 
@@ -439,7 +556,7 @@ async function main() {
     const html = buildPageHtml(template, meta);
     writeRouteHtml(meta.route, html);
     sitemapEntries.push(
-      `  <url><loc>${escapeHtml(`${SITE_URL}${meta.route === "/" ? "/" : meta.route}`)}</loc><lastmod>${meta.lastmod || today}</lastmod><changefreq>${meta.changefreq || "weekly"}</changefreq><priority>${meta.priority || "0.7"}</priority></url>`,
+      `  <url><loc>${escapeHtml(`${SITE_URL}${meta.route === "/" ? "/" : meta.route}`)}</loc><lastmod>${meta.lastmod || today}</lastmod></url>`,
     );
   }
 
@@ -447,7 +564,7 @@ async function main() {
   fs.writeFileSync(path.join(DIST_DIR, "sitemap.xml"), sitemapXml, "utf8");
 
   console.log(
-    `[prerender-seo] Pre-rendered ${routeMap.size} SEO routes and generated sitemap.xml (${sitemapEntries.length} URLs).`,
+    `[prerender-seo] Pre-rendered ${routeMap.size} SEO/GEO routes and generated sitemap.xml (${sitemapEntries.length} URLs).`,
   );
 }
 

@@ -76,9 +76,37 @@ export default function Sobre() {
     ([, url]) => typeof url === "string" && url.trim().length > 0,
   ) as [string, string][];
 
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://samuel-sim.lovable.app";
+  const sameAs = socialEntries.map(([, url]) => url);
+
   useSEO({
     title: `Sobre — ${fullName}`,
     description: headline,
+    breadcrumbs: [
+      { name: "Início", path: "/" },
+      { name: "Sobre", path: "/sobre" },
+    ],
+    jsonLd: {
+      "@type": "ProfilePage",
+      name: `Sobre — ${fullName}`,
+      description: headline,
+      url: `${origin}/sobre`,
+      mainEntity: {
+        "@type": "Person",
+        name: fullName,
+        jobTitle: headline,
+        url: `${origin}/`,
+        homeLocation: { "@type": "Place", name: location },
+        knowsAbout: [
+          "Eletrónica e Telecomunicações",
+          "Engenharia de Software",
+          "Robótica",
+          "Automação",
+          "Inteligência Artificial",
+        ],
+        ...(sameAs.length > 0 ? { sameAs } : {}),
+      },
+    },
   });
 
   return (

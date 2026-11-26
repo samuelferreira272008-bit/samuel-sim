@@ -94,22 +94,60 @@ export default function BlogPost() {
     enabled: !!slug,
   });
 
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://samuel-sim.lovable.app";
+  const canonicalUrl = post ? `${origin}/blog/${post.slug}` : undefined;
+  const plainWordCount = post?.content
+    ? String(post.content).replace(/[#*_>`~[\]()-]/g, " ").trim().split(/\s+/).filter(Boolean).length
+    : undefined;
+  const postRecord = post as
+    | {
+        seo_title?: string | null;
+        seo_description?: string | null;
+        author_name?: string | null;
+        updated_at?: string | null;
+      }
+    | null
+    | undefined;
+
   useSEO({
-    title: post ? `${(post as any).seo_title || post.title} — Samuel Simão` : "Blog — Samuel Simão",
-    description: (post as any)?.seo_description || post?.excerpt || undefined,
+    title: post ? `${postRecord?.seo_title || post.title} — Samuel Simão` : "Blog — Samuel Simão",
+    description: postRecord?.seo_description || post?.excerpt || undefined,
     image: post?.cover_image ?? null,
     type: "article",
+    author: postRecord?.author_name || "Samuel Simão",
+    publishedTime: post?.created_at,
+    modifiedTime: postRecord?.updated_at || post?.created_at,
+    breadcrumbs: post
+      ? [
+          { name: "Início", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${post.slug}` },
+        ]
+      : undefined,
     jsonLd: post
       ? {
-          "@context": "https://schema.org",
           "@type": "Article",
           headline: post.title,
-          description: post.excerpt ?? "",
+          description: postRecord?.seo_description || post.excerpt || post.title,
           image: post.cover_image ? [post.cover_image] : undefined,
           datePublished: post.created_at,
+          dateModified: postRecord?.updated_at || post.created_at,
+          inLanguage: "pt",
+          wordCount: plainWordCount,
+          articleSection: post.categories?.name || "Tecnologia",
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": canonicalUrl,
+          },
           author: {
             "@type": "Person",
-            name: (post as any).author_name || "Samuel Simão",
+            name: postRecord?.author_name || "Samuel Simão",
+            url: `${origin}/sobre`,
+          },
+          publisher: {
+            "@type": "Person",
+            name: "Samuel Simão",
+            url: `${origin}/`,
           },
         }
       : undefined,
@@ -239,7 +277,7 @@ export default function BlogPost() {
           </span>
           <span className="flex items-center gap-1.5">
             <Calendar className="h-4 w-4" />
-            {date}
+            <time dateTime={post.created_at}>{date}</time>
           </span>
         </div>
       </header>

@@ -19,9 +19,21 @@ export default function Contacto() {
     queryFn: async () => (await db.from("site_profile").select("*").limit(1).maybeSingle()).data,
   });
 
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://samuel-sim.lovable.app";
+
   useSEO({
     title: "Contacto — Samuel Simão",
     description: "Entra em contacto com Samuel Simão para projetos, parcerias, dúvidas ou suporte.",
+    breadcrumbs: [
+      { name: "Início", path: "/" },
+      { name: "Contacto", path: "/contacto" },
+    ],
+    jsonLd: {
+      "@type": "ContactPage",
+      name: "Contacto — Samuel Simão",
+      description: "Entra em contacto com Samuel Simão para projetos, parcerias, dúvidas ou suporte.",
+      url: `${origin}/contacto`,
+    },
   });
 
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });

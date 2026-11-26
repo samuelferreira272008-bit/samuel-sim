@@ -11,6 +11,7 @@ import {
   Home,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { useSEO } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -74,6 +75,8 @@ function DashboardSidebar() {
 }
 
 export function DashboardLayout() {
+  useSEO({ title: "Painel — Samuel Simão", noindex: true });
+
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
